@@ -38,6 +38,9 @@ class Image
     #[ORM\Column]
     private ?\DateTimeImmutable $upload_at = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $url = null;
+
     public function __construct()
     {
         $this->upload_at = new DateTime('now');
@@ -80,6 +83,18 @@ class Image
     public function setUploadAt(\DateTimeImmutable $upload_at): self
     {
         $this->upload_at = $upload_at;
+
+        return $this;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(string $url): self
+    {
+        $this->url = $url;
 
         return $this;
     }
