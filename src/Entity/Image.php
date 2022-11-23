@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ImageRepository;
-use DateTime;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -40,10 +40,13 @@ class Image
 
     #[ORM\Column(length: 255)]
     private ?string $url = null;
-
+    
+    /**
+     * Constructor
+     */
     public function __construct()
     {
-        $this->upload_at = new DateTime('now');
+        $this->upload_at = new DateTimeImmutable();
     }
 
     public function getId(): ?int
