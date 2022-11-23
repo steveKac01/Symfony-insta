@@ -1,0 +1,63 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	{{parent()}}
+	- Accueil
+{% endblock %}
+
+
+{% block content %}
+	<div class="container mt-4">
+		<div class="jumbotron">
+			 
+				<h1 class="display-4">Bienvenue sur instakilo !</h1>
+
+				<p class="lead">Instakilo est une application permettant de partager vos images rapidement et simplement !</p>
+				<hr class="my-4">
+				<p>Pour commencer à utiliser l'application, rendez-vous sur la page d'inscription.</p>
+				<a class="btn btn-primary btn-lg" href="#" role="button">Créer son compte</a>
+			</div>
+		</div>
+
+		{% if images is defined and images is not null and images|length>0 %}
+			<h2 class="text-end">Il y a actuellement
+				{{images.getTotalItemCount}}images ! INCROYABLE !</h2>
+		</div>
+
+		{# display navigation #}
+		<div class="navigation mt-5 d-flex justify-content-center">
+			{{ knp_pagination_render(images) }}
+		</div>
+
+
+		<div class="container-fluid">
+			{% for image in images %}
+
+
+				<div class="card text-white bg-primary mt-4 mb-4 col-lg-12 mx-auto rounded" style="max-width:600px">
+					<div class="card-header ">Category here</div>
+					<div class="card-body ">
+						<div class="text-center">
+							<h4 class="card-title">{{image.title|upper}}</h4>
+
+							<img src="{{image.url}}" width="300" height="300" class="rounded">
+						</div>
+
+						<p class="card-text mt-4">{{image.description}}</p>
+						<p class="text-end">By
+							<strong>user</strong>
+							at
+							{{image.uploadAt|date('d/m/Y')}}</p>
+
+					</div>
+				</div>
+
+			{% endfor %}
+			{# display navigation #}
+			<div class="navigation mt-5 d-flex justify-content-center">
+				{{ knp_pagination_render(images) }}
+			</div>
+			{% else %}
+			<div class="container-fluid text-center my-5">	<p>No images found.</p></div>
+			{% endif %}
+		</div>
+	{% endblock %}

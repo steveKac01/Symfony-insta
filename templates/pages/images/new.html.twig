@@ -1,0 +1,49 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	{{parent()}}
+	- Upload une image
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<h1 class="mt-4">Upload d'une image.</h1>
+		<div>
+
+			{{ form_start(form) }}
+
+
+			<div class="form-group">
+				{{form_label(form.title)}}
+				{{form_widget(form.title)}}
+				<div class="form-error">
+				{{ form_errors(form.title) }}
+				</div>
+			</div>
+
+			<div class="form-group">
+				{{form_label(form.description)}}
+				{{form_widget(form.description)}}
+					<div class="form-error">
+				{{ form_errors(form.description) }}
+					</div>
+			</div>
+
+			<div class="form-group">
+				{{form_label(form.url)}}
+				{{form_widget(form.url)}}
+					<div class="form-error">
+				{{ form_errors(form.url) }}
+					</div>
+			</div>
+
+						<div class="form-group">
+				{{form_label(form.submit)}}
+			</div>
+
+
+		</div>
+		{{ form_end(form) }}
+
+
+	</div>
+</div>{% endblock %}
