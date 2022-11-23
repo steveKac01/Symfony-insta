@@ -28,6 +28,11 @@ class NewController extends AbstractController
             $manager->persist($image);
             $manager->flush();
 
+            $this->addFlash(
+                'success',
+                'Votre image a été uploadé avec succès !'
+            );
+
            return $this->redirectToRoute('home');
         }
 

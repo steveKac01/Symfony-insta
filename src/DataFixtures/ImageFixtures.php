@@ -19,11 +19,22 @@ class ImageFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+
+        $pokemonImage = [
+            'https://media.adeo.com/marketplace/MKP/85332304/6871abcd03fdad670e8b12481c8505bd.jpeg',
+            'https://scarletviolet.pokemon.com/_images/pokemon/sprigatito/pokemon-sprigatito.png',
+            'https://static.wikia.nocookie.net/ultimate-pokemon-fanon/images/7/7a/Grookey.png',
+            'https://www.pokebip.com/images/2022/684.png',
+            'https://www.jeuxvideo-live.com/wp-content/uploads/jvl/2022/09/crap-1.jpg',
+            'https://scarletviolet.pokemon.com/_images/pokemon/smoliv/pokemon-smoliv.png',
+            'https://www.media.pokekalos.fr/img/jeux/pev/tag-tag.jpg'
+        ];
+
         for ($i = 0; $i < 20; $i++) {
             $image = new Image();
             $image->setTitle($this->faker->text(mt_rand(5, 50), true))
                 ->setDescription($this->faker->text(mt_rand(5, 255), true))
-                ->setUrl("https://media.adeo.com/marketplace/MKP/85332304/6871abcd03fdad670e8b12481c8505bd.jpeg");
+                ->setUrl($pokemonImage[mt_rand(0, count($pokemonImage) - 1)]);
             $manager->persist($image);
         }
 
