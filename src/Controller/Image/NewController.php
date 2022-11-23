@@ -33,7 +33,7 @@ class NewController extends AbstractController
                 'Votre image a été uploadé avec succès !'
             );
 
-           return $this->redirectToRoute('home');
+           return $this->redirectToRoute('home',['_fragment' => $image->getId()]);
         }
 
         return $this->render('pages/images/new.html.twig',['form' => $form->createView()]);

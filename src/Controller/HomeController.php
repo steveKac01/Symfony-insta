@@ -20,8 +20,6 @@ class HomeController extends AbstractController
             10
         );
 
-        // dd($images);
-
         return $this->render("pages/home.html.twig", ["images" => $images]);
     }
 }
