@@ -47,7 +47,8 @@ class ImageType extends AbstractType
                 ],
                 'constraints' => [
                     new Assert\Length(['min' => 5, 'max' => 255]),
-                    new Assert\NotBlank()
+                    new Assert\NotBlank(),
+                    new Assert\Url()
                 ]
             ])
 

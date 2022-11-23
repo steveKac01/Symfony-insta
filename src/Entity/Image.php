@@ -40,6 +40,7 @@ class Image
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank()]
+    #[Assert\Url]
     #[Assert\Length(
         min: 5,
         max: 255,
