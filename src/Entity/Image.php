@@ -50,7 +50,7 @@ class Image
         maxMessage: 'Your first name cannot be longer than {{ limit }} characters',
     )]
     private ?string $url = null;
-
+  
     #[ORM\OneToMany(mappedBy: 'image', targetEntity: Comment::class)]
     private Collection $comments;
     

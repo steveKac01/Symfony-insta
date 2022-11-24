@@ -62,16 +62,9 @@
 						at
 						{{image.uploadAt|date('d/m/Y')}}</p>
 					<p class="card-text mt-4">{{image.description}}</p>
-					<p class="text-end">{{image.comments|length}}
-						comment(s)</p>
-					<div>
-						<a href="{{path('image.update',{id:image.id})}}">
-							<button type="button" class="btn btn-secondary">Edit</button>
-						</a>
-						<a href="{{path('image.delete',{id:image.id})}}">
-							<button type="button" class="btn btn-danger">Delete</button>
-						</a>
-					</div>
+				<a href="{{path('image.show',{id:image.id})}}#comments" class="text-white link-unstyled">	<p class="text-end">{{image.comments|length}}
+						<i class="fa-solid fa-comment"></i></p></a>
+
 				</div>
 			</div>
 

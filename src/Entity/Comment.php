@@ -28,7 +28,8 @@ class Comment
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
-
+    
+    #[ORM\JoinColumn(onDelete:'SET NULL')]
     #[ORM\ManyToOne(inversedBy: 'comments')]
     private ?Image $image = null;
 
