@@ -43,7 +43,6 @@ class AppFixtures extends Fixture
         }
 
         $post =[];
-
         //Post
         for ($i = 0; $i < 20; $i++) {
             $image = new Image();
