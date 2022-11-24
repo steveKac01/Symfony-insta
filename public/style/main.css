@@ -1,16 +1,22 @@
 
-header{
-    background-color: gray;
-    color: white;
+/*Top button*/
+.back-top {
     text-align: center;
-    padding: 2rem;
-}
-
-footer{
-    background-color: gray;
-    color: white;
-    text-align: center;
-    padding: 2rem;
-
-}
-
+    position: fixed;
+    bottom: 10px;
+    right: 5px;
+    padding: 10px 10px;
+    color: var(--txt-normal-light);
+    background-color: var(--txt-hl-dark);
+    opacity: .5;
+    z-index:/*over*/999;
+    border-radius: 100%;
+    cursor: pointer;
+    transition: all 0.33s linear;
+  }
+  
+  
+  
+  .hide {
+    display: none;
+  }

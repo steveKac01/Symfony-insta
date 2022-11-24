@@ -19,7 +19,7 @@ class HomeController extends AbstractController
             $request->query->getInt('page', 1),
             10
         );
-
+ 
         return $this->render("pages/home.html.twig", ["images" => $images]);
     }
 }
