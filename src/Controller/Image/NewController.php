@@ -4,9 +4,7 @@ namespace App\Controller\Image;
 
 use App\Entity\Image;
 use App\Form\ImageType;
-use App\Repository\ImageRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,7 +17,6 @@ class NewController extends AbstractController
     {
         $image = new Image();
         $form = $this->createForm(ImageType::class,$image);
-
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
@@ -36,6 +33,6 @@ class NewController extends AbstractController
            return $this->redirectToRoute('home',['_fragment' => $image->getId()]);
         }
 
-        return $this->render('pages/images/new.html.twig',['form' => $form->createView()]);
+        return $this->render('pages/images/post.html.twig',['form' => $form->createView(),'label'=>'create']);
     }
 }

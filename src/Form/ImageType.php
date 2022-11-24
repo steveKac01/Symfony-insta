@@ -72,7 +72,7 @@ class ImageType extends AbstractType
             ->add('submit', SubmitType::class,[
                 'attr' => [
                     'class' => 'btn btn-primary my-4'
-                ],  'label'=> 'Upload image'
+                ],  'label'=> 'Submit'
                 ]);
     }
 

@@ -1,13 +1,13 @@
 {% extends "base.html.twig" %}
 {% block title %}
 	{{parent()}}
-	- Upload une image
+	- {{label}} a post
 {% endblock %}
 
 {% block content %}
 	<div class="container">
 
-		<h1 class="mt-4">Upload d'une image.</h1>
+		<h1 class="mt-4">{{label}} a post.</h1>
 		<div>
 
 			{{ form_start(form) }}
