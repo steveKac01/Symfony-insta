@@ -42,7 +42,7 @@
 				<div class="mt-4" id="comments">
 					{% if image.comments|length>0 %}
 						<h2 class="mb-4 text-center">{{image.comments|length}}
-							Comment(s) :</h2>
+							Comment{{image.comments|length>1?'s':''}} :</h2>
 						{% for comment in image.comments %}
 							<p class="my-2" id="{{comment.id}}">By
 								<strong>user</strong>

@@ -23,6 +23,7 @@ class ShowController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $comment = $form->getData();
+            //Link the comment with the actual post.
             $comment->setImage($image);
 
             $manager->persist($comment);

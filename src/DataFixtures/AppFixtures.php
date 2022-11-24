@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Category;
 use App\Entity\Comment;
 use App\Entity\Image;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -31,6 +32,16 @@ class AppFixtures extends Fixture
             'https://www.media.pokekalos.fr/img/jeux/pev/tag-tag.jpg'
         ];
 
+        $categories = [];
+        for ($i=0; $i < 10; $i++) { 
+            $categorie = new Category();
+            $categorie->setLabel('GENERATION '. ($i+1))
+            ->setDescription($this->faker->text(mt_rand(10,250)));
+            array_push($categories,$categorie);
+
+            $manager->persist($categorie);
+        }
+
         $post =[];
 
         //Post
@@ -38,6 +49,7 @@ class AppFixtures extends Fixture
             $image = new Image();
             $image->setTitle($this->faker->text(mt_rand(5, 50), true))
                 ->setDescription($this->faker->text(mt_rand(5, 255), true))
+                ->setCategory($categories[mt_rand(0,count($categories)-1)])
                 ->setUrl($pokemonImage[mt_rand(0, count($pokemonImage) - 1)]);
                 array_push($post,$image);
                 $manager->persist($image);
