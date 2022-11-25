@@ -2,8 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Image;
-
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -68,12 +69,22 @@ class ImageType extends AbstractType
                     new Assert\Url()
                 ]
             ])
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'label',
+                'attr' =>[
+                    'class'=>'list-group mt-4'
+                ],
+                'row_attr' =>[
+                    'class'=>'mt-4'
+                ],        
+            ])
 
-            ->add('submit', SubmitType::class,[
+            ->add('submit', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary my-4'
-                ],  'label'=> 'Submit'
-                ]);
+                ],  'label' => 'Submit'
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

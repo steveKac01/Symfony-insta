@@ -56,8 +56,7 @@ class AppFixtures extends Fixture
 
 
         //Comments
-        for ($i=0; $i < 70 ; $i++) { 
-           
+        for ($i=0; $i < 70 ; $i++) {   
             $comment = new Comment();
             $comment->setMessage($this->faker->text(mt_rand(5, 255), true))
             ->setImage($post[mt_rand(0,count($post)-1)]);

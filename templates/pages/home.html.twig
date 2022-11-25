@@ -6,11 +6,8 @@
 
 
 {% block content %}
-	<div class="back-top hide">
-	TOP	<icon="fas fa-chevron-up" class="cursor" alt="go-to-top-icon" size="2x"/>
-	</div>
 
-
+	{{parent()}}
 	<div class="container mt-4">
 
 		{% for message in app.flashes('success') %}
@@ -48,7 +45,9 @@
 	<div class="container-fluid">
 		{% for image in images %}
 			<div class="card text-white bg-primary mt-4 mb-4 col-lg-12 mx-auto rounded" style="max-width:600px" id="{{image.id}}">
-				<div class="card-header text-end"><span class="badge bg-info px-2 py-3 rounded">{{image.category.label}}</span></div>
+				<div class="card-header text-end">
+						{{image.category.label}}</span>
+				</div>
 				<div class="card-body ">
 					<div class="text-center">
 						<a href="{{path('image.show',{id:image.id})}}">
@@ -62,8 +61,11 @@
 						at
 						{{image.uploadAt|date('d/m/Y')}}</p>
 					<p class="card-text mt-4">{{image.description}}</p>
-				<a href="{{path('image.show',{id:image.id})}}#comments" class="text-white link-unstyled">	<p class="text-end">{{image.comments|length}}
-						<i class="fa-solid fa-comment"></i></p></a>
+					<a href="{{path('image.show',{id:image.id})}}#comments" class="text-white text-decoration-none">
+						<p class="text-end">{{image.comments|length}}
+							<i class="fa-solid fa-comment"></i>
+						</p>
+					</a>
 
 				</div>
 			</div>

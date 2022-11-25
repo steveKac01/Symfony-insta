@@ -3,14 +3,12 @@
 .back-top {
     text-align: center;
     position: fixed;
-    bottom: 10px;
+    bottom: 50px;
     right: 5px;
     padding: 10px 10px;
-    color: var(--txt-normal-light);
-    background-color: var(--txt-hl-dark);
-    opacity: .5;
+    color: white;
     z-index:/*over*/999;
-    border-radius: 100%;
+    border-radius: 8px;
     cursor: pointer;
     transition: all 0.33s linear;
   }
