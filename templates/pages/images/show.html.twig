@@ -46,9 +46,9 @@
 						{% for comment in image.comments %}
 						
 							<p class="my-2" id="{{comment.id}}">By
-								<strong>user</strong>
+								<strong>{{comment.userComment.pseudo|capitalize}}</strong>
 								at
-								{{comment.createdAt|date('d/m/Y')}}</p>
+								{{comment.createdAt|date('m/d/Y h:m')}}</p>
 							<p>{{comment.message}}</p>
 							<hr>
 					

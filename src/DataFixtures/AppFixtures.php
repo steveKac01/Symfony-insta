@@ -2,13 +2,15 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Category;
-use App\Entity\Comment;
-use App\Entity\Image;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Persistence\ObjectManager;
-use Faker\Generator;
 use Faker\Factory;
+use App\Entity\User;
+use Faker\Generator;
+use App\Entity\Image;
+use App\Entity\Comment;
+use App\Entity\Category;
+use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+
 
 class AppFixtures extends Fixture
 {
@@ -21,45 +23,60 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+        $users = [];
 
-        $pokemonImage = [
-            'https://media.adeo.com/marketplace/MKP/85332304/6871abcd03fdad670e8b12481c8505bd.jpeg',
-            'https://scarletviolet.pokemon.com/_images/pokemon/sprigatito/pokemon-sprigatito.png',
-            'https://static.wikia.nocookie.net/ultimate-pokemon-fanon/images/7/7a/Grookey.png',
-            'https://www.pokebip.com/images/2022/684.png',
-            'https://www.jeuxvideo-live.com/wp-content/uploads/jvl/2022/09/crap-1.jpg',
-            'https://scarletviolet.pokemon.com/_images/pokemon/smoliv/pokemon-smoliv.png',
-            'https://www.media.pokekalos.fr/img/jeux/pev/tag-tag.jpg'
-        ];
+        //Admin
+        $user = new User();
+        $user->setEmail('steve@aol.fr')
+            ->setpseudo('steve01')
+            ->setRoles(['ROLE_ADMIN'])
+            ->setPlainPassword('steve');
+
+        array_push($users, $user);
+        $manager->persist($user);
+
+        //random users
+        for ($i = 0; $i < 10; $i++) {
+            $user = new User();
+            $user->setEmail($this->faker->email())
+                ->setpseudo($this->faker->userName())
+                ->setPlainPassword('password');
+
+            array_push($users, $user);
+            $manager->persist($user);
+        }
+
 
         $categories = [];
-        for ($i=0; $i < 10; $i++) { 
+        for ($i = 0; $i < 10; $i++) {
             $categorie = new Category();
-            $categorie->setLabel('GENERATION '. ($i+1))
-            ->setDescription($this->faker->text(mt_rand(10,250)));
-            array_push($categories,$categorie);
+            $categorie->setLabel('GENERATION ' . ($i + 1))
+                ->setDescription($this->faker->text(mt_rand(10, 250)));
+            array_push($categories, $categorie);
 
             $manager->persist($categorie);
         }
 
-        $post =[];
+        $post = [];
         //Post
         for ($i = 0; $i < 20; $i++) {
             $image = new Image();
             $image->setTitle($this->faker->text(mt_rand(5, 50), true))
                 ->setDescription($this->faker->text(mt_rand(5, 255), true))
-                ->setCategory($categories[mt_rand(0,count($categories)-1)])
-                ->setUrl($pokemonImage[mt_rand(0, count($pokemonImage) - 1)]);
-                array_push($post,$image);
-                $manager->persist($image);
+                ->setCategory($categories[mt_rand(0, count($categories) - 1)])
+                ->setUrl('https://via.placeholder.com/300')
+                ->setUserImage($users[mt_rand(0, count($users) - 1)]);
+
+            array_push($post, $image);
+            $manager->persist($image);
         }
 
-
         //Comments
-        for ($i=0; $i < 70 ; $i++) {   
+        for ($i = 0; $i < 70; $i++) {
             $comment = new Comment();
             $comment->setMessage($this->faker->text(mt_rand(5, 255), true))
-            ->setImage($post[mt_rand(0,count($post)-1)]);
+                ->setImage($post[mt_rand(0, count($post) - 1)])
+                ->setUserComment($users[mt_rand(0, count($users) - 1)]);
 
             $manager->persist($comment);
         }

@@ -1,0 +1,49 @@
+	{% if images is defined and images is not null and images|length>0 %}
+		<h2 class="text-end">Il y a actuellement
+			{{images.getTotalItemCount}}images ! INCROYABLE !</h2>
+	</div>
+
+	{# display navigation #}
+	<div class="navigation mt-5 d-flex justify-content-center">
+		{{ knp_pagination_render(images) }}
+	</div>
+
+
+	<div class="container-fluid">
+		{% for image in images %}
+			<div class="card text-white bg-primary mt-4 mb-4 col-lg-12 mx-auto rounded" style="max-width:600px" id="{{image.id}}">
+				<div class="card-header text-end">
+					{{image.category.label}}</span>
+			</div>
+			<div class="card-body ">
+				<div class="text-center">
+					<a href="{{path('image.show',{id:image.id})}}">
+						<h4 class="card-title text-white">{{image.title|upper}}</h4>
+					</a>
+
+					<a href="{{path('image.show',{id:image.id})}}"><img src="{{image.url}}" width="300" height="300" class="rounded"></a>
+				</div>
+				<p class="mt-4">By
+					<strong>{{image.userImage.pseudo}}</strong>
+					at
+					{{image.uploadAt|date('m/d/Y')}}</p>
+				<p class="card-text mt-4">{{image.description}}</p>
+				<a href="{{path('image.show',{id:image.id})}}#comments" class="text-white text-decoration-none">
+					<p class="text-end">{{image.comments|length}}
+						<i class="fa-solid fa-comment"></i>
+					</p>
+				</a>
+
+			</div>
+		</div>
+
+	{% endfor %}
+	{# display navigation #}
+	<div class="navigation mt-5 d-flex justify-content-center">
+		{{ knp_pagination_render(images) }}
+	</div>
+{% else %}
+	<div class="container-fluid text-center my-5">
+		<p>No images found.</p>
+	</div>
+{% endif %}

@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	{{parent()}}
+	- User profil
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+<h1> Your account</h1>
+{{app.user.pseudo}}
+</div>
+{% endblock %}

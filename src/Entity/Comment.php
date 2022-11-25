@@ -33,6 +33,9 @@ class Comment
     #[ORM\ManyToOne(inversedBy: 'comments')]
     private ?Image $image = null;
 
+    #[ORM\ManyToOne]
+    private ?User $userComment = null;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
@@ -75,6 +78,18 @@ class Comment
     public function setImage(?Image $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getUserComment(): ?User
+    {
+        return $this->userComment;
+    }
+
+    public function setUserComment(?User $userComment): self
+    {
+        $this->userComment = $userComment;
 
         return $this;
     }

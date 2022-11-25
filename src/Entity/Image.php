@@ -56,6 +56,11 @@ class Image
 
     #[ORM\ManyToOne]
     private ?Category $category = null;
+
+    #[ORM\ManyToOne]
+    private ?User $userImage = null;
+
+ 
     
     /**
      * Constructor
@@ -157,6 +162,18 @@ class Image
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getUserImage(): ?User
+    {
+        return $this->userImage;
+    }
+
+    public function setUserImage(?User $userImage): self
+    {
+        $this->userImage = $userImage;
 
         return $this;
     }
