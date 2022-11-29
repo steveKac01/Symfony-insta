@@ -30,11 +30,12 @@
 				<p>Pour commencer à utiliser l'application, rendez-vous sur la page d'inscription.</p>
 				<a class="btn btn-primary btn-lg" href="#" role="button">Créer son compte</a>
 			</div>
+		{% endif %}
+		
+		{# List all posts #}
+		{% include '/pages/images/list.html.twig' %}
 
-			{# List all posts #}
-			{% include '/pages/images/list.html.twig' %}
+	</div>
 
-		</div>
-	{% endif %}
 
 </div>{% endblock %}
