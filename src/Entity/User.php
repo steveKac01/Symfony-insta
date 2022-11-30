@@ -11,6 +11,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints\NotNull;
 
+#[UniqueEntity('email')]
+#[UniqueEntity('pseudo')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\EntityListeners(['App\EntityListener\UserListener'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -20,9 +22,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[UniqueEntity('email')]
     #[Assert\Length(
-        min: 3,
+        min: 5,
         max: 250,
         minMessage: 'Your first name must be at least {{ limit }} characters long',
         maxMessage: 'Your first name cannot be longer than {{ limit }} characters',
@@ -44,7 +45,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     private ?string $plainPassword = null;
 
-    #[UniqueEntity('pseudo')]
+  
     #[Assert\NotBlank()]
     #[Assert\Length(
         min: 5,
