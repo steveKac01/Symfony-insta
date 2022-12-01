@@ -45,17 +45,36 @@ class AppFixtures extends Fixture
             array_push($users, $user);
             $manager->persist($user);
         }
-
-
-        $categories = [];
-        for ($i = 0; $i < 10; $i++) {
+            $categories=[];
             $categorie = new Category();
-            $categorie->setLabel('GENERATION ' . ($i + 1))
-                ->setDescription($this->faker->text(mt_rand(10, 250)));
-            array_push($categories, $categorie);
+            
+            $categorie->setLabel('Artwork ')
+                ->setDescription($this->faker->text(mt_rand(10, 250)))
+                ->setColor('success');
+            array_push($categories,$categorie);
 
             $manager->persist($categorie);
-        }
+            $manager->flush();
+
+            $categorie = new Category();
+
+            $categorie->setLabel('Screenshot ')
+            ->setDescription($this->faker->text(mt_rand(10, 250)))
+            ->setColor('info');
+        array_push($categories,$categorie);
+
+        $manager->persist($categorie);
+        $manager->flush();
+
+        $categorie = new Category();
+
+        $categorie->setLabel('WIP')
+        ->setDescription($this->faker->text(mt_rand(10, 250)))
+        ->setColor('danger');
+    array_push($categories,$categorie);
+
+    $manager->persist($categorie);
+    $manager->flush();
 
         $post = [];
         //Post

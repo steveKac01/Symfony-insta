@@ -9,8 +9,8 @@
 	<div class="container-fluid">
 		{% for image in images %}
 			<div class="card text-white bg-primary mt-4 mb-4 col-lg-12 mx-auto rounded" style="max-width:600px" id="{{image.id}}">
-				<div class="card-header text-end">
-					{{image.category.label}}</span>
+<div class="text-end">
+				<span class="badge px-3 py-2 mt-2 bg-{{image.category.color}}">{{image.category.label}}</span>
 			</div>
 			<div class="card-body ">
 				<div class="text-center">
