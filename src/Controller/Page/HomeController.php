@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Page;
 
 use App\Repository\ImageRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -19,7 +19,7 @@ class HomeController extends AbstractController
             $request->query->getInt('page', 1),
             10
         );
- 
+
         return $this->render("pages/home.html.twig", ["images" => $images]);
     }
 }

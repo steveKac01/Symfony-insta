@@ -3,7 +3,7 @@
 namespace App\Controller\User;
 
 use App\Entity\User;
-use App\Form\UserType;
+use App\Form\RegisterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,14 +16,19 @@ class CreateController extends AbstractController
     public function Create(Request $request, EntityManagerInterface $manager) : Response
     {
         $user = new User();
-        $form = $this->createForm(UserType::class,$user);
+        $form = $this->createForm(RegisterType::class,$user);
         $form->handleRequest($request);
+
         if($form->isSubmitted() && $form->isValid()){
-            //create user here
+            //create the user & insert in database.
             $user = $form->getData();
             $manager->persist($user);
             $manager->flush();
 
+            $this->addFlash('success',
+            'Account created, please log in.');
+
+            return $this->redirectToRoute('security.login');
         }
 
         return $this->render('pages\user\register.html.twig',['form' => $form->createView()]);

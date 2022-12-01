@@ -4,12 +4,15 @@
 	- Register
 {% endblock %}
 {% block content %}
-<div class="container my-5">
-<h1> Register </h1>
+	<div class="container my-5">
 
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-{{ form_end(form) }}
+		<h1>
+			Register
+		</h1>
 
-</div>
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+		{{ form_end(form) }}
+
+	</div>
 {% endblock %}

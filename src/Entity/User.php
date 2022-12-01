@@ -26,7 +26,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         min: 5,
         max: 250,
         minMessage: 'Your first name must be at least {{ limit }} characters long',
-        maxMessage: 'Your first name cannot be longer than {{ limit }} characters',
+        maxMessage: 'Your first name cannot be longer than {{limit }} characters',
     )]
     #[Assert\Email()]
     #[ORM\Column(length: 180, unique: true)]
@@ -41,14 +41,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     #[NotNull()]
-    private ?string $password = null;
+    private ?string $password = 'basic';
 
     private ?string $plainPassword = null;
 
   
     #[Assert\NotBlank()]
     #[Assert\Length(
-        min: 5,
+        min: 4,
         max: 50,
         minMessage: 'Your first name must be at least {{ limit }} characters long',
         maxMessage: 'Your first name cannot be longer than {{ limit }} characters',
@@ -162,7 +162,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @return string
      */
-    public function getPlainPassword(): string
+    public function getPlainPassword(): ?string
     {
         return $this->plainPassword;
     }

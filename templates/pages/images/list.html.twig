@@ -1,8 +1,5 @@
 	{% if images is defined and images is not null and images|length>0 %}
-		<h2 class="text-end">Il y a actuellement
-			{{images.getTotalItemCount}}images ! INCROYABLE !</h2>
-	</div>
-
+		
 	{# display navigation #}
 	<div class="navigation mt-5 d-flex justify-content-center">
 		{{ knp_pagination_render(images) }}

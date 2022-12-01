@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Page;
+
 
 use App\Form\ContactType;
 use Error;
