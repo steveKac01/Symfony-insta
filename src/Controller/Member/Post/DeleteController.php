@@ -13,7 +13,7 @@ class DeleteController extends AbstractController
     /**
      * This route delete a post if found. If not redirect to the home with a flash error.
      */
-    #[route('image/delete/{id}', 'image.delete', methods: ['GET'])]
+    #[route('member/image/delete/{id}', 'image.delete', methods: ['GET'])]
     public function delete(Image $image, EntityManagerInterface $manager): Response
     {
         if (!$image) {
@@ -22,6 +22,12 @@ class DeleteController extends AbstractController
                 'Ce post est introuvable !'
             );
 
+            return $this->redirectToRoute('home');
+        }
+
+        if($this->getUser()!== $image->getUserImage()){
+            $this->addFlash(
+                'error', 'Impossible de supprimer ce post.');
             return $this->redirectToRoute('home');
         }
 

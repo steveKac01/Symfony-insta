@@ -47,6 +47,6 @@ class ChangePasswordController extends AbstractController
             $this->addFlash('success','Password updated !'); 
         }
 
-        return $this->render('pages/user/change-password.html.twig',['form'=>$form->createView()]);
+        return $this->render('user/change-password.html.twig',['form'=>$form->createView()]);
     }
 }

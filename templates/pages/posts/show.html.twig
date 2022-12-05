@@ -33,30 +33,32 @@
 
 					<img src="{{image.url}}" width="300" height="300" class="rounded">
 				</div>
-				<p>By
-					<strong>user</strong>
+				<p class="mt-4">By
+					<strong>{{image.userImage.pseudo|capitalize}}</strong>
 					at
 					{{image.uploadAt|date('d/m/Y')}}</p>
 				<p class="card-text mt-4">{{image.description}}</p>
 
-				<div>
-					<a href="{{path('image.update',{id:image.id})}}">
-						<button type="button" class="btn btn-secondary">Edit</button>
-					</a>
-					<a href="{{path('image.delete',{id:image.id})}}">
-						<button type="button" class="btn btn-danger">Delete</button>
-					</a>
-					<hr>
-				</div>
+				{# Edit delete buttons #}
+				{% if image.userImage.id == app.user.id %}
+					<div>
+						<a href="{{path('image.update',{id:image.id})}}">
+							<button type="button" class="btn btn-secondary">Edit</button>
+						</a>
+						<a href="{{path('image.delete',{id:image.id})}}">
+							<button type="button" class="btn btn-danger">Delete</button>
+						</a>
+						<hr>
+					</div>
+				{% endif %}
 
 				{# Comments #}
 				<div class="mt-4" id="comments">
 					{% if image.comments|length>0 %}
 						<h2 class="mb-4 text-center">{{image.comments|length}}
-							Comment{{image.comments|length>1?'s':''}}
+							comment{{image.comments|length>1?'s':''}}
 							:</h2>
 						{% for comment in image.comments %}
-
 							<p class="my-2" id="{{comment.id}}">By
 								<strong>{{comment.userComment.pseudo|capitalize}}</strong>
 								at
@@ -69,7 +71,7 @@
 					{% else %}
 						<p>No commentary yet, be the first to post one !</p>
 					{% endif %}
-					
+
 					{# form comment #}
 					{{ include('comment/_form.html.twig') }}
 					<div class="text-center">

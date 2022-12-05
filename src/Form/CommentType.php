@@ -24,7 +24,7 @@ class CommentType extends AbstractType
                     'minlength' => '10',
                     'maxlength' => '50',
                 ],
-                'label' => 'Votre message',
+                'label' => 'Your message',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],

@@ -25,6 +25,7 @@ class ShowController extends AbstractController
             $comment = $form->getData();
             //Link the comment with the actual post.
             $comment->setImage($image);
+            $comment->setUserComment($this->getUser());
 
             $manager->persist($comment);
             $manager->flush();

@@ -46,6 +46,6 @@ class UpdateController extends AbstractController
             $this->addFlash('success','Profil updated !'); 
         }
 
-        return $this->render('pages/user/profil.html.twig',['form'=>$form->createView()]);
+        return $this->render('user/profil.html.twig',['form'=>$form->createView()]);
     }
 }

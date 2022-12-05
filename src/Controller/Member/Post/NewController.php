@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class NewController extends AbstractController
 {
-    #[Route('image/new','image.new',methods:['GET','POST'])]
+    #[Route('member/image/new','image.new',methods:['GET','POST'])]
     public function new(Request $request, EntityManagerInterface $manager):Response
     {
         $image = new Image();
@@ -21,6 +21,7 @@ class NewController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $image= $form->getData();
+            $image->setUserImage($this->getUser());
 
             $manager->persist($image);
             $manager->flush();

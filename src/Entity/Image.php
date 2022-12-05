@@ -63,7 +63,7 @@ class Image
  
     
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {

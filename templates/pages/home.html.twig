@@ -24,16 +24,18 @@
 
 		{% if app.user is null %}
 			<div class="jumbotron">
-				<h1 class="display-4">Bienvenue sur instakilo !</h1>
-				<p class="lead">Instakilo est une application permettant de partager vos images rapidement et simplement !</p>
+				<h1 class="display-4">Welcome to instakilo !</h1>
+				<p class="lead">Instakilo is an app to simply and quickly share your images !</p>
 				<hr class="my-4">
-				<p>Pour commencer à utiliser l'application, rendez-vous sur la page d'inscription.</p>
-				<a class="btn btn-primary btn-lg" href="{{path('user.register')}}" role="button">Créer son compte</a>
+				<p>To start posting, <a href="{{path('user.register')}}">register</a> or <a href="{{path('security.login')}}">log</a> in to your account.</p>
+				<a class="btn btn-primary btn-lg" href="{{path('user.register')}}" role="button">Register</a>
+				<a class="btn btn-primary btn-lg" href="{{path('security.login')}}" role="button">Login</a>
+
 			</div>
 		{% endif %}
 
 		{# List all posts #}
-		{% include '/pages/images/list.html.twig' %}
+		{% include '/pages/posts/list.html.twig' %}
 
 	</div>
 

@@ -1,7 +1,6 @@
 <?php
 
-namespace App\Controller\Member\User;
-
+namespace App\Controller\Page;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,7 +11,7 @@ class ForgotPasswordController extends AbstractController
     #[Route('/forgot/password', name: 'user.forgot_password')]
     public function index(): Response
     {
-        return $this->render('forgot_password/index.html.twig', [
+        return $this->render('user/forgot_password.html.twig', [
             'controller_name' => 'ForgotPasswordController',
         ]);
     }

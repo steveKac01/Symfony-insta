@@ -11,8 +11,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UpdateController extends AbstractController
 {
-    #[route('/image/update/{id}','image.update',methods:['GET','POST'])]
+    #[route('member/image/update/{id}','image.update',methods:['GET','POST'])]
     public function update(EntityManagerInterface $manager,Image $image,Request $request){
+
+        // If the post is not the user's one. delete this if i'm using voters.
+        if($this->getUser()!== $image->getUserImage())
+        {
+            return $this->redirectToRoute('home');
+        }
 
         $form = $this->createForm(ImageType::class,$image);
         $form->handleRequest($request);
