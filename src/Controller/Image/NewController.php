@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class NewController extends AbstractController
 {
-    #[Route('images/new','image.new',methods:['GET','POST'])]
+    #[Route('image/new','image.new',methods:['GET','POST'])]
     public function new(Request $request, EntityManagerInterface $manager):Response
     {
         $image = new Image();

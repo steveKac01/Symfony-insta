@@ -15,6 +15,11 @@ class CreateController extends AbstractController
     #[route('/register','user.register',methods:['GET','POST'])]
     public function Create(Request $request, EntityManagerInterface $manager) : Response
     {
+        //If the user is already logged.
+        if($this->getUser()!=null){
+            return $this->redirectToRoute('home');
+        }
+
         $user = new User();
         $form = $this->createForm(RegisterType::class,$user);
         $form->handleRequest($request);
