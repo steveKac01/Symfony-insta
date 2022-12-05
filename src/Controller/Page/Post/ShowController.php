@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Image;
+namespace App\Controller\Page\Post;
 
 use App\Entity\Comment;
 use App\Entity\Image;

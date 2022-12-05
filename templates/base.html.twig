@@ -26,12 +26,14 @@
 	</head>
 	<body>
 		{% block body %}
+		{# Header #}
 			{% block head %}
 				{% block nav %}
-					{% include "header/navigation.html.twig" %}
+					{% include "module/header.html.twig" %}
 				{% endblock %}
 			{% endblock %}
 
+		{# Main #}
 			{% block content %}
 				<a href="#top">
 					<div class="back-top hide bg-primary">
@@ -40,8 +42,9 @@
 				</a>
 			{% endblock %}
 
+		{# Footer #}
 			{% block footer %}
-				{% include "footer/footer.html.twig" %}
+				{% include "module/footer.html.twig" %}
 			{% endblock %}
 
 		{% endblock %}

@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Controller\User;
+namespace App\Controller\Member\User;
+
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

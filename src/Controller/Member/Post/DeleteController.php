@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Image;
+namespace App\Controller\Member\Post;
 
 use App\Entity\Image;
 use Doctrine\ORM\EntityManagerInterface;

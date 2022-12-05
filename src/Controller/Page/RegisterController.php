@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\User;
+namespace App\Controller\Page;
 
 use App\Entity\User;
 use App\Form\RegisterType;
@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class CreateController extends AbstractController
+class RegisterController extends AbstractController
 {
     #[route('/register','user.register',methods:['GET','POST'])]
     public function Create(Request $request, EntityManagerInterface $manager) : Response
