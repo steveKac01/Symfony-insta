@@ -26,24 +26,24 @@ class AppFixtures extends Fixture implements DependentFixtureInterface, Fixtures
     {
         $post = [];
         //Post
-        for ($i = 0; $i < $this->NUMBER_POST; $i++) {
+        for ($i = 0; $i < $this::NUMBER_POST; $i++) {
             $image = new Image();
             $image->setTitle($this->faker->text(mt_rand(5, 50), true))
                 ->setDescription($this->faker->text(mt_rand(5, 255), true))
-                ->setCategory($this->getReference('category_'. mt_rand(0,count($this->CATEGORIES_LABEL)-1)))
+                ->setCategory($this->getReference('category_'. mt_rand(0,count($this::CATEGORIES_LABEL)-1)))
                 ->setUrl('https://via.placeholder.com/300')
-                ->setUserImage($this->getReference('user_' . mt_rand(1, $this->NUMBER_USER)));
+                ->setUserImage($this->getReference('user_' . mt_rand(1, $this::NUMBER_USER)));
 
             array_push($post, $image);
             $manager->persist($image);
         }
 
         // Comments
-        for ($i = 0; $i < $this->NUMBER_COMMENTS; $i++) {
+        for ($i = 0; $i < $this::NUMBER_COMMENTS; $i++) {
             $comment = new Comment();
             $comment->setMessage($this->faker->text(mt_rand(5, 255), true))
                 ->setImage($post[mt_rand(0, count($post) - 1)])
-                ->setUserComment($this->getReference('user_' . mt_rand(1, $this->NUMBER_USER)));
+                ->setUserComment($this->getReference('user_' . mt_rand(1, $this::NUMBER_USER)));
 
             $manager->persist($comment);
         }
