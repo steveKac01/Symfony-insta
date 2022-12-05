@@ -7,15 +7,26 @@
 
 
 {% block content %}
+
+	{# Flash #}
 	<div class="container-fluid">
-			{% for message in app.flashes('success') %}
+		{% for message in app.flashes('success') %}
 			<div class="alert alert-success">
 				{{message}}
 			</div>
 		{% endfor %}
 
-		<div class="card text-white bg-primary mt-4 mb-4 col-lg-12 mx-auto rounded" style="max-width:600px">
-			<div class="card-header text-end"><span class="badge bg-info px-2 py-3 rounded">{{image.category.label}}</span></div>
+		<div
+			class="card text-white bg-primary mt-4 mb-4 col-lg-12 mx-auto rounded" style="max-width:600px">
+
+			{# Category #}
+			{% if image.category %}
+				<div class="card-header text-end">
+					<span class="badge bg-info px-2 py-3 rounded">{{image.category.label}}</span>
+				</div>
+			{% endif %}
+
+			{# Post #}
 			<div class="card-body ">
 				<div class="text-center">
 					<h4 class="card-title">{{image.title|upper}}</h4>
@@ -36,27 +47,29 @@
 						<button type="button" class="btn btn-danger">Delete</button>
 					</a>
 					<hr>
-
 				</div>
+
 				{# Comments #}
 				<div class="mt-4" id="comments">
 					{% if image.comments|length>0 %}
 						<h2 class="mb-4 text-center">{{image.comments|length}}
-							Comment{{image.comments|length>1?'s':''}} :</h2>
+							Comment{{image.comments|length>1?'s':''}}
+							:</h2>
 						{% for comment in image.comments %}
-						
+
 							<p class="my-2" id="{{comment.id}}">By
 								<strong>{{comment.userComment.pseudo|capitalize}}</strong>
 								at
 								{{comment.createdAt|date('m/d/Y h:m')}}</p>
 							<p>{{comment.message}}</p>
 							<hr>
-					
+
 						{% endfor %}
 
 					{% else %}
 						<p>No commentary yet, be the first to post one !</p>
 					{% endif %}
+					
 					{# form comment #}
 					{{ include('comment/_form.html.twig') }}
 					<div class="text-center">

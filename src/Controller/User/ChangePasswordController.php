@@ -8,11 +8,18 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ChangePasswordController extends AbstractController
 {
-
+    private UserPasswordHasherInterface $userPasswordHasher;
+   
+    public function __construct(UserPasswordHasherInterface $userPasswordHasher )
+    {
+        $this->userPasswordHasher = $userPasswordHasher;
+    }
+   
     #[route('/profil/{id}/password','user.changePassword',methods:['GET','POST'])]
     public function Update(Request $request, EntityManagerInterface $manager,User $user) : Response
     {
@@ -33,10 +40,10 @@ class ChangePasswordController extends AbstractController
         if($form->isSubmitted() && $form->isValid())
         {
             $user = $form->getData();
-
+           // Find a solution for not using hasher here.
+            $user->setPassword($this->userPasswordHasher->hashPassword($user,$user->getPlainPassword()));
             $manager->persist($user);
             $manager->flush();
-            dd($user);
             $this->addFlash('success','Password updated !'); 
         }
 
