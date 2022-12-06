@@ -8,11 +8,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class HomeController extends AbstractController
 {
     #[route('/', 'home', methods: ['GET'])]
-    public function index(ImageRepository $imageRepository, PaginatorInterface $paginator, Request $request): Response
+    public function index(ImageRepository $imageRepository, PaginatorInterface $paginator, Request $request, TranslatorInterface $translatorInterface): Response
     {
         $images = $paginator->paginate(
             $imageRepository->findBy(array(), array('id' => 'DESC')),
@@ -20,6 +21,6 @@ class HomeController extends AbstractController
             10
         );
 
-        return $this->render("pages/home.html.twig", ["images" => $images]);
+        return $this->render("pages/home.html.twig", ["images" => $images,"test"=> $translatorInterface->trans('Welcome')]);
     }
 }

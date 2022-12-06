@@ -27,8 +27,8 @@
 					</div>
 					<p class="mt-4">By
 						<strong>{{image.userImage.pseudo}}</strong>
-						at
-						{{image.uploadAt|date('m/d/Y')}}</p>
+						on
+						{{image.uploadAt|date('m/d/Y')}} at {{image.uploadAt|date('H:i')}} </p>
 					<p class="card-text mt-4">{{image.description}}</p>
 					<a href="{{path('image.show',{id:image.id})}}#comments" class="text-white text-decoration-none">
 						<p class="text-end">{{image.comments|length}}

@@ -16,6 +16,9 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            remember_me:
+                secret:   '%kernel.secret%'
+                lifetime: 604800
             form_login:
                 login_path: security.login
                 check_path: security.login
