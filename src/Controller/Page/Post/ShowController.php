@@ -33,6 +33,6 @@ class ShowController extends AbstractController
             $this->addFlash('success', 'Votre commentaire a bien été posté');
         }
 
-        return $this->render('pages/images/show.html.twig', ['form' => $form->createView(), 'image' => $image]);
+        return $this->render('pages/posts/show.html.twig', ['form' => $form->createView(), 'image' => $image]);
     }
 }

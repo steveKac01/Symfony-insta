@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * This controller logout the user.
+ * This controller logout the current user.
  */
 
 class LogoutController extends AbstractController

@@ -26,7 +26,6 @@ class UpdateController extends AbstractController
         if($form->isSubmitted() && $form->isValid())
         {
             $image = $form->getData();
-            $manager->persist($image);
             $manager->flush();
 
             $this->addFlash('success','Votre post a bien été modifié !');
@@ -34,7 +33,7 @@ class UpdateController extends AbstractController
             return $this->redirectToRoute('home',['_fragment' => $image->getId()]);
         }
 
-        return $this->render('pages/images/new-update.html.twig',['form'=>$form->createView(),'label'=>'update']);
+        return $this->render('pages/posts/new-update.html.twig',['form'=>$form->createView(),'label'=>'update']);
     }
 
 }

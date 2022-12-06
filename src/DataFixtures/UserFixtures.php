@@ -36,6 +36,7 @@ class UserFixtures extends Fixture implements FixturesInterface
 
             $user->setEmail($this->faker->email())
                 ->setpseudo($this->faker->userName())
+                ->setAvatar(mt_rand(0,$this::NUMBER_AVATAR))
                 ->setPlainPassword('password');
 
             $this->addReference('user_' . $i, $user);

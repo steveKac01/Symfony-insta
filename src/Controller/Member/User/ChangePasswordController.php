@@ -13,40 +13,36 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ChangePasswordController extends AbstractController
 {
-    private UserPasswordHasherInterface $userPasswordHasher;
-   
-    public function __construct(UserPasswordHasherInterface $userPasswordHasher )
+    #[route('/profil/{id}/password', 'user.changePassword', methods: ['GET', 'POST'])]
+    public function Update(Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $userPasswordHasher, User $user): Response
     {
-        $this->userPasswordHasher = $userPasswordHasher;
-    }
-   
-    #[route('/profil/{id}/password','user.changePassword',methods:['GET','POST'])]
-    public function Update(Request $request, EntityManagerInterface $manager,User $user) : Response
-    {
-        
-        if(!$this->getUser()){
-           return $this->redirectToRoute('security.login');
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('security.login');
         }
 
-        if($user !== $this->getUser())
-        {
+        if ($user !== $this->getUser()) {
             return $this->redirectToRoute('security.logout');
         }
 
-        $form = $this->createForm(ChangePasswordType::class,$user);
+        $form = $this->createForm(ChangePasswordType::class);
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
-            $user = $form->getData();
-           // Find a solution for not using hasher here.
-            $user->setPassword($this->userPasswordHasher->hashPassword($user,$user->getPlainPassword()));
-            $manager->persist($user);
-            $manager->flush();
-            $this->addFlash('success','Password updated !'); 
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($userPasswordHasher->isPasswordValid($user, $form->getData()['plainPassword'])) {
+                //To make a fake change and enter in the preUpdate() event listener.
+                $user->setPassword('');
+                $user->setPlainPassword($form->getData()['newPassword']);
+              
+                $manager->flush();
+
+                $this->addFlash('success', 'Password updated !');
+                return $this->redirectToRoute('home');
+            } else {
+                $this->addFlash('warning', 'Password incorrect !');
+            }
         }
 
-        return $this->render('user/change-password.html.twig',['form'=>$form->createView()]);
+        return $this->render('user/change-password.html.twig', ['form' => $form->createView()]);
     }
 }

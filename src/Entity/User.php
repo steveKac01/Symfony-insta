@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use DateTimeImmutable;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -36,6 +37,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotNull()]
     private array $roles = [];
 
+    
+
     /**
      * @var string The hashed password
      */
@@ -58,6 +61,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
+
+    #[Assert\Range(
+        min: 0,
+        max: 10,
+        notInRangeMessage: 'Your avatar value must be between 0 and {{max}}.'
+    )]
+    #[ORM\Column(type: Types::SMALLINT)]
+    private ?int $avatar = 0;
 
     public function __construct()
     {
@@ -177,6 +188,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPlainPassword(?string $plainPassword): self
     {
         $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
+    public function getAvatar(): ?int
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(int $avatar): self
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }
