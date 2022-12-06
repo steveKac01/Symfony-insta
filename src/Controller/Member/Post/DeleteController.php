@@ -36,7 +36,7 @@ class DeleteController extends AbstractController
 
         $this->addFlash(
             'success',
-            'Ce post a bien été effacé !'
+            'Votre post a bien été effacé !'
         );
         
         return $this->redirectToRoute('home');

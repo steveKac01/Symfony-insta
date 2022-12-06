@@ -30,7 +30,7 @@ class UserFixtures extends Fixture implements FixturesInterface
 
         $manager->persist($user);
 
-        // random users
+        //Random users.
         for ($i = 2; $i < $this::NUMBER_USER + 1; $i++) {
             $user = new User();
 
