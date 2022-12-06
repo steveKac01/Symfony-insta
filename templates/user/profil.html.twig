@@ -17,6 +17,11 @@
 	<div class="container my-5">
 		<h1>
 			{{app.user.pseudo}}'s account</h1>
+		
+		{# Update time #}
+		{% if app.user.updatedAt != null %}
+			<small>Your profil has been updated on {{app.user.updatedAt|date('m/d/Y')}}</small>
+		{% endif %}
 
 		{{ form_start(form) }}
 		{{ form_widget(form) }}

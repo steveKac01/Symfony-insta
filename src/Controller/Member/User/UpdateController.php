@@ -23,7 +23,6 @@ class UpdateController extends AbstractController
     #[route('/profil/{id}', 'user.update', methods: ['GET', 'POST'])]
     public function Update(Request $request, EntityManagerInterface $manager, User $user, UserPasswordHasherInterface $hasher): Response
     {
-
         if (!$this->getUser()) {
             return $this->redirectToRoute('security.login');
         }
@@ -39,6 +38,7 @@ class UpdateController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if ($hasher->isPasswordValid($user, $form->getData()->getPlainPassword())) {
                 $user = $form->getData();
+                $user->setUpdatedAt(new \DateTimeImmutable());
                 $manager->flush();
 
                 $this->addFlash('success', 'Profile successfully updated !');

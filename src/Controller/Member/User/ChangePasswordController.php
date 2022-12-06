@@ -30,8 +30,8 @@ class ChangePasswordController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ($userPasswordHasher->isPasswordValid($user, $form->getData()['plainPassword'])) {
-                //To make a fake change and enter in the preUpdate() event listener.
-                $user->setPassword('');
+
+                $user->setUpdatedAt(new \DateTimeImmutable());
                 $user->setPlainPassword($form->getData()['newPassword']);
               
                 $manager->flush();

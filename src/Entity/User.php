@@ -61,6 +61,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
+    
+
 
     #[Assert\Range(
         min: 0,
@@ -69,6 +71,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     )]
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $avatar = 0;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
 
     public function __construct()
     {
@@ -200,6 +205,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAvatar(int $avatar): self
     {
         $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
