@@ -5,20 +5,16 @@ namespace App\Controller\Member\Post;
 use App\Entity\Image;
 use App\Form\ImageType;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UpdateController extends AbstractController
 {
     #[route('member/image/update/{id}','image.update',methods:['GET','POST'])]
+    #[Security("is_granted('ROLE_USER') and user === image.getUserImage()")]
     public function update(EntityManagerInterface $manager,Image $image,Request $request){
-
-        // If the post is not the user's one. delete this if i'm using voters.
-        if($this->getUser()!== $image->getUserImage())
-        {
-            return $this->redirectToRoute('home');
-        }
 
         $form = $this->createForm(ImageType::class,$image);
         $form->handleRequest($request);

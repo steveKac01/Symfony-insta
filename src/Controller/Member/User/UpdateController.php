@@ -5,11 +5,12 @@ namespace App\Controller\Member\User;
 use App\Entity\User;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UpdateController extends AbstractController
 {
@@ -21,24 +22,16 @@ class UpdateController extends AbstractController
      * @return Response
      */
     #[route('/profil/{id}', 'user.update', methods: ['GET', 'POST'])]
-    public function Update(Request $request, EntityManagerInterface $manager, User $user, UserPasswordHasherInterface $hasher): Response
+    #[Security('is_granted("ROLE_USER") and user === userSelected')]
+    public function Update(Request $request, EntityManagerInterface $manager, User $userSelected, UserPasswordHasherInterface $hasher): Response
     {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('security.login');
-        }
-
-        if ($user !== $this->getUser()) {
-            return $this->redirectToRoute('security.logout');
-        }
-
-        $form = $this->createForm(UserType::class, $user);
-
+        $form = $this->createForm(UserType::class, $userSelected);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($hasher->isPasswordValid($user, $form->getData()->getPlainPassword())) {
-                $user = $form->getData();
-                $user->setUpdatedAt(new \DateTimeImmutable());
+            if ($hasher->isPasswordValid($userSelected, $form->getData()->getPlainPassword())) {
+                $userSelected = $form->getData();
+                $userSelected->setUpdatedAt(new \DateTimeImmutable());
                 $manager->flush();
 
                 $this->addFlash('success', 'Profile successfully updated !');
