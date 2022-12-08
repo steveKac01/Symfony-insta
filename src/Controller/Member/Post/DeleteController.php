@@ -12,20 +12,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class DeleteController extends AbstractController
 {
     /**
-     * This route delete a post if found. If not redirect to the home with a flash error.
+     * Delete a post then redirect to home with a flash message.
+     *
+     * @param Image $image
+     * @param EntityManagerInterface $manager
+     * @return Response
      */
-    #[Security("is_granted('ROLE_USER') and user === image.getUserImage()")]
     #[route('member/image/delete/{id}', 'image.delete', methods: ['GET'])]
+    #[Security("is_granted('ROLE_USER') and user === image.getUserImage()")]
     public function delete(Image $image, EntityManagerInterface $manager): Response
     {
-        if (!$image) {
-            $this->addFlash(
-                'error',
-                'Ce post est introuvable !'
-            );
-
-            return $this->redirectToRoute('home');
-        }
 
         $manager->remove($image);
         $manager->flush();
@@ -34,7 +30,7 @@ class DeleteController extends AbstractController
             'success',
             'Votre post a bien été effacé !'
         );
-        
+
         return $this->redirectToRoute('home');
     }
 }

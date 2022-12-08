@@ -15,10 +15,12 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class UpdateController extends AbstractController
 {
     /**
-     * Undocumented function
+     * Update the profile of the user.
      *
      * @param Request $request
      * @param EntityManagerInterface $manager
+     * @param User $userSelected
+     * @param UserPasswordHasherInterface $hasher
      * @return Response
      */
     #[route('/profil/{id}', 'user.update', methods: ['GET', 'POST'])]
@@ -32,6 +34,7 @@ class UpdateController extends AbstractController
             if ($hasher->isPasswordValid($userSelected, $form->getData()->getPlainPassword())) {
                 $userSelected = $form->getData();
                 $userSelected->setUpdatedAt(new \DateTimeImmutable());
+                
                 $manager->flush();
 
                 $this->addFlash('success', 'Profile successfully updated !');

@@ -8,7 +8,7 @@
 
 {% block content %}
 
-	{# Flash #}
+	{# Flash messages #}
 	<div class="container-fluid">
 		{% for message in app.flashes('success') %}
 			<div class="alert alert-success">
@@ -34,13 +34,18 @@
 					<img src="{{image.url}}" width="300" height="300" class="rounded">
 				</div>
 				<p class="mt-4">By
-					<strong>{{image.userImage.pseudo|capitalize}}</strong>
+					<a href="{{path('post.user',{id:image.userImage.id})}}" class="text-white text-decoration-none">
+
+						<strong>{{image.userImage.pseudo|capitalize}}</strong>
+					</a>
+					on
+					{{image.uploadAt|date('m/d/Y')}}
 					at
-					{{image.uploadAt|date('d/m/Y')}}</p>
+					{{image.uploadAt|date('H:i')}}</p>
 				<p class="card-text mt-4">{{image.description}}</p>
 
-				{# Edit delete buttons #}
-				{% if image.userImage.id == app.user.id %}
+				{# Action buttons #}
+				{% if app.user and image.userImage.id == app.user.id %}
 					<div>
 						<a href="{{path('image.update',{id:image.id})}}">
 							<button type="button" class="btn btn-secondary">Edit</button>
@@ -60,9 +65,13 @@
 							:</h2>
 						{% for comment in image.comments %}
 							<p class="my-2" id="{{comment.id}}">By
-								<strong>{{comment.userComment.pseudo|capitalize}}</strong>
+								<a href="{{path('post.user',{id:image.userImage.id})}}" class="text-white text-decoration-none">
+									<strong>{{comment.userComment.pseudo|capitalize}}</strong>
+								</a>
+								on
+								{{comment.createdAt|date('m/d/Y')}}
 								at
-								{{comment.createdAt|date('m/d/Y h:m')}}</p>
+								{{comment.createdAt|date('H:i')}}</p>
 							<p>{{comment.message}}</p>
 							<hr>
 
@@ -72,13 +81,27 @@
 						<p>No commentary yet, be the first to post one !</p>
 					{% endif %}
 
-					{# form comment #}
-					{{ include('comment/_form.html.twig') }}
-					<div class="text-center">
-						<a href="{{path('home')}}#{{image.id}}">
-							<button class="btn btn-secondary hBack" type="button">Back</button>
-						</a>
-					</div>
+					{# Comment form #}
+					{% if app.user %}
+
+						{{ include('comment/_form.html.twig') }}
+						<div class="text-center">
+							<a href="{{path('home')}}#{{image.id}}">
+								<button class="btn btn-secondary hBack" type="button">Back</button>
+							</a>
+						</div>
+
+					{% else %}
+
+						<p class="text-center mt-4">
+							Veuillez vous
+							<a href="{{path('security.login')}}" class="text-white">connecter</a>
+							ou
+							<a href="{{path('user.register')}}" class="text-white">créer un compte</a>
+							pour commenter ce post.
+						</p>
+
+					{% endif %}
 				</div>
 			</div>
 		</div>

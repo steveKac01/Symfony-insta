@@ -5,5 +5,23 @@
 {% endblock %}
 
 {% block content %}
-		{% include '/pages/posts/list.html.twig' %}
+	{{parent()}}
+	
+	<div class="container mt-4">
+
+		{% if images %}
+			<p>Nombre de posts de l'utilisateur
+				<strong>{{userList}}</strong>
+				:
+				{{images|length}}
+				post(s)</p>
+			{% include '/pages/posts/list.html.twig' %}
+		{% else %}
+			<p>L'utilisateur
+				<strong>{{userList}}</strong>
+				n'a pas encore posté d'images.</p>
+		{% endif %}
+
+	</div>
+	
 {% endblock %}

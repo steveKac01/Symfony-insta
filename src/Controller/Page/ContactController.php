@@ -2,7 +2,6 @@
 
 namespace App\Controller\Page;
 
-
 use App\Form\ContactType;
 use Error;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,7 +39,6 @@ class ContactController extends AbstractController
                 );
             }
         }
-
 
         return $this->render('pages/contact.html.twig', [
             'form' => $form->createView()

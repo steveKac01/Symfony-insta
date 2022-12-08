@@ -13,7 +13,15 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ShowController extends AbstractController
 {
-
+    /**
+     * Show a post selected by his id with comments.
+     * A form to create comment is provided.
+     *
+     * @param Image $image
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
     #[route('image/show/{id}', 'image.show', methods: ['GET', 'POST'])]
     public function show(Image $image, Request $request, EntityManagerInterface $manager): Response
     {
@@ -23,7 +31,6 @@ class ShowController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $comment = $form->getData();
-            //Link the comment with the actual post.
             $comment->setImage($image);
             $comment->setUserComment($this->getUser());
 

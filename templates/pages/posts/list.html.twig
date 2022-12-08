@@ -1,22 +1,20 @@
 {% if images is defined and images is not null and images|length>0 %}
 
-	{# display navigation #}
-	<div class="navigation mt-5 d-flex justify-content-center">
-		{{ knp_pagination_render(images) }}
-	</div>
-
+	{# Pagination #}
+	{% include "components/pagination.html.twig" %}
 
 	<div class="container-fluid">
 		{% for image in images %}
-			<div class="card text-white bg-primary mt-4 mb-4 col-lg-12 mx-auto rounded" style="max-width:600px" id="{{image.id}}">
-				
+			<div
+				class="card text-white bg-primary mt-4 mb-4 col-lg-12 mx-auto rounded" style="max-width:600px" id="{{image.id}}">
+
 				{# Category #}
 				{% if image.category %}
-				<div class="text-end">
-					<span class="badge px-3 py-2 mt-2 bg-{{image.category.color}}">{{image.category.label}}</span>
-				</div>
+					<div class="text-end">
+						<span class="badge px-3 py-2 mt-2 bg-{{image.category.color}}">{{image.category.label}}</span>
+					</div>
 				{% endif %}
-				
+
 				<div class="card-body ">
 					<div class="text-center">
 						<a href="{{path('image.show',{id:image.id})}}">
@@ -26,9 +24,14 @@
 						<a href="{{path('image.show',{id:image.id})}}"><img src="{{image.url}}" width="300" height="300" class="rounded"></a>
 					</div>
 					<p class="mt-4">By
-						<strong>{{image.userImage.pseudo}}</strong>
+						<a href="{{path('post.user',{id:image.userImage.id})}}" class="text-white text-decoration-none">
+							<strong>{{image.userImage.pseudo}}</strong>
+						</a>
 						on
-						{{image.uploadAt|date('m/d/Y')}} at {{image.uploadAt|date('H:i')}} </p>
+						{{image.uploadAt|date('m/d/Y')}}
+						at
+						{{image.uploadAt|date('H:i')}}
+					</p>
 					<p class="card-text mt-4">{{image.description}}</p>
 					<a href="{{path('image.show',{id:image.id})}}#comments" class="text-white text-decoration-none">
 						<p class="text-end">{{image.comments|length}}
@@ -40,12 +43,15 @@
 			</div>
 
 		{% endfor %}
-		{# display navigation #}
-		<div class="navigation mt-5 d-flex justify-content-center">
-			{{ knp_pagination_render(images) }}
-		</div>
-	{% else %}
-		<div class="container-fluid text-center my-5">
-			<p>No images found.</p>
-		</div>
-	{% endif %}
+
+	{# Pagination #}
+	{% include "components/pagination.html.twig" %}
+
+	</div>
+{% else %}
+
+	<div class="container-fluid text-center my-5">
+		<p>No image found.</p>
+	</div>
+
+{% endif %}

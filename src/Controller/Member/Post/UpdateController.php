@@ -12,24 +12,32 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UpdateController extends AbstractController
 {
-    #[route('member/image/update/{id}','image.update',methods:['GET','POST'])]
+    /**
+     * If the form is valid, updates a post in the database 
+     * then redirect to he home with the id of the comment.
+     * 
+     * @param EntityManagerInterface $manager
+     * @param Image $image
+     * @param Request $request
+     * @return void
+     */
+    #[route('member/image/update/{id}', 'image.update', methods: ['GET', 'POST'])]
     #[Security("is_granted('ROLE_USER') and user === image.getUserImage()")]
-    public function update(EntityManagerInterface $manager,Image $image,Request $request){
+    public function update(EntityManagerInterface $manager, Image $image, Request $request)
+    {
 
-        $form = $this->createForm(ImageType::class,$image);
+        $form = $this->createForm(ImageType::class, $image);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $image = $form->getData();
             $manager->flush();
 
-            $this->addFlash('success','Votre post a bien été modifié !');
+            $this->addFlash('success', 'Votre post a bien été modifié !');
 
-            return $this->redirectToRoute('home',['_fragment' => $image->getId()]);
+            return $this->redirectToRoute('home', ['_fragment' => $image->getId()]);
         }
 
-        return $this->render('pages/posts/new-update.html.twig',['form'=>$form->createView(),'label'=>'update']);
+        return $this->render('pages/posts/new-update.html.twig', ['form' => $form->createView(), 'label' => 'update']);
     }
-
 }

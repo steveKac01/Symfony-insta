@@ -23,25 +23,29 @@
 	</head>
 	<body>
 		{% block body %}
-		{# Header #}
+
+			{# Header #}
 			{% block head %}
 				{% block nav %}
-					{% include "navigation/header.html.twig" %}
+					{% include "components/header.html.twig" %}
 				{% endblock %}
 			{% endblock %}
 
-		{# Main #}
+			{# Main #}
 			{% block content %}
+
+				{# Go to top #}
 				<a href="#top">
 					<div class="back-top hide bg-primary">
 						<i class="fa-solid fa-chevron-up 2x"></i>
 					</div>
 				</a>
+
 			{% endblock %}
 
-		{# Footer #}
+			{# Footer #}
 			{% block footer %}
-				{% include "navigation/footer.html.twig" %}
+				{% include "components/footer.html.twig" %}
 			{% endblock %}
 
 		{% endblock %}

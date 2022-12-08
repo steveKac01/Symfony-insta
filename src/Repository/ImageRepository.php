@@ -39,6 +39,20 @@ class ImageRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * Search query
+     *
+     * @param string $keyword
+     * @return void
+     */
+    public function searchPost(string $keyword){
+        return $this->createQueryBuilder('p')
+        ->where("p.title LIKE :key")
+        ->setParameter('key','%'.$keyword.'%')
+        ->getQuery()
+        ->getResult();
+    }
+
 //    /**
 //     * @return Image[] Returns an array of Image objects
 //     */
