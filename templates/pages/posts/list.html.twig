@@ -1,7 +1,6 @@
 {% if images is defined and images is not null and images|length>0 %}
 
-	{# Pagination #}
-	{% include "components/pagination.html.twig" %}
+
 
 	<div class="container-fluid">
 		{% for image in images %}
@@ -44,8 +43,6 @@
 
 		{% endfor %}
 
-	{# Pagination #}
-	{% include "components/pagination.html.twig" %}
 
 	</div>
 {% else %}

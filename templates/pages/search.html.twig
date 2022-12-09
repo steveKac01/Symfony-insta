@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	{{parent()}}
+	- Home
+{% endblock %}
+
+
+{% block content %}
+
+	{{parent()}}
+	<div class="container mt-4">
+
+		{# List all posts #}
+		{% include '/pages/posts/list.html.twig' %}
+
+	</div>
+
+
+</div>{% endblock %}

@@ -43,14 +43,16 @@ class ImageRepository extends ServiceEntityRepository
      * Find posts by the keyword from the user search.
      *
      * @param string $keyword
+     * @param int $postNumber
      * @return array
      */
-    public function searchPost(string $keyword): array
+    public function searchPost(string $keyword,int $postNumber=10): array
     {
         return $this->createQueryBuilder('p')
             ->where("p.title LIKE :key")
             ->orderBy("p.id","DESC")
             ->setParameter('key', '%' . $keyword . '%')
+            ->setMaxResults($postNumber)
             ->getQuery()
             ->getResult();
     }

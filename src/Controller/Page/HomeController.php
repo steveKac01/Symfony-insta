@@ -21,20 +21,14 @@ class HomeController extends AbstractController
      * @param TranslatorInterface $translatorInterface
      * @return Response
      */
-    #[route('/', 'home', methods: ['GET','POST'])]
+    #[route('/', 'home', methods: ['GET', 'POST'])]
     public function index(ImageRepository $imageRepository, PaginatorInterface $paginator, Request $request, TranslatorInterface $translatorInterface): Response
     {
         // Search form filled.
-        if($request->get('search'))
-        {
-            
-            $images = $paginator->paginate(
-                $images = $imageRepository->searchPost($request->get('search')),
-                $request->query->getInt('page', 1),
-                10
-            );
+        if ($request->get('search')) {
+            $images = $imageRepository->searchPost($request->get('search'));
 
-            return $this->render("pages/home.html.twig", ["images" => $images,"test"=> $translatorInterface->trans('Welcome')]);  
+            return $this->render("pages/search.html.twig", ["images" => $images, "test" => $translatorInterface->trans('Welcome')]);
         }
 
         $images = $paginator->paginate(
@@ -43,6 +37,6 @@ class HomeController extends AbstractController
             10
         );
 
-        return $this->render("pages/home.html.twig", ["images" => $images,"test"=> $translatorInterface->trans('Welcome')]);
+        return $this->render("pages/home.html.twig", ["images" => $images, "test" => $translatorInterface->trans('Welcome')]);
     }
 }
