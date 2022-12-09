@@ -56,7 +56,7 @@
 						<hr>
 					</div>
 				{% endif %}
-
+				<hr>
 				{# Comments #}
 				<div class="mt-4" id="comments">
 					{% if image.comments|length>0 %}
@@ -94,11 +94,11 @@
 					{% else %}
 
 						<p class="text-center mt-4">
-							Veuillez vous
-							<a href="{{path('security.login')}}" class="text-white">connecter</a>
-							ou
-							<a href="{{path('user.register')}}" class="text-white">créer un compte</a>
-							pour commenter ce post.
+							
+							<a href="{{path('security.login')}}" class="text-white">Login</a>
+							or
+							<a href="{{path('user.register')}}" class="text-white">register</a>
+							to comment this post.
 						</p>
 
 					{% endif %}

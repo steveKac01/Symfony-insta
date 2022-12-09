@@ -51,7 +51,7 @@ class UserType extends AbstractType
                 ]
             ])
 
-            ->add('plainPassword', PasswordType::class,[
+            ->add('plainPassword', PasswordType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'minlength' => '5',
@@ -60,25 +60,20 @@ class UserType extends AbstractType
                 'label' => 'Password',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
-                ]
-                ,
+                ],
                 'constraints' => [
                     new Assert\Length(['min' => 5, 'max' => 255]),
                     new Assert\NotBlank()
                 ]
             ])
 
-           
+
 
             ->add('submit', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary my-4'
                 ],  'label' => 'Submit'
             ]);
-
-
-
-     
     }
 
     public function configureOptions(OptionsResolver $resolver): void

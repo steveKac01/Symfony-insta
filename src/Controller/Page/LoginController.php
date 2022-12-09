@@ -9,10 +9,16 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginController extends AbstractController
 {
+    /**
+     * Login form.
+     *
+     * @param AuthenticationUtils $authenticationUtils
+     * @return Response
+     */
     #[Route('/login', name: 'security.login', methods:['GET','POST'])]
     public function index(AuthenticationUtils $authenticationUtils): Response
     {
-        //If the user is already logged.
+        //If the user is already logged, redirects to home.
         if($this->getUser()!=null){
             return $this->redirectToRoute('home');
         }

@@ -18,6 +18,12 @@ class CategoryFixtures extends Fixture implements FixturesInterface
         $this->faker = Factory::create('fr-FR');
     }
 
+    /**
+     * Generate some categories.
+     *
+     * @param ObjectManager $manager
+     * @return void
+     */
     public function load(ObjectManager $manager): void
     {
 
@@ -30,9 +36,8 @@ class CategoryFixtures extends Fixture implements FixturesInterface
             $this->setReference('category_' . $i, $categorie);
 
             $manager->persist($categorie);
-            
         }
+
         $manager->flush();
-    
     }
 }

@@ -8,6 +8,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PrivacyController extends AbstractController
 {
+    /**
+     * Privacy page.
+     *
+     * @return Response
+     */
     #[Route('/privacy', name: 'privacy')]
     public function index(): Response
     {

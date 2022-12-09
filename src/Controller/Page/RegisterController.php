@@ -12,10 +12,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class RegisterController extends AbstractController
 {
+    /**
+     * Register the user if the form is valided then redirect to the login page.
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
     #[route('/register','user.register',methods:['GET','POST'])]
     public function Create(Request $request, EntityManagerInterface $manager) : Response
     {
-        //If the user is already logged.
+        //If the user is already logged, redirect to homepage.
         if($this->getUser()!=null){
             return $this->redirectToRoute('home');
         }
@@ -25,7 +32,6 @@ class RegisterController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            //create the user & insert in database.
             $user = $form->getData();
             $manager->persist($user);
             $manager->flush();
@@ -38,5 +44,4 @@ class RegisterController extends AbstractController
 
         return $this->render('user\register.html.twig',['form' => $form->createView()]);
     }
-
 }

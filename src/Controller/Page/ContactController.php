@@ -9,9 +9,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-//todo: Créer un service pour le mail !
 class ContactController extends AbstractController
 {
+    /**
+     * Send an email if the form is valid.
+     *
+     * @param Request $request
+     * @return Response
+     */
     #[Route('/contact', name: 'contact')]
     public function index(Request $request): Response
     {

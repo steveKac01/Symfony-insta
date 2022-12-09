@@ -18,6 +18,12 @@ class UserFixtures extends Fixture implements FixturesInterface
         $this->faker = Factory::create('fr-FR');
     }
 
+    /**
+     * Generate one user with custom informations and some random user.
+     *
+     * @param ObjectManager $manager
+     * @return void
+     */
     public function load(ObjectManager $manager): void
     {
         //User with Admin role.
@@ -36,7 +42,7 @@ class UserFixtures extends Fixture implements FixturesInterface
 
             $user->setEmail($this->faker->email())
                 ->setpseudo($this->faker->userName())
-                ->setAvatar(mt_rand(0,$this::NUMBER_AVATAR))
+                ->setAvatar(mt_rand(0, $this::NUMBER_AVATAR))
                 ->setPlainPassword('password');
 
             $this->addReference('user_' . $i, $user);

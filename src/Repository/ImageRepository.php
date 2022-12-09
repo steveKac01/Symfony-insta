@@ -40,41 +40,43 @@ class ImageRepository extends ServiceEntityRepository
     }
 
     /**
-     * Search query
+     * Find posts by the keyword from the user search.
      *
      * @param string $keyword
-     * @return void
+     * @return array
      */
-    public function searchPost(string $keyword){
+    public function searchPost(string $keyword): array
+    {
         return $this->createQueryBuilder('p')
-        ->where("p.title LIKE :key")
-        ->setParameter('key','%'.$keyword.'%')
-        ->getQuery()
-        ->getResult();
+            ->where("p.title LIKE :key")
+            ->orderBy("p.id","DESC")
+            ->setParameter('key', '%' . $keyword . '%')
+            ->getQuery()
+            ->getResult();
     }
 
-//    /**
-//     * @return Image[] Returns an array of Image objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('i')
-//            ->andWhere('i.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('i.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    //    /**
+    //     * @return Image[] Returns an array of Image objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('i')
+    //            ->andWhere('i.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('i.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
 
-//    public function findOneBySomeField($value): ?Image
-//    {
-//        return $this->createQueryBuilder('i')
-//            ->andWhere('i.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    //    public function findOneBySomeField($value): ?Image
+    //    {
+    //        return $this->createQueryBuilder('i')
+    //            ->andWhere('i.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }

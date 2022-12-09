@@ -12,10 +12,19 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class HomeController extends AbstractController
 {
+    /**
+     * List all posts, or search posts if the search form is filled.
+     *
+     * @param ImageRepository $imageRepository
+     * @param PaginatorInterface $paginator
+     * @param Request $request
+     * @param TranslatorInterface $translatorInterface
+     * @return Response
+     */
     #[route('/', 'home', methods: ['GET','POST'])]
     public function index(ImageRepository $imageRepository, PaginatorInterface $paginator, Request $request, TranslatorInterface $translatorInterface): Response
     {
-        //Search bar
+        // Search form filled.
         if($request->get('search'))
         {
             

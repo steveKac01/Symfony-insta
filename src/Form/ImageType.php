@@ -72,12 +72,12 @@ class ImageType extends AbstractType
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'label',
-                'attr' =>[
-                    'class'=>'list-group mt-4'
+                'attr' => [
+                    'class' => 'list-group mt-4'
                 ],
-                'row_attr' =>[
-                    'class'=>'mt-4'
-                ],        
+                'row_attr' => [
+                    'class' => 'mt-4'
+                ],
             ])
 
             ->add('submit', SubmitType::class, [

@@ -19,6 +19,12 @@ class CommentsFixtures extends Fixture implements DependentFixtureInterface, Fix
         $this->faker = Factory::create('fr-FR');
     }
 
+    /**
+     * Generate some random comments.
+     *
+     * @param ObjectManager $manager
+     * @return void
+     */
     public function load(ObjectManager $manager): void
     {
         for ($i = 0; $i < $this::NUMBER_COMMENTS; $i++) {
