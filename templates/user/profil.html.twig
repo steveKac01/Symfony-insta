@@ -10,7 +10,7 @@
 
 	{% for message in app.flashes('warning') %}
 		<div class="alert alert-warning">
-			{{message}}
+			<i class="fa-solid fa-circle-exclamation"></i>	{{message}}
 		</div>
 	{% endfor %}
 

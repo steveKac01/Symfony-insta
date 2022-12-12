@@ -12,7 +12,7 @@
 	<div class="container-fluid">
 		{% for message in app.flashes('success') %}
 			<div class="alert alert-success">
-				{{message}}
+				<i class="fa-solid fa-circle-check"></i>	{{message}}
 			</div>
 		{% endfor %}
 
