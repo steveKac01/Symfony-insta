@@ -22,7 +22,7 @@ class HomeController extends AbstractController
      * @return Response
      */
     #[route('/', 'home', methods: ['GET', 'POST'])]
-    public function index(ImageRepository $imageRepository, PaginatorInterface $paginator, Request $request, TranslatorInterface $translatorInterface): Response
+    public function index(PaginatorInterface $paginator, Request $request, TranslatorInterface $translatorInterface, ImageRepository $imageRepository): Response
     {
         // Search form filled.
         if ($request->get('search')) {
