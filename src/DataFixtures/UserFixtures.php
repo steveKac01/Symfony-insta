@@ -31,7 +31,8 @@ class UserFixtures extends Fixture implements FixturesInterface
         $user->setEmail('steve@aol.fr')
             ->setpseudo('steve01')
             ->setRoles(['ROLE_ADMIN'])
-            ->setPlainPassword('steve');
+            ->setPlainPassword('steve')
+            ->setAvatar('random1.jpg');
         $this->addReference('user_1', $user);
 
         $manager->persist($user);
@@ -42,8 +43,8 @@ class UserFixtures extends Fixture implements FixturesInterface
 
             $user->setEmail($this->faker->email())
                 ->setpseudo($this->faker->userName())
-                ->setAvatar(mt_rand(0, $this::NUMBER_AVATAR))
-                ->setPlainPassword('password');
+                ->setPlainPassword('password')
+                ->setAvatar('random'.mt_rand(1,4).'.jpg');
 
             $this->addReference('user_' . $i, $user);
             $manager->persist($user);

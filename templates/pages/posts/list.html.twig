@@ -18,15 +18,22 @@
 
 					<a href="{{path('image.show',{id:image.id})}}"><img src="{{image.url}}" width="300" height="300" class="rounded"></a>
 				</div>
-				<p class="mt-4">By
-					<a href="{{path('post.user',{id:image.userImage.id})}}" class="text-white text-decoration-none">
-						<strong>{{image.userImage.pseudo}}</strong>
+				<div
+					class="p-1">
+
+					{# User post #}
+					<a href="{{path('post.user',{id:image.userImage.id})}}">
+						<img src="/images/avatar/{{image.userImage.avatar?image.userImage.avatar:'default'}}" class="border" width="50px" height="50px" alt="user avatar" class="mt-4">
 					</a>
-					on
-					{{image.uploadAt|date('m/d/Y')}}
-					at
-					{{image.uploadAt|date('H:i')}}
-				</p>
+					<p>By
+						<a href="{{path('post.user',{id:image.userImage.id})}}" class="text-white text-decoration-none">
+							<strong>{{image.userImage.pseudo|capitalize}}</strong>
+						</a>on
+						{{image.uploadAt|date('m/d/Y')}}
+						at
+						{{image.uploadAt|date('H:i')}}</p>
+				</div>
+
 				<p class="card-text mt-4">{{image.description}}</p>
 				<a href="{{path('image.show',{id:image.id})}}#comments" class="text-white text-decoration-none">
 					<p class="text-end">{{image.comments|length}}
