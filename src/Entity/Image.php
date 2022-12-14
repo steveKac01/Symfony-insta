@@ -8,7 +8,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
 class Image
 {
@@ -42,15 +45,15 @@ class Image
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank()]
-    #[Assert\Url]
     #[Assert\Length(
-        min: 5,
         max: 255,
-        minMessage: 'Your first name must be at least {{ limit }} characters long',
         maxMessage: 'Your first name cannot be longer than {{ limit }} characters',
     )]
     private ?string $url = null;
-  
+    
+    #[Vich\UploadableField(mapping: 'postThumbnail', fileNameProperty: 'url')]
+    private ?File $postThumbnail = null;
+
     #[ORM\OneToMany(mappedBy: 'image', targetEntity: Comment::class)]
     private Collection $comments;
 
@@ -59,12 +62,8 @@ class Image
 
     #[ORM\ManyToOne]
     private ?User $userImage = null;
-
  
-    
-    /**
-     * Constructor.
-     */
+
     public function __construct()
     {
         $this->upload_at = new DateTimeImmutable();
@@ -176,5 +175,30 @@ class Image
         $this->userImage = $userImage;
 
         return $this;
+    }
+
+    /**
+     * Get the value of postThumbnail
+     *
+     * @return ?File
+     */
+    public function getPostThumbnail(): ?File
+    {
+        return $this->postThumbnail;
+    }
+
+    /**
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
+     */
+    public function setPostThumbnail(?File $postThumbnail = null): void
+    {
+        $this->postThumbnail = $postThumbnail;
+
+        if (null !== $postThumbnail) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->upload_at = new \DateTimeImmutable();
+        }
     }
 }

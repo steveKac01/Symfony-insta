@@ -30,13 +30,14 @@ class NewController extends AbstractController
         $form = $this->createForm(ImageType::class, $image);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
+         //il ne rentre pas dans l'image
             $image = $form->getData();
             $image->setUserImage($this->getUser());
 
             $manager->persist($image);
             $manager->flush();
-
+            // dd($image); 
             return $this->redirectToRoute('home', ['_fragment' => $image->getId()]);
         }
 

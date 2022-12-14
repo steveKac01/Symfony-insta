@@ -57,12 +57,12 @@ class UserType extends AbstractType
                 'class' => 'form-control'
             ],
             'required' => false,
-            'label' => 'Upload avatar file',
+            'label' => 'Your avatar ',
             'label_attr' => [
                 'class' => 'form-label mt-4'
             ],
-            'delete_label' => 'Remove avatar',
-            'download_uri' => false,
+            'delete_label' => 'Remove avatar ',
+            'download_uri' => false
             ])
 
             ->add('plainPassword', PasswordType::class, [

@@ -31,7 +31,8 @@
 				<div class="text-center">
 					<h4 class="card-title">{{image.title|upper}}</h4>
 
-					<img src="{{image.url}}" width="300" height="300" class="rounded">
+					<img src="/images/posts/{{image.url?image.url:'default.jpg'}}" width="300px" height="300px" alt="post thumbnail">
+
 				</div>
 				<p class="mt-4">By
 					<a href="{{path('post.user',{id:image.userImage.id})}}" class="text-white text-decoration-none">
