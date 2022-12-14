@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Serializable;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
@@ -9,17 +10,18 @@ use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Security\Core\User\UserInterface;
 
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 
 #[UniqueEntity('email')]
 #[UniqueEntity('pseudo')]
 #[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\EntityListeners(['App\EntityListener\UserListener'])]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface 
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -39,8 +41,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     #[Assert\NotNull()]
     private array $roles = [];
-
-    
 
     /**
      * @var string The hashed password
@@ -269,4 +269,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    
+     /** @see \Serializable::serialize()*/
+      public function serialize() {
+           return serialize(array( $this->id, $this->email, $this->password, )); } 
+           /* @see \Serializable::unserialize() */ 
+           public function unserialize($serialized) { list ( $this->id, $this->email, $this->password, ) = unserialize($serialized, array('allowed_classes' => false)); } 
 }

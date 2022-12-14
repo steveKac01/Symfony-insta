@@ -5,13 +5,14 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 
 class RegisterType extends AbstractType
@@ -83,6 +84,20 @@ class RegisterType extends AbstractType
                 ]
 
             ])
+
+            ->add('avatarFile', VichImageType::class,[
+                'attr' =>[
+                    'class' => 'form-control'
+                ],
+                'required' => false,
+                'label' => 'Upload avatar file',
+                'label_attr' => [
+                    'class' => 'form-label mt-4'
+                ],
+                'delete_label' => 'Remove avatar',
+                'download_uri' => false,
+                ])
+                
             /*
             ->add('roles', ChoiceType::class, [
                 'required' => true,
