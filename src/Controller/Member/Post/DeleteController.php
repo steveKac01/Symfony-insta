@@ -22,7 +22,6 @@ class DeleteController extends AbstractController
     #[Security("is_granted('ROLE_USER') and user === image.getUserImage()")]
     public function delete(Image $image, EntityManagerInterface $manager): Response
     {
-
         $manager->remove($image);
         $manager->flush();
 

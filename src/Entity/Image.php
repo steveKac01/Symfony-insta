@@ -43,12 +43,7 @@ class Image
     #[ORM\Column]
     private ?\DateTimeImmutable $upload_at = null;
 
-    #[ORM\Column(length: 255)]
-    #[Assert\NotBlank()]
-    #[Assert\Length(
-        max: 255,
-        maxMessage: 'Your first name cannot be longer than {{ limit }} characters',
-    )]
+    #[ORM\Column(length: 255,nullable:true)]
     private ?string $url = null;
     
     #[Vich\UploadableField(mapping: 'postThumbnail', fileNameProperty: 'url')]
@@ -116,7 +111,7 @@ class Image
         return $this->url;
     }
 
-    public function setUrl(string $url): self
+    public function setUrl(?string $url): self
     {
         $this->url = $url;
 

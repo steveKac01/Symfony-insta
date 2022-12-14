@@ -26,7 +26,7 @@ class UserListPostController extends AbstractController
     public function index(User $user, ImageRepository $imageRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $images = $paginator->paginate(
-            $imageRepository->findBy(['userImage' => $user]),
+            $imageRepository->findBy(['userImage' => $user],['id' => 'DESC']),
             $request->query->getInt('page', 1),
             10
         );
