@@ -16,14 +16,14 @@
 				<h1>{{userSelected.pseudo|capitalize}}</h1>
 				<p>Member since
 					{{userSelected.createdAt|date('Y')}}</p>
-				<p>{% if images|length>0 %}
-					Total post : {{images|length}}
+				<p>{% if posts|length>0 %}
+					Total post : {{posts|length}}
 					{% else %}
 						No post yet.
 					{% endif %}
 			</div>
 		</div>
-		{% if images %}
+		{% if posts %}
 
 			{% include '/pages/posts/list.html.twig' %}
 

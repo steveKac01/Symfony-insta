@@ -31,7 +31,7 @@ class Comment
     
     #[ORM\JoinColumn(onDelete:'SET NULL')]
     #[ORM\ManyToOne(inversedBy: 'comments')]
-    private ?Image $image = null;
+    private ?Post $image = null;
 
     #[ORM\ManyToOne]
     private ?User $userComment = null;
@@ -70,12 +70,12 @@ class Comment
         return $this;
     }
 
-    public function getImage(): ?Image
+    public function getImage(): ?Post
     {
         return $this->image;
     }
 
-    public function setImage(?Image $image): self
+    public function setImage(?Post $image): self
     {
         $this->image = $image;
 

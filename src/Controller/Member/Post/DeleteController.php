@@ -2,7 +2,7 @@
 
 namespace App\Controller\Member\Post;
 
-use App\Entity\Image;
+use App\Entity\Post;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,15 +14,15 @@ class DeleteController extends AbstractController
     /**
      * Delete a post then redirect to home with a flash message.
      *
-     * @param Image $image
+     * @param Post $post
      * @param EntityManagerInterface $manager
      * @return Response
      */
-    #[route('member/image/delete/{id}', 'image.delete', methods: ['GET'])]
-    #[Security("is_granted('ROLE_USER') and user === image.getUserImage()")]
-    public function delete(Image $image, EntityManagerInterface $manager): Response
+    #[route('member/delete/post/{id}', 'post.delete', methods: ['GET'])]
+    #[Security("is_granted('ROLE_USER') and user === post.getUserPost()")]
+    public function delete(Post $post, EntityManagerInterface $manager): Response
     {
-        $manager->remove($image);
+        $manager->remove($post);
         $manager->flush();
 
         $this->addFlash(

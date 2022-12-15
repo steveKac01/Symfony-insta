@@ -1,0 +1,50 @@
+<div
+	class="card text-white bg-primary mt-4 mb-4 col-lg-12 mx-auto rounded" style="max-width:600px" id="{{post.id}}">
+
+	{# Category #}
+	{% if post.category %}
+
+		<div class="text-end">
+			<span class="badge px-3 py-2 mt-2 bg-{{post.category.color}}">{{post.category.label}}</span>
+		</div>
+
+	{% endif %}
+
+	<div class="card-body ">
+		<div class="text-center">
+			<a href="{{path('post.show',{id:post.id})}}">
+				<h4 class="card-title text-white">{{post.title|upper}}</h4>
+			</a>
+
+			<a href="{{path('post.show',{id:post.id})}}">
+				<img src="/images/posts/{{post.url?post.url:'default.jpg'}}" width="300px" height="300px" alt="post thumbnail">
+			</a>
+		</div>
+		<div
+			class="p-1">
+
+			{# User infos #}
+			{% include "/components/user.html.twig" with {'userId':post.userPost.id, 'avatar':post.userPost.avatar, 'pseudo' : post.userPost.pseudo, 'createdAt': post.uploadAt } only %}
+
+		</div>
+
+		<p class="card-text mt-4">{{post.description}}</p>
+		<a href="{{path('post.show',{id:post.id})}}#comments" class="text-white text-decoration-none">
+			<p class="text-end">{{post.comments|length}}
+				<i class="fa-solid fa-comment"></i>
+			</p>
+		</a>
+
+		{# Action buttons #}
+		{% if actions is defined and app.user and post.userPost.id == app.user.id %}
+			
+            <div>
+				<a href="{{path('post.update',{id:post.id})}}">
+					<button type="button" class="btn btn-secondary">Edit</button>
+				</a>
+				<a href="{{path('post.delete',{id:post.id})}}">
+					<button type="button" class="btn btn-danger">Delete</button>
+				</a>
+			</div>
+            
+		{% endif %}

@@ -2,8 +2,8 @@
 
 namespace App\Controller\Member\Post;
 
-use App\Entity\Image;
-use App\Form\ImageType;
+use App\Entity\Post;
+use App\Form\PostType;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,18 +22,18 @@ class NewController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
-    #[Route('member/image/new', 'image.new', methods: ['GET', 'POST'])]
+    #[Route('member/post/new', 'post.new', methods: ['GET', 'POST'])]
     #[Security('is_granted("ROLE_USER")')]
     public function new(Request $request, EntityManagerInterface $manager): Response
     {
-        $image = new Image();
-        $form = $this->createForm(ImageType::class, $image);
+        $image = new Post();
+        $form = $this->createForm(PostType::class, $image);
 
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
          //il ne rentre pas dans l'image
             $image = $form->getData();
-            $image->setUserImage($this->getUser());
+            $image->setUserPost($this->getUser());
 
             $manager->persist($image);
             $manager->flush();

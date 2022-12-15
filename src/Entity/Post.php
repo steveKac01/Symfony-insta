@@ -2,18 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\ImageRepository;
 use DateTimeImmutable;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Comment;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
+use App\Repository\PostRepository;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[Vich\Uploadable]
-#[ORM\Entity(repositoryClass: ImageRepository::class)]
-class Image
+#[ORM\Entity(repositoryClass: PostRepository::class)]
+class Post
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -57,7 +58,7 @@ class Image
     private ?Category $category = null;
 
     #[ORM\ManyToOne]
-    private ?User $userImage = null;
+    private ?User $userPost = null;
  
 
     public function __construct()
@@ -131,7 +132,7 @@ class Image
     {
         if (!$this->comments->contains($comment)) {
             $this->comments->add($comment);
-            $comment->setImage($this);
+            $comment->setPost($this);
         }
 
         return $this;
@@ -141,8 +142,8 @@ class Image
     {
         if ($this->comments->removeElement($comment)) {
             // set the owning side to null (unless already changed)
-            if ($comment->getImage() === $this) {
-                $comment->setImage(null);
+            if ($comment->getPost() === $this) {
+                $comment->setPost(null);
             }
         }
 
@@ -161,14 +162,14 @@ class Image
         return $this;
     }
 
-    public function getUserImage(): ?User
+    public function getUserPost(): ?User
     {
-        return $this->userImage;
+        return $this->userPost;
     }
 
-    public function setUserImage(?User $userImage): self
+    public function setUserPost(?User $userPost): self
     {
-        $this->userImage = $userImage;
+        $this->userPost = $userPost;
 
         return $this;
     }

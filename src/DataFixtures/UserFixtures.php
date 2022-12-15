@@ -19,7 +19,7 @@ class UserFixtures extends Fixture implements FixturesInterface
     }
 
     /**
-     * Generate one user with custom informations and some random user.
+     * Generate one admin user and some random users.
      *
      * @param ObjectManager $manager
      * @return void
@@ -32,7 +32,7 @@ class UserFixtures extends Fixture implements FixturesInterface
             ->setpseudo('steve01')
             ->setRoles(['ROLE_ADMIN'])
             ->setPlainPassword('steve')
-            ->setAvatar('random1.jpg');
+            ->setAvatar('exemple1.jpg');
         $this->addReference('user_1', $user);
 
         $manager->persist($user);
@@ -44,7 +44,7 @@ class UserFixtures extends Fixture implements FixturesInterface
             $user->setEmail($this->faker->email())
                 ->setpseudo($this->faker->userName())
                 ->setPlainPassword('password')
-                ->setAvatar('random'.mt_rand(1,4).'.jpg');
+                ->setAvatar('exemple'.mt_rand(1,4).'.jpg');
 
             $this->addReference('user_' . $i, $user);
             $manager->persist($user);
