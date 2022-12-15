@@ -34,6 +34,7 @@ class Comment
     private ?Post $image = null;
 
     #[ORM\ManyToOne]
+    #[ORM\JoinColumn(onDelete:'cascade')]
     private ?User $userComment = null;
 
     public function __construct()

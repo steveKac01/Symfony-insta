@@ -58,6 +58,7 @@ class Post
     private ?Category $category = null;
 
     #[ORM\ManyToOne]
+    #[ORM\JoinColumn(onDelete:'cascade')]
     private ?User $userPost = null;
  
 

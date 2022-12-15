@@ -6,6 +6,13 @@
 {% block content %}
 	<div class="container my-5 form-control">
 
+		{% for message in app.flashes('warning') %}
+			<div class="alert alert-warning">
+				<i class="fa-solid fa-circle-exclamation"></i>
+				{{message}}
+			</div>
+		{% endfor %}
+
 		<h1>
 			Delete your account :
 		</h1>
