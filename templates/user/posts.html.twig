@@ -6,22 +6,29 @@
 
 {% block content %}
 	{{parent()}}
-	
-	<div class="container mt-4">
 
+	<div class="container mt-4">
+		<div class="d-flex">
+			<div class="mx-4"> 
+			<img src="/images/posts/{{userSelected.avatar?userSelected.avatar:'default.jpg'}}" width="130px" height="130px" alt="post thumbnail" class="border">
+</div>
+			<div>
+				<h1>{{userSelected.pseudo|capitalize}}</h1>
+				<p>Member since
+					{{userSelected.createdAt|date('Y')}}</p>
+				<p>{% if images|length>0 %}
+					Total post : {{images|length}}
+					{% else %}
+						No post yet.
+					{% endif %}
+			</div>
+		</div>
 		{% if images %}
-			<p>Nombre de posts de l'utilisateur
-				<strong>{{userList}}</strong>
-				:
-				{{images|length}}
-				post(s)</p>
+
 			{% include '/pages/posts/list.html.twig' %}
-		{% else %}
-			<p>L'utilisateur
-				<strong>{{userList}}</strong>
-				n'a pas encore posté d'images.</p>
+
 		{% endif %}
 
 	</div>
-	
+
 {% endblock %}

@@ -25,16 +25,8 @@
 					class="p-1">
 
 					{# User post #}
-					<a href="{{path('post.user',{id:image.userImage.id})}}">
-						<img src="/images/avatar/{{image.userImage.avatar?image.userImage.avatar:'default.jpg'}}" class="border" width="50px" height="50px" alt="user avatar" class="mt-4">
-					</a>
-					<p>By
-						<a href="{{path('post.user',{id:image.userImage.id})}}" class="text-white text-decoration-none">
-							<strong>{{image.userImage.pseudo|capitalize}}</strong>
-						</a>on
-						{{image.uploadAt|date('m/d/Y')}}
-						at
-						{{image.uploadAt|date('H:i')}}</p>
+					{% include "/components/user.html.twig" with {'userId':image.userImage.id, 'avatar':image.userImage.avatar, 'pseudo' : image.userImage.pseudo, 'createdAt': image.uploadAt } %}
+
 				</div>
 
 				<p class="card-text mt-4">{{image.description}}</p>

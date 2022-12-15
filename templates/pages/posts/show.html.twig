@@ -12,7 +12,8 @@
 	<div class="container-fluid">
 		{% for message in app.flashes('success') %}
 			<div class="alert alert-success">
-				<i class="fa-solid fa-circle-check"></i>	{{message}}
+				<i class="fa-solid fa-circle-check"></i>
+				{{message}}
 			</div>
 		{% endfor %}
 
@@ -34,15 +35,8 @@
 					<img src="/images/posts/{{image.url?image.url:'default.jpg'}}" width="300px" height="300px" alt="post thumbnail">
 
 				</div>
-				<p class="mt-4">By
-					<a href="{{path('post.user',{id:image.userImage.id})}}" class="text-white text-decoration-none">
-
-						<strong>{{image.userImage.pseudo|capitalize}}</strong>
-					</a>
-					on
-					{{image.uploadAt|date('m/d/Y')}}
-					at
-					{{image.uploadAt|date('H:i')}}</p>
+				{# User post #}
+				{% include "/components/user.html.twig" with {'userId':image.userImage.id, 'avatar':image.userImage.avatar, 'pseudo' : image.userImage.pseudo, 'createdAt': image.uploadAt } %}
 				<p class="card-text mt-4">{{image.description}}</p>
 
 				{# Action buttons #}
@@ -65,14 +59,8 @@
 							comment{{image.comments|length>1?'s':''}}
 							:</h2>
 						{% for comment in image.comments %}
-							<p class="my-2" id="{{comment.id}}">By
-								<a href="{{path('post.user',{id:image.userImage.id})}}" class="text-white text-decoration-none">
-									<strong>{{comment.userComment.pseudo|capitalize}}</strong>
-								</a>
-								on
-								{{comment.createdAt|date('m/d/Y')}}
-								at
-								{{comment.createdAt|date('H:i')}}</p>
+							{# User Comment #}
+							{% include "/components/user.html.twig" with {'userId':comment.userComment.id, 'avatar':comment.userComment.avatar, 'pseudo' : comment.userComment.pseudo, 'createdAt': comment.userComment.createdAt } %}
 							<p>{{comment.message}}</p>
 							<hr>
 
@@ -95,7 +83,7 @@
 					{% else %}
 
 						<p class="text-center mt-4">
-							
+
 							<a href="{{path('security.login')}}" class="text-white">Login</a>
 							or
 							<a href="{{path('user.register')}}" class="text-white">register</a>

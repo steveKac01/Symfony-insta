@@ -14,7 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class ImageType extends AbstractType
+class ImageEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -63,7 +63,8 @@ class ImageType extends AbstractType
                 ],
                 'delete_label' => 'Change thumbnail ',
                 'download_uri' => false,
-                'allow_delete' => false
+                'allow_delete' => false,
+                'required' => false
             ])
             
             ->add('category', EntityType::class, [

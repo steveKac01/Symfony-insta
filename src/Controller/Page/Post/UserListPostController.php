@@ -31,6 +31,6 @@ class UserListPostController extends AbstractController
             10
         );
 
-        return $this->render("user/posts.html.twig", ["images" => $images,"userList"=>$user->getpseudo()]);
+        return $this->render("user/posts.html.twig", ["images" => $images,"userSelected"=>$user]);
     }
 }
