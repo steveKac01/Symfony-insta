@@ -25,7 +25,7 @@
 
 		{# Welcome message #}
 		{% if app.user %}
-			<p>{{ test|trans ~ ' ' ~ app.user.pseudo|capitalize}}</p>
+			<p>Welcome {{app.user.pseudo|capitalize}}</p>
 		{% else %}
 			{% include "components/welcome.html.twig" %}
 		{% endif %}
@@ -41,5 +41,5 @@
 		
 	</div>
 
-
-</div>{% endblock %}
+</div>
+{% endblock %}

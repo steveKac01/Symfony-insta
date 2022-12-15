@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use Serializable;
+
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
@@ -10,11 +10,10 @@ use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints as Assert;
-
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Serializer\SerializerInterface;
+
 
 #[UniqueEntity('email')]
 #[UniqueEntity('pseudo')]
@@ -51,7 +50,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     private ?string $plainPassword = null;
 
-  
     #[Assert\NotBlank()]
     #[Assert\Length(
         min: 4,
@@ -70,7 +68,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $avatar = null;
-
 
     #[Vich\UploadableField(mapping: 'avatar', fileNameProperty: 'avatar')]
     private ?File $avatarFile = null;

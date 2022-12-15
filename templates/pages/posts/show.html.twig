@@ -1,10 +1,12 @@
 {% extends "base.html.twig" %}
+
 {% block title %}
+
 	{{parent()}}
 	- Post
-	{{image.title}}
-{% endblock %}
+	{{post.title}}
 
+{% endblock %}
 
 {% block content %}
 
@@ -12,81 +14,46 @@
 	<div class="container-fluid">
 		{% for message in app.flashes('success') %}
 			<div class="alert alert-success">
-				<i class="fa-solid fa-circle-check"></i>	{{message}}
+				<i class="fa-solid fa-circle-check"></i>
+				{{message}}
 			</div>
 		{% endfor %}
 
-		<div
-			class="card text-white bg-primary mt-4 mb-4 col-lg-12 mx-auto rounded" style="max-width:600px">
+		{# Post #}
+		{% include "/components/post.html.twig" with {'actions':true} %}
 
-			{# Category #}
-			{% if image.category %}
-				<div class="card-header text-end">
-					<span class="badge bg-info px-2 py-3 rounded">{{image.category.label}}</span>
-				</div>
-			{% endif %}
-
-			{# Post #}
-			<div class="card-body ">
-				<div class="text-center">
-					<h4 class="card-title">{{image.title|upper}}</h4>
-
-					<img src="{{image.url}}" width="300" height="300" class="rounded">
-				</div>
-				<p class="mt-4">By
-					<a href="{{path('post.user',{id:image.userImage.id})}}" class="text-white text-decoration-none">
-
-						<strong>{{image.userImage.pseudo|capitalize}}</strong>
-					</a>
-					on
-					{{image.uploadAt|date('m/d/Y')}}
-					at
-					{{image.uploadAt|date('H:i')}}</p>
-				<p class="card-text mt-4">{{image.description}}</p>
-
-				{# Action buttons #}
-				{% if app.user and image.userImage.id == app.user.id %}
-					<div>
-						<a href="{{path('image.update',{id:image.id})}}">
-							<button type="button" class="btn btn-secondary">Edit</button>
-						</a>
-						<a href="{{path('image.delete',{id:image.id})}}">
-							<button type="button" class="btn btn-danger">Delete</button>
-						</a>
-						<hr>
-					</div>
-				{% endif %}
 				<hr>
 				{# Comments #}
 				<div class="mt-4" id="comments">
-					{% if image.comments|length>0 %}
-						<h2 class="mb-4 text-center">{{image.comments|length}}
-							comment{{image.comments|length>1?'s':''}}
+
+					{% if post.comments|length>0 %}
+
+						<h2 class="mb-4 text-center">{{post.comments|length}}
+							comment{{post.comments|length>1?'s':''}}
 							:</h2>
-						{% for comment in image.comments %}
-							<p class="my-2" id="{{comment.id}}">By
-								<a href="{{path('post.user',{id:image.userImage.id})}}" class="text-white text-decoration-none">
-									<strong>{{comment.userComment.pseudo|capitalize}}</strong>
-								</a>
-								on
-								{{comment.createdAt|date('m/d/Y')}}
-								at
-								{{comment.createdAt|date('H:i')}}</p>
+
+						{% for comment in post.comments %}
+						
+							{# User Comment #}
+							{% include "/components/user.html.twig" with {'userId':comment.userComment.id, 'avatar':comment.userComment.avatar, 'pseudo' : comment.userComment.pseudo, 'createdAt': comment.userComment.createdAt } %}
+							
 							<p>{{comment.message}}</p>
 							<hr>
 
 						{% endfor %}
 
 					{% else %}
+
 						<p>No commentary yet, be the first to post one !</p>
-					{% endif %}
+					
+						{% endif %}
 
 					{# Comment form #}
 					{% if app.user %}
 
 						{{ include('comment/_form.html.twig') }}
 						<div class="text-center">
-							<a href="{{path('home')}}#{{image.id}}">
+							<a href="{{path('home')}}#{{post.id}}">
 								<button class="btn btn-secondary hBack" type="button">Back</button>
 							</a>
 						</div>
@@ -94,7 +61,6 @@
 					{% else %}
 
 						<p class="text-center mt-4">
-							
 							<a href="{{path('security.login')}}" class="text-white">Login</a>
 							or
 							<a href="{{path('user.register')}}" class="text-white">register</a>
@@ -102,9 +68,11 @@
 						</p>
 
 					{% endif %}
+
 				</div>
 			</div>
 		</div>
 
 	</div>
+
 {% endblock %}

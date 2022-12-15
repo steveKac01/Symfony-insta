@@ -2,15 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\ImageRepository;
 use DateTimeImmutable;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Comment;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PostRepository;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: ImageRepository::class)]
-class Image
+#[Vich\Uploadable]
+#[ORM\Entity(repositoryClass: PostRepository::class)]
+class Post
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -40,17 +44,13 @@ class Image
     #[ORM\Column]
     private ?\DateTimeImmutable $upload_at = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255,nullable:true)]
     #[Assert\NotBlank()]
-    #[Assert\Url]
-    #[Assert\Length(
-        min: 5,
-        max: 255,
-        minMessage: 'Your first name must be at least {{ limit }} characters long',
-        maxMessage: 'Your first name cannot be longer than {{ limit }} characters',
-    )]
     private ?string $url = null;
-  
+    
+    #[Vich\UploadableField(mapping: 'postThumbnail', fileNameProperty: 'url')]
+    private ?File $postThumbnail = null;
+
     #[ORM\OneToMany(mappedBy: 'image', targetEntity: Comment::class)]
     private Collection $comments;
 
@@ -58,13 +58,9 @@ class Image
     private ?Category $category = null;
 
     #[ORM\ManyToOne]
-    private ?User $userImage = null;
-
+    private ?User $userPost = null;
  
-    
-    /**
-     * Constructor.
-     */
+
     public function __construct()
     {
         $this->upload_at = new DateTimeImmutable();
@@ -117,7 +113,7 @@ class Image
         return $this->url;
     }
 
-    public function setUrl(string $url): self
+    public function setUrl(?string $url): self
     {
         $this->url = $url;
 
@@ -136,7 +132,7 @@ class Image
     {
         if (!$this->comments->contains($comment)) {
             $this->comments->add($comment);
-            $comment->setImage($this);
+            $comment->setPost($this);
         }
 
         return $this;
@@ -146,8 +142,8 @@ class Image
     {
         if ($this->comments->removeElement($comment)) {
             // set the owning side to null (unless already changed)
-            if ($comment->getImage() === $this) {
-                $comment->setImage(null);
+            if ($comment->getPost() === $this) {
+                $comment->setPost(null);
             }
         }
 
@@ -166,15 +162,40 @@ class Image
         return $this;
     }
 
-    public function getUserImage(): ?User
+    public function getUserPost(): ?User
     {
-        return $this->userImage;
+        return $this->userPost;
     }
 
-    public function setUserImage(?User $userImage): self
+    public function setUserPost(?User $userPost): self
     {
-        $this->userImage = $userImage;
+        $this->userPost = $userPost;
 
         return $this;
+    }
+
+    /**
+     * Get the value of postThumbnail
+     *
+     * @return ?File
+     */
+    public function getPostThumbnail(): ?File
+    {
+        return $this->postThumbnail;
+    }
+
+    /**
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
+     */
+    public function setPostThumbnail(?File $postThumbnail = null): void
+    {
+        $this->postThumbnail = $postThumbnail;
+
+        if (null !== $postThumbnail) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->upload_at = new \DateTimeImmutable();
+        }
     }
 }

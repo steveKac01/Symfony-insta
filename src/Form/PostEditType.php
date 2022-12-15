@@ -2,76 +2,48 @@
 
 namespace App\Form;
 
-use App\Entity\User;
+use App\Entity\Post;
+use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-
-class UserType extends AbstractType
+class PostEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('pseudo', TextType::class, [
+            ->add('title', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'minlength' => '4',
+                    'minlength' => '3',
                     'maxlength' => '50',
+
                 ],
-                'label' => 'Pseudo',
+                'label' => 'Title',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
                 'constraints' => [
-                    new Assert\Length(['min' => 4, 'max' => 50]),
+                    new Assert\Length(['min' => 2, 'max' => 50]),
                     new Assert\NotBlank()
                 ]
             ])
-            ->add('email', EmailType::class, [
-                'attr' => [
-                    'class' => 'form-control',
-                    'minlength' => '5',
-                    'maxlength' => '180',
 
-                ],
-                'label' => 'Email',
-                'label_attr' => [
-                    'class' => 'form-label mt-4'
-                ],
-                'constraints' => [
-                    new Assert\Length(['min' => 5, 'max' => 180]),
-                    new Assert\NotBlank(),
-                    new Assert\Email()
-                ]
-            ])
-
-            ->add('avatarFile', VichImageType::class,[
-            'attr' =>[
-                'class' => 'form-control'
-            ],
-            'required' => false,
-            'label' => 'Your avatar ',
-            'label_attr' => [
-                'class' => 'form-label mt-4'
-            ],
-            'delete_label' => 'Remove avatar ',
-            'download_uri' => false
-            ])
-
-            ->add('plainPassword', PasswordType::class, [
+            ->add('description', TextareaType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'minlength' => '5',
                     'maxlength' => '255',
+
                 ],
-                'label' => 'Password',
+                'label' => 'Description',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
@@ -81,7 +53,30 @@ class UserType extends AbstractType
                 ]
             ])
 
-
+            ->add('postThumbnail', VichImageType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                ],
+                'label' => 'Thumbnail',
+                'label_attr' => [
+                    'class' => 'form-label mt-4'
+                ],
+                'delete_label' => 'Change thumbnail ',
+                'download_uri' => false,
+                'allow_delete' => false,
+                'required' => false
+            ])
+            
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'label',
+                'attr' => [
+                    'class' => 'list-group mt-4'
+                ],
+                'row_attr' => [
+                    'class' => 'mt-4'
+                ],
+            ])
 
             ->add('submit', SubmitType::class, [
                 'attr' => [
@@ -93,7 +88,7 @@ class UserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => Post::class,
         ]);
     }
 }

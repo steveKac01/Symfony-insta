@@ -1,54 +1,18 @@
 <div class="container-fluid">
-	{% for image in images %}
-		<div
-			class="card text-white bg-primary mt-4 mb-4 col-lg-12 mx-auto rounded" style="max-width:600px" id="{{image.id}}">
 
-			{# Category #}
-			{% if image.category %}
-				<div class="text-end">
-					<span class="badge px-3 py-2 mt-2 bg-{{image.category.color}}">{{image.category.label}}</span>
-				</div>
-			{% endif %}
+	{% for post in posts %}
 
-			<div class="card-body ">
-				<div class="text-center">
-					<a href="{{path('image.show',{id:image.id})}}">
-						<h4 class="card-title text-white">{{image.title|upper}}</h4>
-					</a>
+		{% include "/components/post.html.twig" %}
 
-					<a href="{{path('image.show',{id:image.id})}}"><img src="{{image.url}}" width="300" height="300" class="rounded"></a>
-				</div>
-				<div
-					class="p-1">
+	</div>
+</div>
 
-					{# User post #}
-					<a href="{{path('post.user',{id:image.userImage.id})}}">
-						<img src="/images/avatar/{{image.userImage.avatar?image.userImage.avatar:'default.jpg'}}" class="border" width="50px" height="50px" alt="user avatar" class="mt-4">
-					</a>
-					<p>By
-						<a href="{{path('post.user',{id:image.userImage.id})}}" class="text-white text-decoration-none">
-							<strong>{{image.userImage.pseudo|capitalize}}</strong>
-						</a>on
-						{{image.uploadAt|date('m/d/Y')}}
-						at
-						{{image.uploadAt|date('H:i')}}</p>
-				</div>
-
-				<p class="card-text mt-4">{{image.description}}</p>
-				<a href="{{path('image.show',{id:image.id})}}#comments" class="text-white text-decoration-none">
-					<p class="text-end">{{image.comments|length}}
-						<i class="fa-solid fa-comment"></i>
-					</p>
-				</a>
-
-			</div>
-		</div>
 	{% else %}
 
-		<div class="container-fluid text-center my-5">
-			<p>No post found.</p>
-		</div>
-	{% endfor %}
+<div class="container-fluid text-center my-5">
+	<p>No post found.</p>
+</div>
 
+	{% endfor %}
 
 </div>

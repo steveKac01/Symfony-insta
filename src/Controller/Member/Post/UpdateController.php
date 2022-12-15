@@ -2,12 +2,12 @@
 
 namespace App\Controller\Member\Post;
 
-use App\Entity\Image;
-use App\Form\ImageType;
+use App\Entity\Post;
+use App\Form\PostEditType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UpdateController extends AbstractController
@@ -17,25 +17,25 @@ class UpdateController extends AbstractController
      * then redirect to he home with the id of the comment.
      * 
      * @param EntityManagerInterface $manager
-     * @param Image $image
+     * @param Post $post
      * @param Request $request
      * @return void
      */
-    #[route('member/image/update/{id}', 'image.update', methods: ['GET', 'POST'])]
-    #[Security("is_granted('ROLE_USER') and user === image.getUserImage()")]
-    public function update(EntityManagerInterface $manager, Image $image, Request $request)
+    #[route('member/update/post/{id}', 'post.update', methods: ['GET', 'POST'])]
+    #[Security("is_granted('ROLE_USER') and user === post.getUserPost()")]
+    public function update(EntityManagerInterface $manager, Post $post, Request $request)
     {
 
-        $form = $this->createForm(ImageType::class, $image);
+        $form = $this->createForm(PostEditType::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $image = $form->getData();
+            $post = $form->getData();
             $manager->flush();
 
             $this->addFlash('success', 'Votre post a bien été modifié !');
 
-            return $this->redirectToRoute('home', ['_fragment' => $image->getId()]);
+            return $this->redirectToRoute('home', ['_fragment' => $post->getId()]);
         }
 
         return $this->render('pages/posts/new-update.html.twig', ['form' => $form->createView(), 'label' => 'update']);

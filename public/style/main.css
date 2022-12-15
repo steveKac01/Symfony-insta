@@ -12,9 +12,12 @@
     cursor: pointer;
     transition: all 0.33s linear;
   }
-  
-  
-  
+
   .hide {
     display: none;
+  }
+
+  .vich-image img{
+  width: 300px;
+   margin-top: 10px;
   }
