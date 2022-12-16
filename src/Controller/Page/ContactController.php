@@ -2,8 +2,10 @@
 
 namespace App\Controller\Page;
 
+use App\Entity\Contact;
 use App\Form\ContactType;
-use Error;
+use App\Service\Email\emailServiceContact;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,38 +13,35 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ContactController extends AbstractController
 {
-    /**
-     * Send an email if the form is valid.
-     *
-     * @param Request $request
-     * @return Response
-     */
+
     #[Route('/contact', name: 'contact')]
-    public function index(Request $request): Response
+    public function index(emailServiceContact $email, Request $request, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(ContactType::class);
+        $contact = new Contact();
+
+        if ($this->getUser()) {
+            $contact->setEmail($this->getUser()->getEmail());
+        }
+
+        $form = $this->createForm(ContactType::class, $contact);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
+            $contact = $form->getData();
 
-            try {
-                $headers = 'From: ' . $data['email'] . '' . "\r\n";
-                mail('kaci.steve@k-net.fr', 'A message from instakilo', $data['message'], $headers);
+            $entityManager->persist($contact);
+            $entityManager->flush();
 
-                $this->addFlash(
-                    'success',
-                    'Votre message a bien été envoyé !'
-                );
+            $this->addFlash(
+                'success',
+                'Votre message a bien été envoyé !'
+            );
 
-                return $this->redirectToRoute('home');
-                
-            } catch (Error $er) {
-                $this->addFlash(
-                    'error',
-                    'Une erreur est survenue : ' . $er
-                );
-            }
+            //Send an email
+            $email->sendContact($contact);
+
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('pages/contact.html.twig', [
