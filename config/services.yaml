@@ -20,6 +20,8 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+    App\Service\Email\emailService:
+        lazy: true
 
     App\EntityListener\:
         resource: "../src/EntityListener/"
