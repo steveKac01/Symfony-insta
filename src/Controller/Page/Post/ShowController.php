@@ -15,29 +15,29 @@ class ShowController extends AbstractController
 {
     /**
      * Show a post selected by his id with comments.
-     * A form to create comment is provided.
+     * A form to create a commentary is provided.
      *
      * @param Post $post
      * @param Request $request
-     * @param EntityManagerInterface $manager
+     * @param EntityManagerInterface $entityManager
      * @return Response
      */
     #[route('posts/show/{id}', 'post.show', methods: ['GET', 'POST'])]
-    public function show(Post $post, Request $request, EntityManagerInterface $manager): Response
+    public function show(Post $post, Request $request, EntityManagerInterface $entityManager): Response
     {
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && $this->getUser()) {
             $comment = $form->getData();
             $comment->setImage($post);
             $comment->setUserComment($this->getUser());
 
-            $manager->persist($comment);
-            $manager->flush();
+            $entityManager->persist($comment);
+            $entityManager->flush();
 
-            $this->addFlash('success', 'Your commentary has been post successfully !');
+            $this->addFlash('success', 'Your commentary has been posted successfully !');
         }
 
         return $this->render('pages/posts/show.html.twig', ['form' => $form->createView(), 'post' => $post]);

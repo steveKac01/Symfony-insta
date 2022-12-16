@@ -64,9 +64,12 @@ class PostEditType extends AbstractType
                 'delete_label' => 'Change thumbnail ',
                 'download_uri' => false,
                 'allow_delete' => false,
-                'required' => false
+                'required' => false,
+                'constraints' => [
+                    new Assert\File(maxSize: 1048576)
+                ]
             ])
-            
+
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'label',

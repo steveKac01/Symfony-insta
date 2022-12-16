@@ -12,10 +12,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UserListPostController extends AbstractController
 {
-
-    #[route('user/{id}/posts', 'post.user', methods: ['GET'])]
     /**
-     * List the user posts with pagination.
+     * List the user posts with a pagination.
      *
      * @param User $user
      * @param PostRepository $postRepository
@@ -23,6 +21,7 @@ class UserListPostController extends AbstractController
      * @param Request $request
      * @return Response
      */
+    #[route('user/{id}/posts', 'post.user', methods: ['GET'])]
     public function index(User $user, PostRepository $postRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $posts = $paginator->paginate(
