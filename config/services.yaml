@@ -20,9 +20,6 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
-    App\Service\Email\emailServiceContact:
-      arguments:
-            $admin_email: '%app.admin_email%'
 
     App\EntityListener\:
         resource: "../src/EntityListener/"

@@ -4,6 +4,7 @@ namespace App\Controller\Page;
 
 use App\Entity\User;
 use App\Form\RegisterType;
+use App\Service\Email\emailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +21,7 @@ class RegisterController extends AbstractController
      * @return Response
      */
     #[route('/register','user.register',methods:['GET','POST'])]
-    public function Create(Request $request, EntityManagerInterface $manager) : Response
+    public function Create(emailService $mailer, Request $request, EntityManagerInterface $manager) : Response
     {
         //If the user is already logged, redirect to homepage.
         if($this->getUser()!=null){
@@ -38,6 +39,9 @@ class RegisterController extends AbstractController
 
             $this->addFlash('success',
             'Account created, please log in.');
+
+            //Send email
+            $mailer->sendRegister($user);
 
             return $this->redirectToRoute('security.login');
         }

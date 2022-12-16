@@ -4,7 +4,7 @@ namespace App\Controller\Page;
 
 use App\Entity\Contact;
 use App\Form\ContactType;
-use App\Service\Email\emailServiceContact;
+use App\Service\Email\emailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +17,7 @@ class ContactController extends AbstractController
 {
 
     #[Route('/contact', name: 'contact')]
-    public function index(emailServiceContact $mailer,  Request $request, EntityManagerInterface $entityManager): Response
+    public function index(emailService $mailer,  Request $request, EntityManagerInterface $entityManager): Response
     {
         $contact = new Contact();
         if ($this->getUser()) {
@@ -39,7 +39,7 @@ class ContactController extends AbstractController
             );
 
             //Send an email
-            $mailer->sendContact($contact);
+            $mailer->sendContact($contact,$this->getParameter('app.admin_email'));
 
            return $this->redirectToRoute('home');
         }
