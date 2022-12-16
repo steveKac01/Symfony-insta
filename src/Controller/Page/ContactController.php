@@ -18,13 +18,11 @@ class ContactController extends AbstractController
     public function index(emailServiceContact $email, Request $request, EntityManagerInterface $entityManager): Response
     {
         $contact = new Contact();
-
         if ($this->getUser()) {
             $contact->setEmail($this->getUser()->getEmail());
         }
 
         $form = $this->createForm(ContactType::class, $contact);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -44,8 +42,6 @@ class ContactController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('pages/contact.html.twig', [
-            'form' => $form->createView()
-        ]);
+        return $this->render('pages/contact.html.twig', ['form' => $form->createView()]);
     }
 }
