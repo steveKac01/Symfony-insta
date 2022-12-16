@@ -11,11 +11,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+
 class ContactController extends AbstractController
 {
 
     #[Route('/contact', name: 'contact')]
-    public function index(emailServiceContact $email, Request $request, EntityManagerInterface $entityManager): Response
+    public function index(emailServiceContact $mailer,  Request $request, EntityManagerInterface $entityManager): Response
     {
         $contact = new Contact();
         if ($this->getUser()) {
@@ -33,13 +35,13 @@ class ContactController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Votre message a bien été envoyé !'
+                'Your message has been sucessfully sent !'
             );
 
             //Send an email
-            $email->sendContact($contact);
+            $mailer->sendContact($contact);
 
-            return $this->redirectToRoute('home');
+           return $this->redirectToRoute('home');
         }
 
         return $this->render('pages/contact.html.twig', ['form' => $form->createView()]);
