@@ -5,6 +5,7 @@ namespace App\Controller\Member\User;
 use App\Entity\User;
 use App\Form\DeleteAccountType;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\component\Routing\Annotation\Route;
@@ -15,8 +16,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class DeleteUserController extends AbstractController
 {
-    #[Security('is_granted("ROLE_USER") and user === userSelected')]
-    #[route('delete/user/{id}/', 'user.delete', methods: ['GET', 'POST'])]
+
     /**
      * This controller delete the user account if credentials are valide then redirect him to the homepage.
      *
@@ -27,7 +27,9 @@ class DeleteUserController extends AbstractController
      * @param UserRepository $userRepository
      * @return Response
      */
-    public function delete(TokenStorageInterface $token, UserPasswordHasherInterface $hasher, Request $request, User $userSelected, UserRepository $userRepository): Response
+    #[Security('is_granted("ROLE_USER") and user === userSelected')]
+    #[route('delete/user/{id}/', 'user.delete', methods: ['GET', 'POST'])]
+    public function delete(TokenStorageInterface $token, UserPasswordHasherInterface $hasher, Request $request, User $userSelected, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(DeleteAccountType::class, $userSelected);
 
@@ -40,11 +42,13 @@ class DeleteUserController extends AbstractController
                     
                     //Destroy the session before deleting the user.
                     $token->setToken(null);
-                    $userRepository->remove($userSelected, true);
+                    $entityManager->remove($userSelected);
+                    $entityManager->flush();
 
                 return $this->redirectToRoute('home');
 
             } else {
+                
                 $this->addFlash('warning', 'Password or email invalid.');
             }
         }

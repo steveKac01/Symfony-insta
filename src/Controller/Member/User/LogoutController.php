@@ -8,7 +8,6 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * This controller logout the current user.
  */
-
 class LogoutController extends AbstractController
 {
     #[Route('/logout', name: 'security.logout')]

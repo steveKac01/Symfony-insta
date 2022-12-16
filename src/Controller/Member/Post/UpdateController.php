@@ -4,7 +4,7 @@ namespace App\Controller\Member\Post;
 
 use App\Entity\Post;
 use App\Form\PostEditType;
-use App\Repository\PostRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -18,19 +18,19 @@ class UpdateController extends AbstractController
      *
      * @param Post $post
      * @param Request $request
-     * @param PostRepository $postRepository
+     * @param EntityManagerInterface $entityManager
      * @return void
      */
     #[Security("is_granted('ROLE_USER') and user === post.getUserPost()")]
     #[route('member/update/post/{id}', 'post.update', methods: ['GET', 'POST'])]
-    public function update(Post $post, Request $request,PostRepository $postRepository)
+    public function update(Post $post, Request $request,EntityManagerInterface $entityManager)
     {
         $form = $this->createForm(PostEditType::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $post = $form->getData();
-            $postRepository->save($post,true);
+            $entityManager->flush();
 
             $this->addFlash('success', 'Your post has been successfully edited !');
 

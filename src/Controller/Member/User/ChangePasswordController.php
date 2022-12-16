@@ -25,7 +25,7 @@ class ChangePasswordController extends AbstractController
      */
     #[Security('is_granted("ROLE_USER") and user === userSelected')]
     #[route('/profil/{id}/password', 'user.changePassword', methods: ['GET', 'POST'])]
-    public function Update(Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $userPasswordHasher, User $userSelected): Response
+    public function Update(Request $request, EntityManagerInterface $entityManagerInterface, UserPasswordHasherInterface $userPasswordHasher, User $userSelected): Response
     {
         $form = $this->createForm(ChangePasswordType::class);
         $form->handleRequest($request);
@@ -35,11 +35,11 @@ class ChangePasswordController extends AbstractController
 
                 $userSelected->setUpdatedAt(new \DateTimeImmutable());
                 $userSelected->setPlainPassword($form->getData()['newPassword']);
-
-                $manager->flush();
+                $entityManagerInterface->flush();
 
                 $this->addFlash('success', 'Password updated !');
                 return $this->redirectToRoute('home');
+
             } else {
 
                 $this->addFlash('warning', 'Password incorrect !');

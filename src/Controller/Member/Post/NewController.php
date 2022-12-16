@@ -4,7 +4,7 @@ namespace App\Controller\Member\Post;
 
 use App\Entity\Post;
 use App\Form\PostType;
-use App\Repository\PostRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,12 +19,12 @@ class NewController extends AbstractController
      * Creates a post then redirects to the home with the id of the post.
      *
      * @param Request $request
-     * @param PostRepository $postRepository
+     * @param EntityManagerInterface $entityManager
      * @return Response
      */
     #[Security('is_granted("ROLE_USER")')]
     #[Route('member/post/new', 'post.new', methods: ['GET', 'POST'])]
-    public function new(Request $request, PostRepository $postRepository): Response
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
@@ -34,7 +34,8 @@ class NewController extends AbstractController
 
             $post = $form->getData();
             $post->setUserPost($this->getUser());
-            $postRepository->save($post,true);
+            $entityManager->persist($post);
+            $entityManager->flush();
  
             return $this->redirectToRoute('home', ['_fragment' => $post->getId()]);
         }
