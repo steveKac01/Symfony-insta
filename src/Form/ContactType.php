@@ -25,16 +25,15 @@ class ContactType extends AbstractType
                 [
                     'attr' => [
                         'class' => 'form-control',
-                        'minlength' => '3',
                         'maxlength' => '50',
                     ],
                     'label' => 'Name',
                     'label_attr' => [
                         'class' => 'form-label mt-4'
                     ],
+                    'required' => false,
                     'constraints' => [
-                        new Assert\Length(['min' => 3, 'max' => 50])
-
+                        new Assert\Length(['max' => 50])
                     ]
                 ]
             )
@@ -68,6 +67,7 @@ class ContactType extends AbstractType
                     'label_attr' => [
                         'class' => 'form-label mt-4'
                     ],
+                    'required' => false,
                     'constraints' => [
                         new Assert\Length(['max' => 100])
                     ]
