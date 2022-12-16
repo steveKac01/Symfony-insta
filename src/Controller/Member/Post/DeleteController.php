@@ -3,7 +3,7 @@
 namespace App\Controller\Member\Post;
 
 use App\Entity\Post;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\PostRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,18 +12,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class DeleteController extends AbstractController
 {
     /**
-     * Delete a post then redirect to home with a flash message.
+     * Delete a post then redirect the user to the homepage with a flash message.
      *
      * @param Post $post
-     * @param EntityManagerInterface $manager
+     * @param PostRepository $postRepository
      * @return Response
      */
     #[route('member/delete/post/{id}', 'post.delete', methods: ['GET'])]
     #[Security("is_granted('ROLE_USER') and user === post.getUserPost()")]
-    public function delete(Post $post, EntityManagerInterface $manager): Response
+    public function delete(Post $post, PostRepository $postRepository): Response
     {
-        $manager->remove($post);
-        $manager->flush();
+       $postRepository->remove($post, true);
 
         $this->addFlash(
             'success',

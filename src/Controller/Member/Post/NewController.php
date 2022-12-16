@@ -4,7 +4,7 @@ namespace App\Controller\Member\Post;
 
 use App\Entity\Post;
 use App\Form\PostType;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\PostRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,26 +19,24 @@ class NewController extends AbstractController
      * Creates a post then redirects to the home with the id of the post.
      *
      * @param Request $request
-     * @param EntityManagerInterface $manager
+     * @param PostRepository $postRepository
      * @return Response
      */
     #[Route('member/post/new', 'post.new', methods: ['GET', 'POST'])]
     #[Security('is_granted("ROLE_USER")')]
-    public function new(Request $request, EntityManagerInterface $manager): Response
+    public function new(Request $request, PostRepository $postRepository): Response
     {
-        $image = new Post();
-        $form = $this->createForm(PostType::class, $image);
-
+        $post = new Post();
+        $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
-         //il ne rentre pas dans l'image
-            $image = $form->getData();
-            $image->setUserPost($this->getUser());
 
-            $manager->persist($image);
-            $manager->flush();
-            // dd($image); 
-            return $this->redirectToRoute('home', ['_fragment' => $image->getId()]);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $post = $form->getData();
+            $post->setUserPost($this->getUser());
+            $postRepository->save($post,true);
+ 
+            return $this->redirectToRoute('home', ['_fragment' => $post->getId()]);
         }
 
         return $this->render('pages/posts/new-update.html.twig', ['form' => $form->createView(), 'label' => 'create']);

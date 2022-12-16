@@ -1,4 +1,5 @@
 {% extends "base.html.twig" %}
+
 {% block title %}
 	{{parent()}}
 	- Your privacy
@@ -10,9 +11,16 @@
 	<div class="container my-5">
 		<h1>Privacy page (WIP)</h1>
 		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium eius praesentium quos minima voluptatem error et libero ad modi, optio sapiente exercitationem assumenda tempore molestiae, quidem eos cumque? Repellat pariatur molestiae soluta autem eos voluptas quidem facere repudiandae officiis harum distinctio blanditiis vel, consequuntur expedita aspernatur at, nihil quis ex.</p>
-	{% if app.user %}
+	
+		{% if app.user %}
+	
 		<p><a href="{{path('user.delete',{id:app.user.id})}}">Delete your account.</a></p>
-	{% else %}
-	<p>Want to remove your account ? <a href="{{path('security.login')}}">Log into your account</a>.</p>	
-		{% endif %}</div>
+	
+		{% else %}
+	
+		<p>Want to remove your account ? <a href="{{path('security.login')}}">Log into your account</a>.</p>	
+	
+		{% endif %}
+	</div>
+	
 {% endblock %}

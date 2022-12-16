@@ -45,7 +45,6 @@ class Post
     private ?\DateTimeImmutable $upload_at = null;
 
     #[ORM\Column(length: 255,nullable:true)]
-    #[Assert\NotBlank()]
     private ?string $url = null;
     
     #[Vich\UploadableField(mapping: 'postThumbnail', fileNameProperty: 'url')]

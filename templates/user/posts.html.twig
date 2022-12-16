@@ -18,14 +18,13 @@
 					{{userSelected.createdAt|date('Y')}}</p>
 				<p>{% if posts|length>0 %}
 					Total post : {{posts|length}}
-					{% else %}
-						No post yet.
+
 					{% endif %}
 			</div>
 		</div>
 		{% if posts %}
 
-			{% include '/pages/posts/list.html.twig' %}
+			{% include '/components/posts.html.twig' %}
 
 		{% endif %}
 
