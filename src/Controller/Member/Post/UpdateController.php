@@ -21,8 +21,8 @@ class UpdateController extends AbstractController
      * @param PostRepository $postRepository
      * @return void
      */
-    #[route('member/update/post/{id}', 'post.update', methods: ['GET', 'POST'])]
     #[Security("is_granted('ROLE_USER') and user === post.getUserPost()")]
+    #[route('member/update/post/{id}', 'post.update', methods: ['GET', 'POST'])]
     public function update(Post $post, Request $request,PostRepository $postRepository)
     {
         $form = $this->createForm(PostEditType::class, $post);

@@ -18,8 +18,8 @@ class DeleteController extends AbstractController
      * @param PostRepository $postRepository
      * @return Response
      */
-    #[route('member/delete/post/{id}', 'post.delete', methods: ['GET'])]
     #[Security("is_granted('ROLE_USER') and user === post.getUserPost()")]
+    #[route('member/delete/post/{id}', 'post.delete', methods: ['GET'])]
     public function delete(Post $post, PostRepository $postRepository): Response
     {
        $postRepository->remove($post, true);

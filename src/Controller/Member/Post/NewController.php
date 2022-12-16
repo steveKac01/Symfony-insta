@@ -22,8 +22,8 @@ class NewController extends AbstractController
      * @param PostRepository $postRepository
      * @return Response
      */
-    #[Route('member/post/new', 'post.new', methods: ['GET', 'POST'])]
     #[Security('is_granted("ROLE_USER")')]
+    #[Route('member/post/new', 'post.new', methods: ['GET', 'POST'])]
     public function new(Request $request, PostRepository $postRepository): Response
     {
         $post = new Post();
