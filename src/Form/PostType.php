@@ -41,6 +41,7 @@ class PostType extends AbstractType
                     'class' => 'form-control',
                     'minlength' => '5',
                     'maxlength' => '255',
+                    'rows' => 5
 
                 ],
                 'label' => 'Description',
@@ -64,11 +65,11 @@ class PostType extends AbstractType
                 'delete_label' => 'Change thumbnail ',
                 'download_uri' => false,
                 'allow_delete' => false,
-                'constraints' =>[
-                    new Assert\File(maxSize:1048576)
+                'constraints' => [
+                    new Assert\File(maxSize: 1048576, maxSizeMessage: "The avatar must weight lesser than 1 mo.")
                 ]
             ])
-            
+
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'label',

@@ -22,11 +22,11 @@ class emailService
      * @param Contact $contact
      * @return void
      */
-    public function sendContact(Contact $contact,string $emailAdmin): void
+    public function sendContact(Contact $contact,string $emailContact): void
     {
         $email = (new Email())
             ->from($contact->getEmail())
-            ->to($emailAdmin)
+            ->to($emailContact)
             ->subject($contact->getSubject()?$contact->getSubject():'no subject')
             ->text($contact->getMessage())
             ->html('<p>'.$contact->getMessage().'</p>');

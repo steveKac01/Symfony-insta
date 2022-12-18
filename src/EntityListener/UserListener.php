@@ -17,7 +17,7 @@ class UserListener
     {
         $this->hasher = $hasher;
     }
-    
+
     public function preUpdate(User $user): void
     {
         $this->encodePassword($user);

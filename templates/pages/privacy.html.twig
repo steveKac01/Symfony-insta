@@ -14,7 +14,7 @@
 	
 		{% if app.user %}
 	
-		<p><a href="{{path('user.delete',{id:app.user.id})}}">Delete your account.</a></p>
+		<p><a href="{{path('user.delete',{id:app.user.id})}}" onclick="return confirm('Are u sure you want to delete your account ?')">Delete your account.</a></p>
 	
 		{% else %}
 	

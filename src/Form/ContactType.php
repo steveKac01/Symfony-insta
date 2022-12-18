@@ -81,6 +81,7 @@ class ContactType extends AbstractType
                         'class' => 'form-control',
                         'minlength' => '10',
                         'maxlength' => '50',
+                        'rows' => 5,
                     ],
                     'label' => 'Your message (*required)',
                     'label_attr' => [

@@ -41,7 +41,7 @@ class PostEditType extends AbstractType
                     'class' => 'form-control',
                     'minlength' => '5',
                     'maxlength' => '255',
-
+                    'rows' => 5
                 ],
                 'label' => 'Description',
                 'label_attr' => [
@@ -66,7 +66,7 @@ class PostEditType extends AbstractType
                 'allow_delete' => false,
                 'required' => false,
                 'constraints' => [
-                    new Assert\File(maxSize: 1048576)
+                    new Assert\File(maxSize: 1048576, maxSizeMessage: "The avatar must weight lesser than 1 mo.")
                 ]
             ])
 

@@ -11,11 +11,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-
-
 class ContactController extends AbstractController
 {
-
+    /**
+     * This controller send a contact email & persist the message in the database.
+     * If the user is connected, the email input is autofilled.
+     * 
+     * @param emailService $mailer
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
     #[Route('/contact', name: 'contact')]
     public function index(emailService $mailer,  Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -39,7 +45,7 @@ class ContactController extends AbstractController
             );
 
             //Send an email
-            $mailer->sendContact($contact,$this->getParameter('app.admin_email'));
+            $mailer->sendContact($contact,$this->getParameter('app.contact_email'));
 
            return $this->redirectToRoute('home');
         }

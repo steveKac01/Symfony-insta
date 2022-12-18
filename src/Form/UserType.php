@@ -13,7 +13,6 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
-
 class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -62,7 +61,10 @@ class UserType extends AbstractType
                 'class' => 'form-label mt-4'
             ],
             'delete_label' => 'Remove avatar ',
-            'download_uri' => false
+            'download_uri' => false,
+            'constraints' => [
+                new Assert\File(maxSize:1048576,maxSizeMessage:"The avatar must weight lesser than 1 mo.")
+                ]
             ])
 
             ->add('plainPassword', PasswordType::class, [
