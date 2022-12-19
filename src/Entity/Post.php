@@ -198,4 +198,9 @@ class Post
             $this->upload_at = new \DateTimeImmutable();
         }
     }
+
+    public function __toString(): string
+    {
+        return $this->title;
+    }
 }

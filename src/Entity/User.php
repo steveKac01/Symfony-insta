@@ -20,7 +20,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 #[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\EntityListeners(['App\EntityListener\UserListener'])]
-class User implements UserInterface, PasswordAuthenticatedUserInterface 
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -62,7 +62,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
-    
+
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
@@ -74,7 +74,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
-        $this->createdAt= new DateTimeImmutable();
+        $this->createdAt = new DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -266,10 +266,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-    
-     /** @see \Serializable::serialize()*/
-      public function serialize() {
-           return serialize(array( $this->id, $this->email, $this->password, )); } 
-           /* @see \Serializable::unserialize() */ 
-           public function unserialize($serialized) { list ( $this->id, $this->email, $this->password, ) = unserialize($serialized, array('allowed_classes' => false)); } 
+
+    /** @see \Serializable::serialize()*/
+    public function serialize()
+    {
+        return serialize(array($this->id, $this->email, $this->password,));
+    }
+    /* @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list($this->id, $this->email, $this->password,) = unserialize($serialized, array('allowed_classes' => false));
+    }
+
+    public function __toString()
+    {
+        return $this->pseudo;
+    }
 }

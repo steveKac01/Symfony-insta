@@ -47,6 +47,15 @@
 										Logout</a>
 								</div>
 							</li>
+
+							{# Administration #}
+							{% if is_granted("ROLE_ADMIN") %}
+								<a class="nav-link active" href="{{path('admin')}}">
+									<i class="fa-solid fa-cog"></i>
+									Admin
+								</a>
+							{% endif %}
+
 						{% else %}
 
 							<li class="nav-item">
