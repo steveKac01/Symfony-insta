@@ -21,6 +21,8 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+            - '../src/DataFixtures/Interface'
+            
     App\Service\Email\emailService:
         lazy: true
 

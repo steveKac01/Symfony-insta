@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Avatar;
 use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
@@ -85,19 +87,25 @@ class RegisterType extends AbstractType
 
             ])
 
-            ->add('avatarFile', VichImageType::class,[
-                'attr' =>[
-                    'class' => 'form-control'
-                ],
-                'required' => false,
-                'label' => 'Upload avatar file',
-                'label_attr' => [
-                    'class' => 'form-label mt-4'
-                ],
-                'delete_label' => 'Remove avatar',
-                'download_uri' => false,
-                ])
-                
+            // ->add('avatarFile', VichImageType::class,[
+            //     'attr' =>[
+            //         'class' => 'form-control'
+            //     ],
+            //     'required' => false,
+            //     'label' => 'Upload avatar file',
+            //     'label_attr' => [
+            //         'class' => 'form-label mt-4'
+            //     ],
+            //     'delete_label' => 'Remove avatar',
+            //     'download_uri' => false,
+            //     ])
+              
+            ->add('avatarChoosed',EntityType::class,[
+                'class' => Avatar::class,
+                'label' => 'Choose your avatar',
+                'expanded' => true
+            ])
+
             /*
             ->add('roles', ChoiceType::class, [
                 'required' => true,
