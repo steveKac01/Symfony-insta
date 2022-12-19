@@ -72,6 +72,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Vich\UploadableField(mapping: 'avatar', fileNameProperty: 'avatar')]
     private ?File $avatarFile = null;
 
+    #[ORM\ManyToOne(inversedBy: 'user')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Avatar $avatarChoosed = null;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
@@ -281,5 +285,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __toString()
     {
         return $this->pseudo;
+    }
+
+    public function getAvatarChoosed(): ?Avatar
+    {
+        return $this->avatarChoosed;
+    }
+
+    public function setAvatarChoosed(?Avatar $avatarChoosed): self
+    {
+        $this->avatarChoosed = $avatarChoosed;
+
+        return $this;
     }
 }

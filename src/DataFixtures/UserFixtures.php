@@ -8,8 +8,9 @@ use Faker\Generator;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use App\DataFixtures\Interface\FixturesInterface;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class UserFixtures extends Fixture implements FixturesInterface
+class UserFixtures extends Fixture implements FixturesInterface, DependentFixtureInterface 
 {
     private Generator $faker;
 
@@ -32,7 +33,7 @@ class UserFixtures extends Fixture implements FixturesInterface
             ->setpseudo('steve01')
             ->setRoles(['ROLE_ADMIN'])
             ->setPlainPassword('steve')
-            ->setAvatar('exemple1.jpg');
+            ->setAvatarChoosed($this->getReference('avatar_'. mt_rand(1,$this::NUMBER_AVATAR)));
         $this->addReference('user_1', $user);
 
         $manager->persist($user);
@@ -44,12 +45,20 @@ class UserFixtures extends Fixture implements FixturesInterface
             $user->setEmail($this->faker->email())
                 ->setpseudo($this->faker->userName())
                 ->setPlainPassword('password')
-                ->setAvatar('exemple'.mt_rand(1,4).'.jpg');
+                ->setAvatarChoosed($this->getReference('avatar_'. mt_rand(1,$this::NUMBER_AVATAR)));
 
             $this->addReference('user_' . $i, $user);
             $manager->persist($user);
         }
 
         $manager->flush();
+    }
+
+
+    public function getDependencies()
+    {
+        return array(
+            AvatarFixtures::class
+        );
     }
 }
