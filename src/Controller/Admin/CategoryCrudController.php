@@ -10,6 +10,5 @@ class CategoryCrudController extends AbstractCrudController
     public static function getEntityFqcn(): string
     {
         return Category::class;
-    }
-    
+    }  
 }
