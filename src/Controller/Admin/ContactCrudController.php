@@ -3,7 +3,6 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Contact;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -24,8 +23,7 @@ class ContactCrudController extends AbstractCrudController
          ->setPageTitle('index','InstaPIC - Contact messages Administration')
          ->setPaginatorPageSize(20)
          ->setEntityLabelInSingular('Message')
-         ->setEntityLabelInPlural('Messages')
-         ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig');
+         ->setEntityLabelInPlural('Messages');
     }
 
     public function configureFields(string $pageName): iterable
@@ -34,8 +32,7 @@ class ContactCrudController extends AbstractCrudController
           IdField::new('id')->onlyOnIndex(),
           'subject',
           TextField::new('email'),
-          TextareaField::new('message')->hideOnIndex()
-          ->setFormType(CKEditorType::class),
+          TextareaField::new('message')->hideOnIndex(),
           DateTimeField::new('createdAt')->OnlyOnIndex(),
         ];
     }

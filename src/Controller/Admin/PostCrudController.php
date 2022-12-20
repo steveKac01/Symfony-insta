@@ -9,6 +9,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class PostCrudController extends AbstractCrudController
 {
@@ -21,7 +23,8 @@ class PostCrudController extends AbstractCrudController
         return $crud
             ->setPageTitle('index', 'InstaPIC - Posts Administration')
             ->setPaginatorPageSize(20)
-            ->setEntityLabelInPlural('Posts');
+            ->setEntityLabelInPlural('Posts')
+            ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig');
     }
 
     public function configureFields(string $pageName): iterable
@@ -30,10 +33,12 @@ class PostCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             ImageField::new('url')->setUploadDir('/public/images/posts/')->OnlyOnForms(),
             'title',
-            DateTimeField::new('uploadAt')->OnlyOnIndex(),
-            'description',
+
+            TextareaField::new('description','Content')->hideOnIndex()
+            ->setFormType(CKEditorType::class),
             AssociationField::new('category'),
-            AssociationField::new('userPost')->hideOnForm()
+            AssociationField::new('userPost','User')->hideOnForm(),
+            DateTimeField::new('uploadAt','CreatedAt')->OnlyOnIndex()
         ];
     }
 }
