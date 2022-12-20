@@ -26,19 +26,8 @@ class UserFixtures extends Fixture implements FixturesInterface
      */
     public function load(ObjectManager $manager): void
     {
-        //User with Admin role.
-        $user = new User();
-        $user->setEmail('steve@aol.fr')
-            ->setpseudo('steve01')
-            ->setRoles(['ROLE_ADMIN'])
-            ->setPlainPassword('steve')
-            ->setAvatar('exemple1.jpg');
-        $this->addReference('user_1', $user);
-
-        $manager->persist($user);
-
         //Random users.
-        for ($i = 2; $i < $this::NUMBER_USER + 1; $i++) {
+        for ($i = 1; $i < $this::NUMBER_USER + 1; $i++) {
             $user = new User();
 
             $user->setEmail($this->faker->email())
