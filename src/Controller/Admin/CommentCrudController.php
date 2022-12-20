@@ -3,9 +3,11 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Comment;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 
 class CommentCrudController extends AbstractCrudController
 {
@@ -14,16 +16,23 @@ class CommentCrudController extends AbstractCrudController
         return Comment::class;
     }
 
+    public function configureCrud(Crud $crud): crud
+    {
+        return $crud
+            ->setPageTitle('index', 'InstaPIC - Commentaries Administration')
+            ->setPaginatorPageSize(20)
+            ->setEntityLabelInSingular('Comment')
+            ->setEntityLabelInPlural('Comments');
+    }
 
     public function configureFields(string $pageName): iterable
     {
         return [
-            'id',
+            IdField::new('id')->onlyOnIndex(),
             'message',
-            AssociationField::new('image'),
-            DateTimeField::new('createdAt')->OnlyOnIndex(),
-            AssociationField::new('userComment'),
+            AssociationField::new('image')->onlyOnIndex(),
+            DateTimeField::new('createdAt')->onlyOnIndex(),
+            AssociationField::new('userComment')->onlyOnIndex(),
         ];
     }
-    
 }
