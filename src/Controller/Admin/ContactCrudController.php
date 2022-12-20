@@ -7,6 +7,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class ContactCrudController extends AbstractCrudController
 {
@@ -27,9 +28,9 @@ class ContactCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-          IdField::new('id')->hideOnForm(),
+          IdField::new('id')->onlyOnIndex(),
           'subject',
-          'email',
+          TextField::new('email')->onlyOnIndex(),
           'message',
           DateTimeField::new('createdAt')->OnlyOnIndex(),
         ];
