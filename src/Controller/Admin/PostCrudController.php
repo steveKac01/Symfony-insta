@@ -3,6 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Post;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -13,18 +16,24 @@ class PostCrudController extends AbstractCrudController
     {
         return Post::class;
     }
+    public function configureCrud(Crud $crud): crud
+    {
+        return $crud
+            ->setPageTitle('index', 'InstaPIC - Posts Administration')
+            ->setPaginatorPageSize(20)
+            ->setEntityLabelInPlural('Posts');
+    }
 
- 
     public function configureFields(string $pageName): iterable
     {
         return [
-           'id',
-           'title',
-           DateTimeField::new('uploadAt')->OnlyOnIndex(),
-           'description',
-           AssociationField::new('category'),
-           AssociationField::new('userPost')
+            IdField::new('id')->hideOnForm(),
+            ImageField::new('url')->setUploadDir('/public/images/posts/')->OnlyOnForms(),
+            'title',
+            DateTimeField::new('uploadAt')->OnlyOnIndex(),
+            'description',
+            AssociationField::new('category'),
+            AssociationField::new('userPost')->hideOnForm()
         ];
     }
-   
 }

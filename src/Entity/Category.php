@@ -84,4 +84,12 @@ class Category
     {
         return $this->label;
     }
+
+    public function getColorList(): array
+    {
+        return [
+            'danger',
+            'warning'
+        ];
+    }
 }
