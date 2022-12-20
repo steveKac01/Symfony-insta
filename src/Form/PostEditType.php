@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Post;
 use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -36,7 +37,7 @@ class PostEditType extends AbstractType
                 ]
             ])
 
-            ->add('description', TextareaType::class, [
+            ->add('description', CKEditorType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'minlength' => '5',

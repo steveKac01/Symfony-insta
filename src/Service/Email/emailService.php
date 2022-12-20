@@ -28,9 +28,7 @@ class emailService
             ->from($contact->getEmail())
             ->to($emailContact)
             ->subject($contact->getSubject()?$contact->getSubject():'no subject')
-            ->text($contact->getMessage())
-            ->html('<p>'.$contact->getMessage().'</p>');
-
+            ->text($contact->getMessage());
         $this->mailer->send($email);
     }
 
