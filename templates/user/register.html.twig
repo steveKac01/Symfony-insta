@@ -12,8 +12,16 @@
 
 		{{ form_start(form) }}
 		{{ form_widget(form) }}
+
+		{# Privacy policy #}
+		<a href="{{path('privacy')}}">
+			See our privacy policy</a>
+
 		{{ form_end(form) }}
-		<p class="mt-4 text-end">Already got an account ? <a href="{{path('security.login')}}">sign in here</a> </p>
+		
+		<p class="mt-4 text-end">Already got an account ?
+			<a href="{{path('security.login')}}">sign in here</a>
+		</p>
 
 	</div>
 {% endblock %}
