@@ -37,6 +37,6 @@ class UpdateController extends AbstractController
             return $this->redirectToRoute('home', ['_fragment' => $post->getId()]);
         }
 
-        return $this->render('pages/posts/new-update.html.twig', ['form' => $form->createView(), 'label' => 'update']);
+        return $this->render('pages/posts/new-update.html.twig', ['form' => $form->createView(), 'label' => 'Update']);
     }
 }
