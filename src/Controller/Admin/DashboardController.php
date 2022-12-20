@@ -35,6 +35,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Posts', 'fas fa-image', Post::class);
         yield MenuItem::linkToCrud('Comments', 'fa-solid fa-comment-dots', Comment::class);
         yield MenuItem::linkToCrud('Categories', 'fas fa-list', Category::class);
-        yield MenuItem::linkToCrud('Contact', 'fa-solid fa-comment-dots', Contact::class);
+        yield MenuItem::linkToCrud('Contact messages', 'fas fa-envelope', Contact::class);
     }
 }

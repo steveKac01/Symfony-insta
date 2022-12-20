@@ -30,8 +30,8 @@ class ContactCrudController extends AbstractCrudController
         return [
           IdField::new('id')->onlyOnIndex(),
           'subject',
-          TextField::new('email')->onlyOnIndex(),
-          'message',
+          TextField::new('email'),
+          TextField::new('message')->hideOnIndex(),
           DateTimeField::new('createdAt')->OnlyOnIndex(),
         ];
     }

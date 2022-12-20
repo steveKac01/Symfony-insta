@@ -30,7 +30,7 @@ class CommentCrudController extends AbstractCrudController
         return [
             IdField::new('id')->onlyOnIndex(),
             'message',
-            AssociationField::new('image')->onlyOnIndex(),
+            AssociationField::new('image','Post')->onlyOnIndex(),
             DateTimeField::new('createdAt')->onlyOnIndex(),
             AssociationField::new('userComment')->onlyOnIndex(),
         ];
