@@ -47,7 +47,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     #[NotNull()]
     private ?string $password = 'basic';
-
+    
+    #[Assert\Regex(
+        '/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/',
+        'Password not valid.')]
     private ?string $plainPassword = null;
 
     #[Assert\NotBlank()]

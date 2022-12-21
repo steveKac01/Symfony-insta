@@ -13,6 +13,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+/**
+ * This custom command allow us to create an ADMIN user.
+ */
 #[AsCommand(
     name: 'app:add-admin',
     description: 'Create a user with ROLE_ADMIN.',
@@ -57,7 +60,12 @@ class AddAdminCommand extends Command
             $email = $helper->ask($input, $output, $question);
         }
         if (!$password) {
-            $io->note('Choose a secure password !');
+            $io->note([
+                'Choose a secure password !',
+                'Must be 8 characters long.',
+                'At least 1 capital letter',
+                'At least 1 special character.'
+            ]);
             $question = new Question('Enter the password for ' . $pseudo . ' :');
             $password = $helper->ask($input, $output, $question);
         }
@@ -71,11 +79,10 @@ class AddAdminCommand extends Command
 
             //Validate the user data.
             $errors = $this->validator->validate($user);
-            if (count($errors)>0) {
+            if (count($errors) > 0) {
                 $io->error((string) $errors);
 
                 return Command::FAILURE;
-
             } else {
                 $this->manager->persist($user);
                 $this->manager->flush();
