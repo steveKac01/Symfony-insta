@@ -9,7 +9,6 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class DeleteAccountType extends AbstractType
 {
@@ -20,19 +19,15 @@ class DeleteAccountType extends AbstractType
             'attr' => [
                 'class' => 'form-control',
                 'minlength' => '5',
-                'maxlength' => '180',
+                'maxlength' => '250',
 
             ],
             'label' => 'Email',
             'label_attr' => [
                 'class' => 'form-label mt-4'
-            ],
-            'constraints' => [
-                new Assert\Length(['min' => 5, 'max' => 180]),
-                new Assert\NotBlank(),
-                new Assert\Email()
             ]
         ])
+
         ->add('plainPassword', PasswordType::class, [
             'attr' => [
                 'class' => 'form-control',
@@ -42,12 +37,9 @@ class DeleteAccountType extends AbstractType
             'label' => 'Password',
             'label_attr' => [
                 'class' => 'form-label mt-4'
-            ],
-            'constraints' => [
-                new Assert\Length(['min' => 5, 'max' => 255]),
-                new Assert\NotBlank()
             ]
         ])
+
         ->add('submit', SubmitType::class, [
             'attr' => [
                 'class' => 'btn btn-primary my-4'

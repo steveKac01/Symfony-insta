@@ -7,7 +7,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class CommentType extends AbstractType
@@ -21,18 +20,16 @@ class CommentType extends AbstractType
                 [
                     'attr' => [
                         'class' => 'form-control',
-                        'minlength' => '10',
-                        'maxlength' => '50',
+                        'minlength' => '5',
+                        'maxlength' => '250',
                     ],
                     'label' => 'Your message',
                     'label_attr' => [
                         'class' => 'form-label mt-4'
-                    ],
-                    'constraints' => [
-                        new Assert\Length(['min' => 2, 'max' => 50])
                     ]
                 ]
             )
+
             ->add('submit', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-secondary my-4'

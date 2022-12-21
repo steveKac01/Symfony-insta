@@ -8,7 +8,6 @@ use Symfony\Component\Form\AbstractType;
 use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -33,12 +32,10 @@ class ContactType extends AbstractType
                     'label_attr' => [
                         'class' => 'form-label mt-4'
                     ],
-                    'required' => false,
-                    'constraints' => [
-                        new Assert\Length(['max' => 50])
-                    ]
+                    'required' => false
                 ]
             )
+
             ->add(
                 'email',
                 EmailType::class,
@@ -51,12 +48,10 @@ class ContactType extends AbstractType
                     'label' => 'Email (*required)',
                     'label_attr' => [
                         'class' => 'form-label mt-4'
-                    ],
-                    'constraints' => [
-                        new Assert\Email()
                     ]
                 ]
             )
+
             ->add(
                 'subject',
                 TextType::class,
@@ -69,12 +64,10 @@ class ContactType extends AbstractType
                     'label_attr' => [
                         'class' => 'form-label mt-4'
                     ],
-                    'required' => false,
-                    'constraints' => [
-                        new Assert\Length(['max' => 100])
-                    ]
+                    'required' => false
                 ]
             )
+
             ->add(
                 'message',
                 TextareaType::class,
@@ -82,16 +75,12 @@ class ContactType extends AbstractType
                     'attr' => [
                         'class' => 'form-control',
                         'minlength' => '10',
-                        'maxlength' => '50',
+                        'maxlength' => '5000',
                         'rows' => 5,
                     ],
                     'label' => 'Your message (*required)',
                     'label_attr' => [
                         'class' => 'form-label mt-4'
-                    ],
-                    'constraints' => [
-                        new Assert\Length(['min' => 2, 'max' => 500]),
-                        new Assert\NotBlank()
                     ]
                 ]
             )

@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
-class UserType extends AbstractType
+class UserUpdateType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -27,10 +27,6 @@ class UserType extends AbstractType
                 'label' => 'Pseudo',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
-                ],
-                'constraints' => [
-                    new Assert\Length(['min' => 4, 'max' => 50]),
-                    new Assert\NotBlank()
                 ]
             ])
             ->add('email', EmailType::class, [
@@ -43,11 +39,6 @@ class UserType extends AbstractType
                 'label' => 'Email',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
-                ],
-                'constraints' => [
-                    new Assert\Length(['min' => 5, 'max' => 180]),
-                    new Assert\NotBlank(),
-                    new Assert\Email()
                 ]
             ])
 
@@ -70,20 +61,14 @@ class UserType extends AbstractType
             ->add('plainPassword', PasswordType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'minlength' => '5',
+                    'minlength' => '8',
                     'maxlength' => '255',
                 ],
                 'label' => 'Password',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
-                ],
-                'constraints' => [
-                    new Assert\Length(['min' => 5, 'max' => 255]),
-                    new Assert\NotBlank()
                 ]
             ])
-
-
 
             ->add('submit', SubmitType::class, [
                 'attr' => [

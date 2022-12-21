@@ -23,10 +23,6 @@ class ChangePasswordType extends AbstractType
             'label' => 'Current password',
             'label_attr' => [
                 'class' => 'form-label mt-4'
-            ],
-            'constraints' => [
-                new Assert\Length(['min' => 5, 'max' => 255]),
-                new Assert\NotBlank()
             ]
         ])
 
@@ -36,29 +32,28 @@ class ChangePasswordType extends AbstractType
                 'first_options' => [
                     'attr' => [
                         'class' => 'form-control',
-                        'minlength' => '5',
+                        'minlength' => '8',
                         'maxlength' => '255',
                     ],
-                    'label' => 'New Password',
+                    'label' => 'New Password : Must be 8 characters long with at least 1 capital letter and 1 special character.',
                     'label_attr' => [
                         'class' => 'form-label mt-4'
+                    ], 'constraints' => [
+                        new Assert\Regex('/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/','Password not valid.')
                     ]
                 ],
                 'second_options' => [
                     'attr' => [
                         'class' => 'form-control',
-                        'minlength' => '5',
+                        'minlength' => '8',
                         'maxlength' => '255',
                     ],
                     'label' => 'Confirm Password',
                     'label_attr' => [
                         'class' => 'form-label mt-4'
                     ]
-                ],
-                'constraints' => [
-                    new Assert\Length(['min' => 5, 'max' => 255]),
-                    new Assert\NotBlank()
                 ]
+              
             ])
 
             ->add('submit', SubmitType::class, [

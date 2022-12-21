@@ -18,7 +18,7 @@ class Comment
 
     #[Assert\NotBlank()]
     #[Assert\Length(
-        min: 3,
+        min: 5,
         max: 250,
         minMessage: 'Your first name must be at least {{ limit }} characters long',
         maxMessage: 'Your first name cannot be longer than {{ limit }} characters',

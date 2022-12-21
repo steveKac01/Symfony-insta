@@ -29,10 +29,6 @@ class PostType extends AbstractType
                 'label' => 'Title',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
-                ],
-                'constraints' => [
-                    new Assert\Length(['min' => 2, 'max' => 50]),
-                    new Assert\NotBlank()
                 ]
             ])
 
@@ -49,10 +45,6 @@ class PostType extends AbstractType
                 'label' => 'Description',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
-                ],
-                'constraints' => [
-                    new Assert\Length(['min' => 5, 'max' => 255]),
-                    new Assert\NotBlank()
                 ]
             ])
 
