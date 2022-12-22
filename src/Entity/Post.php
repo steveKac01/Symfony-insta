@@ -14,7 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: PostRepository::class)]
-#[ORM\EntityListeners(['App\EntityListener\PostListener'])]
 class Post
 {
     #[ORM\Id]

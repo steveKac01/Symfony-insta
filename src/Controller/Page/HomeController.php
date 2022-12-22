@@ -26,15 +26,8 @@ class HomeController extends AbstractController implements CacheConfig
             return $this->render("pages/search.html.twig", ["posts" => $posts]);
         }
 
-        // Cache
-        $cache = new FilesystemAdapter();
-        $data = $cache->get($this::CACHE_POSTS_KEY, function (ItemInterface $item) use ($paginator, $postRepository, $request) {
-            $item->expiresAfter($this::CACHE_POSTS_TIME_EXPIRATION);
-            return $postRepository->findBy(array(), array('id' => 'DESC'));
-        });
-
         $posts = $paginator->paginate(
-            $data,
+            $postRepository->findBy(array(), array('id' => 'DESC')),
             $request->query->getInt('page', 1),
             10
         );
