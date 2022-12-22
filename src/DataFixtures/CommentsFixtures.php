@@ -5,12 +5,12 @@ namespace App\DataFixtures;
 use Faker\Factory;
 use Faker\Generator;
 use App\Entity\Comment;
+use App\Interfaces\FixturesConfig;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use App\DataFixtures\Interface\FixturesInterface;
 
-class CommentsFixtures extends Fixture implements DependentFixtureInterface, FixturesInterface
+class CommentsFixtures extends Fixture implements DependentFixtureInterface, FixturesConfig
 {
     private Generator $faker;
 

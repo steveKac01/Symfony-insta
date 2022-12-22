@@ -7,9 +7,9 @@ use App\Entity\User;
 use Faker\Generator;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use App\DataFixtures\Interface\FixturesInterface;
+use App\Interfaces\FixturesConfig;
 
-class UserFixtures extends Fixture implements FixturesInterface
+class UserFixtures extends Fixture implements FixturesConfig
 {
     private Generator $faker;
 

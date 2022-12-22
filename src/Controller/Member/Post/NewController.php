@@ -36,7 +36,7 @@ class NewController extends AbstractController
             $post->setUserPost($this->getUser());
             $entityManager->persist($post);
             $entityManager->flush();
- 
+            
             return $this->redirectToRoute('home', ['_fragment' => $post->getId()]);
         }
 

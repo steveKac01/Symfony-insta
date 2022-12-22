@@ -5,11 +5,12 @@ namespace App\DataFixtures;
 use Faker\Factory;
 use Faker\Generator;
 use App\Entity\Category;
+use App\Interfaces\FixturesConfig;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use App\DataFixtures\Interface\FixturesInterface;
 
-class CategoryFixtures extends Fixture implements FixturesInterface
+
+class CategoryFixtures extends Fixture implements FixturesConfig
 {
     private Generator $faker;
 
