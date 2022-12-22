@@ -29,7 +29,7 @@ class HomeController extends AbstractController implements CacheConfig
         // Cache
         $cache = new FilesystemAdapter();
         $data = $cache->get($this::CACHE_POSTS_KEY, function (ItemInterface $item) use ($paginator, $postRepository, $request) {
-            $item->expiresAfter(3600);
+            $item->expiresAfter($this::CACHE_POSTS_TIME_EXPIRATION);
             return $postRepository->findBy(array(), array('id' => 'DESC'));
         });
 

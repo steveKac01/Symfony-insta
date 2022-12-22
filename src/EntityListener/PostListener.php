@@ -35,6 +35,11 @@ class PostListener implements CacheConfig
         $this->deleteCache();
     }
 
+    public function postRemove(): void
+    {
+        $this->deleteCache();
+    }
+
     /**
      * Delete the cache.
      *
