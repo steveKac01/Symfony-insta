@@ -7,9 +7,9 @@ use App\Entity\User;
 use Faker\Generator;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use App\DataFixtures\Interface\FixturesInterface;
+use App\Interfaces\FixturesConfig;
 
-class UserFixtures extends Fixture implements FixturesInterface
+class UserFixtures extends Fixture implements FixturesConfig
 {
     private Generator $faker;
 
@@ -33,7 +33,7 @@ class UserFixtures extends Fixture implements FixturesInterface
             $user->setEmail($this->faker->email())
                 ->setpseudo($this->faker->userName())
                 ->setPlainPassword('passwordValid01+')
-                ->setAvatar('exemple'.mt_rand(1,4).'.jpg');
+                ->setAvatar('exemple' . mt_rand(1, 4) . '.jpg');
 
             $this->addReference('user_' . $i, $user);
             $manager->persist($user);

@@ -7,10 +7,10 @@ use Faker\Generator;
 use App\Entity\Post;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use App\DataFixtures\Interface\FixturesInterface;
+use App\Interfaces\FixturesConfig;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class PostFixtures extends Fixture implements DependentFixtureInterface, FixturesInterface
+class PostFixtures extends Fixture implements DependentFixtureInterface, FixturesConfig
 {
     private Generator $faker;
 
