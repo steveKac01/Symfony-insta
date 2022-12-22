@@ -15,7 +15,6 @@ class Category
     #[ORM\Column]
     private ?int $id = null;
 
-
     #[Assert\NotBlank()]
     #[Assert\Length(
         min: 3,

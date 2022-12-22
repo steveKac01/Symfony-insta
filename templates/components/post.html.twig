@@ -28,7 +28,8 @@
 
 		</div>
 
-		<p class="card-text mt-4">{{post.description|raw}}</p>
+		<p class="card-text mt-4">{{post.description|slice(0, 100)|raw }}
+			...</p>
 		<a href="{{path('post.show',{id:post.id})}}#comments" class="text-white text-decoration-none">
 			<p class="text-end">{{post.comments|length}}
 				<i class="fa-solid fa-comment"></i>
@@ -37,8 +38,8 @@
 
 		{# Action buttons #}
 		{% if actions is defined and app.user and post.userPost.id == app.user.id %}
-			
-            <div>
+
+			<div>
 				<a href="{{path('post.update',{id:post.id})}}">
 					<button type="button" class="btn btn-secondary">Edit</button>
 				</a>
@@ -46,5 +47,5 @@
 					<button type="button" class="btn btn-danger">Delete</button>
 				</a>
 			</div>
-            
+
 		{% endif %}

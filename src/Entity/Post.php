@@ -26,18 +26,18 @@ class Post
     #[Assert\Length(
         min: 3,
         max: 50,
-        minMessage: 'Your first name must be at least {{ limit }} characters long',
-        maxMessage: 'Your first name cannot be longer than {{ limit }} characters',
+        minMessage: 'Your title must be at least {{ limit }} characters long',
+        maxMessage: 'Your title cannot be longer than {{ limit }} characters',
     )]
-
     private ?string $title = null;
+    
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank()]
     #[Assert\Length(
         min: 5,
         max: 255,
-        minMessage: 'Your first name must be at least {{ limit }} characters long',
-        maxMessage: 'Your first name cannot be longer than {{ limit }} characters',
+        minMessage: 'Your description must be at least {{ limit }} characters long',
+        maxMessage: 'Your description cannot be longer than {{ limit }} characters',
     )]
     private ?string $description = null;
 
