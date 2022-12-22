@@ -2,17 +2,14 @@
 
 namespace App\Controller\Page;
 
-use App\Interfaces\CacheConfig;
 use App\Repository\PostRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Cache\Adapter\FilesystemAdapter;
-use Symfony\Contracts\Cache\ItemInterface;
 
-class HomeController extends AbstractController implements CacheConfig
+class HomeController extends AbstractController
 {
 
     #[route('/', 'home', methods: ['GET', 'POST'])]
