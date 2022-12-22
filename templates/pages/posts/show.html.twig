@@ -37,7 +37,7 @@
 							{# User Comment #}
 							{% include "/components/user.html.twig" with {'userId':comment.userComment.id, 'avatar':comment.userComment.avatar, 'pseudo' : comment.userComment.pseudo, 'createdAt': comment.userComment.createdAt } %}
 							
-							<p>{{comment.message}}</p>
+							<p>{{comment.message|raw}}</p>
 							<hr>
 
 						{% endfor %}

@@ -4,10 +4,11 @@ namespace App\Form;
 
 use App\Entity\Comment;
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class CommentType extends AbstractType
 {
@@ -16,14 +17,14 @@ class CommentType extends AbstractType
         $builder
             ->add(
                 'message',
-                TextareaType::class,
+                CKEditorType::class,
                 [
                     'attr' => [
                         'class' => 'form-control',
                         'minlength' => '5',
                         'maxlength' => '250',
                     ],
-                    'label' => 'Your message',
+                    'label' => 'Your message :',
                     'label_attr' => [
                         'class' => 'form-label mt-4'
                     ]

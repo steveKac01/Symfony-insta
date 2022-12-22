@@ -28,20 +28,22 @@
 
 		</div>
 
-		<p class="card-text mt-4">
+		<p
+			class="card-text mt-4">
 
 			{# Description #}
 			{% if fullDescription is not defined %}
 
-			{{post.description|read_more(post.id)|raw }}
+				{{post.description|read_more(post.id)|raw }}
 
 			{% else %}
 
-			{{post.description|raw }}
+				{{post.description|raw }}
 
 			{% endif %}
 
-			</p>
+		</p>
+		{# Comments #}
 		<a href="{{path('post.show',{id:post.id})}}#comments" class="text-white text-decoration-none">
 			<p class="text-end">{{post.comments|length}}
 				<i class="fa-solid fa-comment"></i>

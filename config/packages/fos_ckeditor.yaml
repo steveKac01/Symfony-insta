@@ -28,6 +28,5 @@ fos_ck_editor:
                             "-",
                             "TextColor",
                             "BgColor"
-
                         ]
                 }
