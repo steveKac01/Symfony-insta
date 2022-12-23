@@ -24,7 +24,7 @@
 			class="p-1">
 
 			{# User infos #}
-			{% include "/components/user.html.twig" with {'userId':post.userPost.id, 'avatar':post.userPost.avatar, 'pseudo' : post.userPost.pseudo, 'createdAt': post.uploadAt } only %}
+			{% include "/components/user.html.twig" with {'userId':post.userPost.id, 'avatar':post.userPost.avatar.url, 'pseudo' : post.userPost.pseudo, 'createdAt': post.uploadAt } only %}
 
 		</div>
 

@@ -41,4 +41,12 @@ class UserFixtures extends Fixture implements FixturesConfig
 
         $manager->flush();
     }
+
+
+    public function getDependencies()
+    {
+        return array(
+            AvatarFixtures::class
+        );
+    }
 }

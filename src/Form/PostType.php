@@ -60,7 +60,7 @@ class PostType extends AbstractType
                 'download_uri' => false,
                 'allow_delete' => false,
                 'constraints' => [
-                    new Assert\File(maxSize: 1048576, maxSizeMessage: "The avatar must weight lesser than 1 mo.")
+                    new Assert\File(maxSize: 1048576, maxSizeMessage: "The thumbnail must weight lesser than 1 mo.")
                 ]
             ])
 

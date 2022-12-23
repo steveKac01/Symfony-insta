@@ -3,21 +3,32 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Entity\Avatar;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Form\FormBuilderInterface;
-use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class UserUpdateType extends AbstractType
 {
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+
             ->add('pseudo', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
@@ -29,6 +40,7 @@ class UserUpdateType extends AbstractType
                     'class' => 'form-label mt-4'
                 ]
             ])
+
             ->add('email', EmailType::class, [
                 'attr' => [
                     'class' => 'form-control',
