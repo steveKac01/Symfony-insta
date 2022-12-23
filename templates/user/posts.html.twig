@@ -10,7 +10,7 @@
 	<div class="container mt-4">
 		<div class="d-flex">
 			<div class="mx-4">
-				<img src="/images/avatar/{{userSelected.avatar.url?userSelected.avatar.url:'default.jpg'}}" width="130px" height="130px" alt="post thumbnail" class="border">
+				<img src="/images/avatar/{{userSelected.avatar.url is defined ?userSelected.avatar.url:'default.jpg'}}" width="130px" height="130px" alt="post thumbnail" class="border">
 			</div>
 			<div>
 				<h1>{{userSelected.pseudo|capitalize}}</h1>

@@ -1,35 +1,24 @@
-
 /*Top button*/
 .back-top {
-    text-align: center;
-    position: fixed;
-    bottom: 50px;
-    right: 5px;
-    padding: 10px 10px;
-    color: white;
-    z-index:/*over*/999;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.33s linear;
-  }
+  text-align: center;
+  position: fixed;
+  bottom: 50px;
+  right: 5px;
+  padding: 10px 10px;
+  color: white;
+  z-index:
+    /*over*/
+    999;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.33s linear;
+}
 
-  .hide {
-    display: none;
-  }
+.hide {
+  display: none;
+}
 
-  .vich-image img{
+.vich-image img {
   width: 300px;
-   margin-top: 10px;
-  }
-
-  .input-hidden{
-    display: none;
-  }
-
-  input[type=radio] + label img{
-    cursor: pointer;
-  }
-  input[type=radio]:checked + label img {
-  border: 2px dotted blue;
-
-  }
+  margin-top: 10px;
+}

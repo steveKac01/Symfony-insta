@@ -33,7 +33,7 @@ class UserFixtures extends Fixture implements FixturesConfig
             $user->setEmail($this->faker->email())
                 ->setpseudo($this->faker->userName())
                 ->setPlainPassword('passwordValid01+')
-                ->setAvatar('exemple' . mt_rand(1, 4) . '.jpg');
+                ->setAvatar($this->getReference('avatar_'.mt_rand(1,count($this::AVATAR_LABEL))));
 
             $this->addReference('user_' . $i, $user);
             $manager->persist($user);

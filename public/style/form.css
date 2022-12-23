@@ -1,0 +1,17 @@
+.input-hidden {
+    display: none;
+  }
+  
+  input[type=radio]+label img {
+    cursor: pointer;
+  }
+  
+  input[type=radio]:checked+label img {
+    border: 2px dotted blue;
+  
+  }
+  
+  input[type=radio]:checked+label {
+   color:blue;
+   font-weight: bold;
+  }
