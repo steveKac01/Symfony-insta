@@ -7,7 +7,7 @@ use Twig\TwigFilter;
 
 class testFilterTwig extends AbstractExtension
 {
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter('read_more', [$this, 'reduceFilter']),
