@@ -7,24 +7,47 @@
 {% block content %}
 
 
-
 	{% for message in app.flashes('warning') %}
 		<div class="alert alert-warning">
-			<i class="fa-solid fa-circle-exclamation"></i>	{{message}}
+			<i class="fa-solid fa-circle-exclamation"></i>
+			{{message}}
 		</div>
 	{% endfor %}
 
 	<div class="container my-5">
 		<h1>
 			{{app.user.pseudo}}'s account</h1>
-		
+
 		{# Update time #}
 		{% if app.user.updatedAt != null %}
-			<small>Your profil has been updated on {{app.user.updatedAt|date('m/d/Y')}} at {{app.user.updatedAt|date('H:i')}}</small>
+			<small>Your profil has been updated on
+				{{app.user.updatedAt|date('m/d/Y')}}
+				at
+				{{app.user.updatedAt|date('H:i')}}</small>
 		{% endif %}
 
 		{{ form_start(form) }}
-		{{ form_widget(form) }}
+
+		<div class="py-4 ">
+			<p>Choose your avatar</p>
+			<div class="d-flex  text-center">
+			
+				{% for choice in form.avatar.vars.choices %}
+
+					<input class="input-hidden" type="radio" id="{{choice.label}}" required="required" name="user[avatar]" value="{{choice.value}}" {% if choice.value== app.user.avatar.id %} checked="checked" {% endif %}>
+					<label for="{{choice.label}}">
+						<div>
+							<div>
+								<img src="/images/avatar/{{choice.label}}" width="100px" alt="choose an avatar"></div>
+							<div>{{choice.label}}</div>
+						</div>
+					</label>
+
+				{% endfor %}
+
+			</div>
+		</div>
+		{% do form.avatar.setRendered %}
 		{{ form_end(form) }}
 
 	</div>

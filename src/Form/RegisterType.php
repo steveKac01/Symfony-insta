@@ -100,7 +100,7 @@ class RegisterType extends AbstractType
             //     'download_uri' => false,
             //     ])
               
-            ->add('avatarChoosed',EntityType::class,[
+            ->add('avatar',EntityType::class,[
                 'class' => Avatar::class,
                 'label' => 'Choose your avatar',
                 'expanded' => true

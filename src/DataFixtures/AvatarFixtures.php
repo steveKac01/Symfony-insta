@@ -21,8 +21,8 @@ class AvatarFixtures extends Fixture implements FixturesInterface
 
         for ($i = 1; $i <= $this::NUMBER_AVATAR; $i++) {
             $avatar = new Avatar();
-
-            $avatar->setLabel('avatar_' . $i . '.jpg');
+            $avatar->setLabel('avatar_' . $i . '.jpg')
+                ->setUrl('avatar_' . $i . '.jpg');
             $this->setReference('avatar_' . $i, $avatar);
 
             $manager->persist($avatar);

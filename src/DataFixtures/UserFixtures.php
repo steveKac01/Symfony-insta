@@ -33,7 +33,7 @@ class UserFixtures extends Fixture implements FixturesInterface, DependentFixtur
             ->setpseudo('steve01')
             ->setRoles(['ROLE_ADMIN'])
             ->setPlainPassword('steve')
-            ->setAvatarChoosed($this->getReference('avatar_'. mt_rand(1,$this::NUMBER_AVATAR)));
+            ->setAvatar($this->getReference('avatar_'. mt_rand(1,$this::NUMBER_AVATAR)));
         $this->addReference('user_1', $user);
 
         $manager->persist($user);
@@ -45,7 +45,7 @@ class UserFixtures extends Fixture implements FixturesInterface, DependentFixtur
             $user->setEmail($this->faker->email())
                 ->setpseudo($this->faker->userName())
                 ->setPlainPassword('password')
-                ->setAvatarChoosed($this->getReference('avatar_'. mt_rand(1,$this::NUMBER_AVATAR)));
+                ->setAvatar($this->getReference('avatar_'. mt_rand(1,$this::NUMBER_AVATAR)));
 
             $this->addReference('user_' . $i, $user);
             $manager->persist($user);

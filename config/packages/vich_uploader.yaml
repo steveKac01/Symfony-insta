@@ -7,7 +7,7 @@ vich_uploader:
        avatar:
            uri_prefix: /images/avatar
            upload_destination: '%kernel.project_dir%/public/images/avatar'
-           namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+           namer: Vich\UploaderBundle\Naming\SmartUniqueNamer      
        postThumbnail:
            uri_prefix: /images/posts
            upload_destination: '%kernel.project_dir%/public/images/posts'

@@ -3,18 +3,27 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Entity\Avatar;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Security\Core\Security;
 
 class UserType extends AbstractType
 {
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -51,22 +60,12 @@ class UserType extends AbstractType
                 ]
             ])
 
-            ->add('avatarFile', VichImageType::class,[
-            'attr' =>[
-                'class' => 'form-control'
-            ],
-            'required' => false,
-            'label' => 'Your avatar ',
-            'label_attr' => [
-                'class' => 'form-label mt-4'
-            ],
-            'delete_label' => 'Remove avatar ',
-            'download_uri' => false,
-            'constraints' => [
-                new Assert\File(maxSize:1048576,maxSizeMessage:"The avatar must weight lesser than 1 mo.")
-                ]
+            ->add('avatar',EntityType::class,[
+                'class' => Avatar::class,
+                'label' => 'Choose your avatar',
+                'expanded' => true,
             ])
-
+            
             ->add('plainPassword', PasswordType::class, [
                 'attr' => [
                     'class' => 'form-control',
@@ -81,9 +80,7 @@ class UserType extends AbstractType
                     new Assert\Length(['min' => 5, 'max' => 255]),
                     new Assert\NotBlank()
                 ]
-            ])
-
-
+                ])
 
             ->add('submit', SubmitType::class, [
                 'attr' => [

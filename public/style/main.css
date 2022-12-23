@@ -21,3 +21,15 @@
   width: 300px;
    margin-top: 10px;
   }
+
+  .input-hidden{
+    display: none;
+  }
+
+  input[type=radio] + label img{
+    cursor: pointer;
+  }
+  input[type=radio]:checked + label img {
+  border: 2px dotted blue;
+
+  }

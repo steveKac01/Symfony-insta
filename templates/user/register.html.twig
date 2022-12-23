@@ -9,14 +9,34 @@
 		<h1>
 			Register
 		</h1>
-
+		{# debut #}
 		{{ form_start(form) }}
-		<div class="text-danger py-4 px-4"  style="height:100px;background: url('/images/avatar/avatar_1.jpg');background-size:cover">
-		{{ form_widget(form.avatarChoosed) }}
 
-	</div>
+
+		<div class="text-danger py-4 px-4" style="height:100px;background: url('/images/avatar/avatar_1.jpg');background-size:cover">
+
+
+	
+			<div class="d-flex p2">
+				{% for choice in form.avatar.vars.choices %}
+
+				<input type="radio" id="{{choice.label}}" name="register[avatar]" value="{{choice.value}}" {% if choice.value==1 %}
+					
+			checked="checked"	{% endif %} >
+				<label for="{{choice.label}}">
+					<div> <img src="/images/avatar/{{choice.label}}" width="100px" alt="choose an avatar">  {{choice.label}} </div>
+				</label>
+					{% endfor %}
+				</div>
+		</div>
+		{% do form.avatar.setRendered %}
 		{{ form_end(form) }}
-		<p class="mt-4 text-end">Already got an account ? <a href="{{path('security.login')}}">sign in here</a> </p>
+		{# {{ dump(form.avatarChoosed.vars.choices) }} #}
+		{# fin #}
+
+		<p class="mt-4 text-end">Already got an account ?
+			<a href="{{path('security.login')}}">sign in here</a>
+		</p>
 
 	</div>
 {% endblock %}
