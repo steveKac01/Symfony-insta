@@ -7,32 +7,10 @@
 	<div class="container my-5 form-control">
 
 		<h1>
-			Register
+			Create your account
 		</h1>
-		{# debut #}
-		{{ form_start(form) }}
 
-
-		<div class="text-danger py-4 px-4" style="height:100px;background: url('/images/avatar/avatar_1.jpg');background-size:cover">
-
-
-	
-			<div class="d-flex p2">
-				{% for choice in form.avatar.vars.choices %}
-
-				<input type="radio" id="{{choice.label}}" name="register[avatar]" value="{{choice.value}}" {% if choice.value==1 %}
-					
-			checked="checked"	{% endif %} >
-				<label for="{{choice.label}}">
-					<div> <img src="/images/avatar/{{choice.data.url}}" width="100px" alt="choose an avatar">  {{choice.label}} </div>
-				</label>
-					{% endfor %}
-				</div>
-		</div>
-		{% do form.avatar.setRendered %}
-		{{ form_end(form) }}
-		{# {{ dump(form.avatarChoosed.vars.choices) }} #}
-		{# fin #}
+		{% include "/form/user.html.twig" %}
 
 		<p class="mt-4 text-end">Already got an account ?
 			<a href="{{path('security.login')}}">sign in here</a>

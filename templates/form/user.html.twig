@@ -1,0 +1,38 @@
+{# form begining #}
+{{ form_start(form) }}
+
+		<div class="py-4 ">
+			<p>Choose your avatar</p>
+			<div class="d-flex  text-center">
+		
+                {% set firstItem = form.avatar.vars.choices|first %}
+				{% for choice in form.avatar.vars.choices %}
+					<input class="input-hidden" type="radio" id="{{choice.label}}" required="required" name="user[avatar]" value="{{choice.value}}" 
+                    
+                    {# Checks the radio #}
+                    {% if app.user and choice.value== app.user.avatar.id %}
+                     checked="checked" 
+                        {% else %}
+
+                        {% if choice == firstItem %}
+                        checked="checked" 
+                        {% endif %}
+
+                   {% endif %}>
+
+					<label for="{{choice.label}}">
+						<div>
+							<div>
+								<img src="/images/avatar/{{choice.data.url}}" width="100px" alt="{{choice.label}}-avatar"></div>
+							<div>{{choice.label}}</div>
+						</div>
+					</label>
+
+				{% endfor %}
+
+			</div>
+		</div>
+		{% do form.avatar.setRendered %}
+		{{ form_end(form) }}
+
+{# form end #}
