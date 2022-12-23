@@ -3,7 +3,7 @@
 namespace App\Controller\Member\User;
 
 use App\Entity\User;
-use App\Form\UserUpdateType;
+use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,7 +27,7 @@ class UpdateController extends AbstractController
     #[route('/profil/{id}', 'user.update', methods: ['GET', 'POST'])]
     public function Update(Request $request, EntityManagerInterface $manager, User $userSelected, UserPasswordHasherInterface $hasher): Response
     {
-        $form = $this->createForm(UserUpdateType::class, $userSelected);
+        $form = $this->createForm(UserType::class, $userSelected);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
