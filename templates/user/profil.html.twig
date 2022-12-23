@@ -31,14 +31,15 @@
 		<div class="py-4 ">
 			<p>Choose your avatar</p>
 			<div class="d-flex  text-center">
-			
-				{% for choice in form.avatar.vars.choices %}
+		
 
+				{% for choice in form.avatar.vars.choices %}
+				
 					<input class="input-hidden" type="radio" id="{{choice.label}}" required="required" name="user[avatar]" value="{{choice.value}}" {% if choice.value== app.user.avatar.id %} checked="checked" {% endif %}>
 					<label for="{{choice.label}}">
 						<div>
 							<div>
-								<img src="/images/avatar/{{choice.label}}" width="100px" alt="choose an avatar"></div>
+								<img src="/images/avatar/{{choice.data.url}}" width="100px" alt="choose an avatar"></div>
 							<div>{{choice.label}}</div>
 						</div>
 					</label>

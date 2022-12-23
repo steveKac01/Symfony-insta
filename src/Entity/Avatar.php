@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: AvatarRepository::class)]
@@ -19,7 +20,13 @@ class Avatar
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 10)]
+    #[Assert\Length(
+        min: 2,
+        max: 10,
+        minMessage: 'Your label must be at least {{ limit }} characters long',
+        maxMessage: 'Your label cannot be longer than {{ limit }} characters',
+    )]
     private ?string $label = null;
 
     #[ORM\Column(length: 255)]
