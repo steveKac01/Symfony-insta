@@ -18,6 +18,7 @@ class PostType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        
         $builder
             ->add('title', TextType::class, [
                 'attr' => [
@@ -59,6 +60,8 @@ class PostType extends AbstractType
                 'delete_label' => 'Change thumbnail ',
                 'download_uri' => false,
                 'allow_delete' => false,
+                // If we are editing or creating a new post the required option changes.
+                'required' => $options['data']->getUrl()?false:true,
                 'constraints' => [
                     new Assert\File(maxSize: 1048576, maxSizeMessage: "The thumbnail must weight lesser than 1 mo.")
                 ]

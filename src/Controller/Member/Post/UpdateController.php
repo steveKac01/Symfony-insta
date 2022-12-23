@@ -3,7 +3,8 @@
 namespace App\Controller\Member\Post;
 
 use App\Entity\Post;
-use App\Form\PostEditType;
+
+use App\Form\PostType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,9 +24,9 @@ class UpdateController extends AbstractController
      */
     #[Security("is_granted('ROLE_USER') and user === post.getUserPost()")]
     #[route('member/update/post/{id}', 'post.update', methods: ['GET', 'POST'])]
-    public function update(Post $post, Request $request,EntityManagerInterface $entityManager)
+    public function update(Post $post, Request $request, EntityManagerInterface $entityManager)
     {
-        $form = $this->createForm(PostEditType::class, $post);
+        $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
