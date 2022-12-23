@@ -18,6 +18,7 @@ class PostCrudController extends AbstractCrudController
     {
         return Post::class;
     }
+    
     public function configureCrud(Crud $crud): crud
     {
         return $crud
@@ -31,9 +32,9 @@ class PostCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            ImageField::new('url')->setUploadDir('/public/images/posts/')->OnlyOnForms(),
+            ImageField::new('url','Thumbnail')->setUploadDir('/public/images/posts/')
+            ->setBasePath('images/posts/'),
             'title',
-
             TextareaField::new('description','Content')->hideOnIndex()
             ->setFormType(CKEditorType::class),
             AssociationField::new('category'),

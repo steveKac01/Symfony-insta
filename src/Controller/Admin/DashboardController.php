@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Avatar;
 use App\Entity\Category;
 use App\Entity\Comment;
 use App\Entity\Contact;
@@ -32,7 +33,8 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Users', 'fas fa-user', User::class);
-        yield MenuItem::linkToCrud('Posts', 'fas fa-image', Post::class);
+        yield MenuItem::linkToCrud('Avatars','fas fa-image',Avatar::class);
+        yield MenuItem::linkToCrud('Posts', 'fa-solid fa-pen-nib', Post::class);
         yield MenuItem::linkToCrud('Comments', 'fa-solid fa-comment-dots', Comment::class);
         yield MenuItem::linkToCrud('Categories', 'fas fa-list', Category::class);
         yield MenuItem::linkToCrud('Contact messages', 'fas fa-envelope', Contact::class);
