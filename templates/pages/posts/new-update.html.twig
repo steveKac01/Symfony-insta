@@ -1,50 +1,19 @@
 {% extends "base.html.twig" %}
 {% block title %}
 	{{parent()}}
-	- {{label}} a post
+	-
+	{{label}}
+	a post
 {% endblock %}
 
 {% block content %}
 	<div class="container">
 
 		<h1 class="mt-4">{{label}} a post</h1>
+
 		<div>
-
-			{{ form_start(form) }}
-
-
-			<div class="form-group">
-				{{form_label(form.title)}}
-				{{form_widget(form.title)}}
-				<div class="form-error">
-					{{ form_errors(form.title) }}
-				</div>
-			</div>
-
-			<div class="form-group">
-				{{form_label(form.description)}}
-				{{form_widget(form.description)}}
-				<div class="form-error">
-					{{ form_errors(form.description) }}
-				</div>
-			</div>
-
-			<div class="form-group">
-				{{form_label(form.postThumbnail)}}
-				{{form_widget(form.postThumbnail)}}
-				<div class="form-error">
-					{{ form_errors(form.postThumbnail) }}
-				</div>
-			</div>
-
-			<div class="form-group">
-				{{form_label(form.submit)}}
-			</div>
-
-
+			{% include "/form/post.html.twig" %}
 		</div>
-		{{ form_end(form) }}
-
 
 	</div>
-</div>{% endblock %}
+{% endblock %}

@@ -51,7 +51,7 @@
 					{# Comment form #}
 					{% if app.user %}
 
-						{{ include('comment/_form.html.twig') }}
+						{{ include('form/comment.html.twig') }}
 						<div class="text-center">
 							<a href="{{path('home')}}#{{post.id}}">
 								<button class="btn btn-secondary hBack" type="button">Back</button>

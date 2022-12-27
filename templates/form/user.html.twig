@@ -1,6 +1,5 @@
 {{ form_start(form) }}
-<div
-	class="py-4 ">
+<div class="py-4 ">
 
 	{# Avatar #}
 	<div>
@@ -23,7 +22,7 @@
 	</div>
 
 	{# Pseudo #}
-	<div class="form-group has-danger ">
+	<div class="form-group has-danger mt-4">
 		<div {% if form_errors(form.pseudo) %}  class="text-danger" {% endif %} >
 			{{ form_label(form.pseudo)}}
 		</div>
@@ -37,7 +36,7 @@
 	</div>
 
 	{# Email #}
-	<div class="form-group has-danger ">
+	<div class="form-group has-danger mt-4">
 		<div {% if form_errors(form.email) %}  class="text-danger" {% endif %} >
 			{{ form_label(form.email)}}
 		</div>
@@ -53,7 +52,7 @@
 	{% if app.user %}
 
 		{# Password #}
-		<div class="form-group has-danger ">
+		<div class="form-group has-danger mt-4">
 			<div {% if form_errors(form.plainPassword) %}  class="text-danger" {% endif %} >
 				{{ form_label(form.plainPassword)}}
 			</div>
@@ -70,10 +69,11 @@
 
 	
 		{# Password #}
-		<div class="form-group has-danger ">
+		<div class="form-group has-danger mt-4">
 			<div {% if form_errors(form.plainPassword.first) %}  class="text-danger" {% endif %} >
 				{{ form_label(form.plainPassword.first)}}
 			</div>
+			<small>Password rules here.</small>
 			<div {% if form_errors(form.plainPassword.first) %} class=" form-control is-invalid" {% endif %}>
 				{{ form_widget(form.plainPassword.first) }}
 			</div>
