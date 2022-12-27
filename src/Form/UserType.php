@@ -35,9 +35,6 @@ class UserType extends AbstractType
                     'maxlength' => '50',
                 ],
                 'label' => 'Pseudo',
-                'label_attr' => [
-                    'class' => 'form-label mt-4'
-                ]
             ])
 
             ->add('email', EmailType::class, [
@@ -47,10 +44,7 @@ class UserType extends AbstractType
                     'maxlength' => '180',
 
                 ],
-                'label' => 'Email',
-                'label_attr' => [
-                    'class' => 'form-label mt-4'
-                ]
+                'label' => 'Email'
             ])
 
             ->add('avatar', EntityType::class, [
@@ -59,6 +53,7 @@ class UserType extends AbstractType
                 'expanded' => true
             ]);
 
+        //If the user is logged, renders the password type else renders the repeated type for register.
         if ($this->security->getUser()) {
             $builder
                 ->add('plainPassword', PasswordType::class, [
@@ -67,10 +62,7 @@ class UserType extends AbstractType
                         'minlength' => '5',
                         'maxlength' => '255',
                     ],
-                    'label' => 'Password',
-                    'label_attr' => [
-                        'class' => 'form-label mt-4'
-                    ]
+                    'label' => 'Password'
                 ]);
         } else {
             $builder
@@ -83,11 +75,7 @@ class UserType extends AbstractType
                             'minlength' => '5',
                             'maxlength' => '255',
                         ],
-                        'label' => 'Password',
-                        'label_attr' => [
-                            'class' => 'form-label mt-4'
-                        ]
-                    ],
+                        'label' => 'Password'                  ],
                     'second_options' => [
                         'attr' => [
                             'class' => 'form-control',
@@ -95,9 +83,6 @@ class UserType extends AbstractType
                             'maxlength' => '255',
                         ],
                         'label' => 'Confirm Password',
-                        'label_attr' => [
-                            'class' => 'form-label mt-4'
-                        ]
                     ]
                 ]);
         }

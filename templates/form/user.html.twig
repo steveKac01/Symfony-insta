@@ -1,39 +1,97 @@
-{# form begining #}
 {{ form_start(form) }}
 
-		<div class="py-4 ">
-			<p>Choose your avatar</p>
-			<div class="d-flex justify-content-center text-center">
-		
-                {% set firstItem = form.avatar.vars.choices|first %}
-				{% for choice in form.avatar.vars.choices %}
-					<input class="input-hidden" type="radio" id="{{choice.label}}" required="required" name="user[avatar]" value="{{choice.value}}" 
-                    
-                    {# Checks the radio #}
- 
-                    {% if app.user and app.user.avatar.id is defined and choice.value== app.user.avatar.id %}
-                     checked="checked" 
-                        {% else %}
+<div class="py-4 ">
 
-                        {% if choice == firstItem %}
-                        checked="checked" 
-                        {% endif %}
+	{# Avatar #}
+	<div>
+		<p>Choose your avatar</p>
+		<div class="d-flex justify-content-center text-center">
 
-                   {% endif %}>
+			{% set firstItem = form.avatar.vars.choices|first %}
+			{% for choice in form.avatar.vars.choices %}
+				<input class="input-hidden" type="radio" id="{{choice.label}}" required="required" name="user[avatar]" value="{{choice.value}}" {# Checks the radio #} {% if app.user and app.user.avatar.id is defined and choice.value== app.user.avatar.id %} checked="checked" {% else %} {% if choice == firstItem %} checked="checked" {% endif %} {% endif %}>
 
-					<label for="{{choice.label}}">
+				<label for="{{choice.label}}">
+					<div>
 						<div>
-							<div>
-								<img src="/images/avatar/{{choice.data.url}}" width="100px" alt="{{choice.label}}-avatar"></div>
-							<div>{{choice.label}}</div>
-						</div>
-					</label>
+							<img src="/images/avatar/{{choice.data.url}}" width="100px" alt="{{choice.label}}-avatar"></div>
+						<div>{{choice.label}}</div>
+					</div>
+				</label>
+			{% endfor %}
 
-				{% endfor %}
+		</div>
+	</div>
 
+	{# Pseudo #}
+	<div class="my-4">
+		<div>
+			{{ form_label(form.pseudo)}}
+		</div>
+		<div>
+			{{ form_widget(form.pseudo)}}
+		</div>
+
+		<div class="alert-danger">
+			{{ form_errors(form.pseudo) }}
+		</div>
+	</div>
+
+	{# Email #}
+	<div class="my-4">
+		<div class="form-label mt-4">
+			{{ form_label(form.email)}}
+		</div>
+		<div>
+			{{ form_widget(form.email)}}
+		</div>
+
+		<div class="alert-danger">
+			{{ form_errors(form.email) }}
+		</div>
+	</div>
+
+	{% if app.user %}
+
+		{# Password #}
+		<div class="my-4">
+			<div class="form-label mt-4">
+				{{ form_label(form.plainPassword)}}</div>
+			<div class="alert-danger">
+				{{ form_errors(form.plainPassword) }}
+			</div>
+			<div>
+				{{ form_widget(form.plainPassword)}}</div>
+		</div>
+
+	{% else %}
+
+		{# Password #}
+		<div class="my-4">
+			<div class="form-label mt-4">
+				{{ form_label(form.plainPassword.first)}}
+			</div>
+			<div class="alert-danger">
+				{{ form_errors(form.plainPassword.first) }}
+			</div>
+			<div>
+				{{ form_widget(form.plainPassword.first)}}
 			</div>
 		</div>
-		{% do form.avatar.setRendered %}
-		{{ form_end(form) }}
 
-{# form end #}
+		{# Confirm Password #}
+		<div class="my-4">
+			<div class="form-label mt-4">
+				{{ form_label(form.plainPassword.second)}}
+			</div>
+			<div>
+				{{ form_widget(form.plainPassword.second)}}
+			</div>
+		</div>
+	{% endif %}
+
+	<div>
+		{{ form_widget(form.submit)}}
+	</div>
+
+</div></div>{% do form.avatar.setRendered %}{{ form_end(form) }}

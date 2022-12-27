@@ -11,8 +11,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
-#[UniqueEntity('email')]
-#[UniqueEntity('pseudo')]
+#[UniqueEntity('email','Email already taken.')]
+#[UniqueEntity('pseudo','Pseudo already taken, please choose another one.')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\EntityListeners(['App\EntityListener\UserListener'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -45,7 +45,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     
     #[Assert\Regex(
         '/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/',
-        'Password not valid.')]
+        'Invalid password.')]
     private ?string $plainPassword = null;
 
     #[Assert\NotBlank()]

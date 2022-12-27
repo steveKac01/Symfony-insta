@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{parent()}}
+	- Reset password
+{% endblock %}
+
+{% block content %}
+
+	<div class="container my-4 form-control">
+		<h1>Reset your password</h1>
+
+		<p>Todo : add password rules here.</p>
+
+		{{ form_start(resetForm) }}
+
+		{% if form_errors(resetForm.plainPassword.first)  %}
+			<div class="alert-danger p-2">
+				{{ form_errors(resetForm.plainPassword.first) }}
+			</div>
+		{% endif %}
+        
+		<div class="my-4">
+			<span class="mx-2">
+				{{ form_label(resetForm.plainPassword.first) }}</span>
+			{{ form_widget(resetForm.plainPassword.first) }}
+		</div>
+
+		<div class="my-4">
+			<span class="mx-2">
+				{{ form_label(resetForm.plainPassword.second) }}</span>
+			{{ form_widget(resetForm.plainPassword.second) }}
+		</div>
+
+		<button class="btn btn-primary">Reset password</button>
+		{{ form_end(resetForm) }}
+
+	</div>
+
+{% endblock %}
