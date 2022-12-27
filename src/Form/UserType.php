@@ -35,6 +35,9 @@ class UserType extends AbstractType
                     'maxlength' => '50',
                 ],
                 'label' => 'Pseudo',
+                'label_attr' => [
+                    'class' => 'form-label'
+                ]
             ])
 
             ->add('email', EmailType::class, [
@@ -86,6 +89,7 @@ class UserType extends AbstractType
                     ]
                 ]);
         }
+        
         $builder
             ->add('submit', SubmitType::class, [
                 'attr' => [

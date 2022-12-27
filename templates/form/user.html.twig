@@ -1,12 +1,11 @@
 {{ form_start(form) }}
-
-<div class="py-4 ">
+<div
+	class="py-4 ">
 
 	{# Avatar #}
 	<div>
 		<p>Choose your avatar</p>
-		<div class="d-flex justify-content-center text-center">
-
+		<div class=" text-center container-fluid">
 			{% set firstItem = form.avatar.vars.choices|first %}
 			{% for choice in form.avatar.vars.choices %}
 				<input class="input-hidden" type="radio" id="{{choice.label}}" required="required" name="user[avatar]" value="{{choice.value}}" {# Checks the radio #} {% if app.user and app.user.avatar.id is defined and choice.value== app.user.avatar.id %} checked="checked" {% else %} {% if choice == firstItem %} checked="checked" {% endif %} {% endif %}>
@@ -24,29 +23,29 @@
 	</div>
 
 	{# Pseudo #}
-	<div class="my-4">
-		<div>
+	<div class="form-group has-danger ">
+		<div {% if form_errors(form.pseudo) %}  class="text-danger" {% endif %} >
 			{{ form_label(form.pseudo)}}
 		</div>
-		<div>
-			{{ form_widget(form.pseudo)}}
+		<div {% if form_errors(form.pseudo) %} class=" form-control is-invalid" {% endif %}>
+			{{ form_widget(form.pseudo) }}
 		</div>
 
-		<div class="alert-danger">
+		<div class="invalid-feedback">
 			{{ form_errors(form.pseudo) }}
 		</div>
 	</div>
 
 	{# Email #}
-	<div class="my-4">
-		<div class="form-label mt-4">
+	<div class="form-group has-danger ">
+		<div {% if form_errors(form.email) %}  class="text-danger" {% endif %} >
 			{{ form_label(form.email)}}
 		</div>
-		<div>
-			{{ form_widget(form.email)}}
+		<div {% if form_errors(form.email) %} class=" form-control is-invalid" {% endif %}>
+			{{ form_widget(form.email) }}
 		</div>
 
-		<div class="alert-danger">
+		<div class="invalid-feedback">
 			{{ form_errors(form.email) }}
 		</div>
 	</div>
@@ -54,28 +53,33 @@
 	{% if app.user %}
 
 		{# Password #}
-		<div class="my-4">
-			<div class="form-label mt-4">
-				{{ form_label(form.plainPassword)}}</div>
-			<div class="alert-danger">
+		<div class="form-group has-danger ">
+			<div {% if form_errors(form.plainPassword) %}  class="text-danger" {% endif %} >
+				{{ form_label(form.plainPassword)}}
+			</div>
+			<div {% if form_errors(form.plainPassword) %} class=" form-control is-invalid" {% endif %}>
+				{{ form_widget(form.plainPassword) }}
+			</div>
+	
+			<div class="invalid-feedback">
 				{{ form_errors(form.plainPassword) }}
 			</div>
-			<div>
-				{{ form_widget(form.plainPassword)}}</div>
 		</div>
 
 	{% else %}
 
+	
 		{# Password #}
-		<div class="my-4">
-			<div class="form-label mt-4">
+		<div class="form-group has-danger ">
+			<div {% if form_errors(form.plainPassword.first) %}  class="text-danger" {% endif %} >
 				{{ form_label(form.plainPassword.first)}}
 			</div>
-			<div class="alert-danger">
-				{{ form_errors(form.plainPassword.first) }}
+			<div {% if form_errors(form.plainPassword.first) %} class=" form-control is-invalid" {% endif %}>
+				{{ form_widget(form.plainPassword.first) }}
 			</div>
-			<div>
-				{{ form_widget(form.plainPassword.first)}}
+	
+			<div class="invalid-feedback">
+				{{ form_errors(form.plainPassword.first) }}
 			</div>
 		</div>
 
@@ -90,8 +94,11 @@
 		</div>
 	{% endif %}
 
+	{# Submit #}
 	<div>
 		{{ form_widget(form.submit)}}
 	</div>
 
-</div></div>{% do form.avatar.setRendered %}{{ form_end(form) }}
+</div>
+{% do form.avatar.setRendered %}
+{{ form_end(form) }}

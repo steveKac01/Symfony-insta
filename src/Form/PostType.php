@@ -25,6 +25,7 @@ class PostType extends AbstractType
                     'class' => 'form-control',
                     'minlength' => '3',
                     'maxlength' => '50',
+                    'message'=>'trop court'
 
                 ],
                 'label' => 'Title',
