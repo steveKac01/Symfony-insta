@@ -4,11 +4,12 @@
   
   input[type=radio]+label img {
     cursor: pointer;
+    opacity: .5;
   }
   
   input[type=radio]:checked+label img {
     border: 2px dotted blue;
-  
+    opacity: 1;
   }
   
   input[type=radio]:checked+label {
