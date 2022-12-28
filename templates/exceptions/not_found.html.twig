@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{parent()}} - Page not found
+{% endblock title %}
+
+{% block content %}
+<div class="container text-center my-4">
+<img src="/images/404.jpg" alt="error bot">
+    <p> The page requested was not found !</p>
+   
+
+   <p></p> Back to <a href="{{path('home')}}"> homepage</a>
+</div>
+{% endblock content %}
