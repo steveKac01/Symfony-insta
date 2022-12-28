@@ -65,7 +65,7 @@ class UserType extends AbstractType
                         'minlength' => '5',
                         'maxlength' => '255',
                     ],
-                    'label' => 'Password'
+                    'label' => 'Current password'
                 ]);
         } else {
             $builder
