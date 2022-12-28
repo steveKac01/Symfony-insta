@@ -47,7 +47,7 @@ class Post
     #[ORM\Column(length: 255,nullable:true)]
     private ?string $url = null;
     
-    #[Assert\File(maxSize: 1048576, maxSizeMessage: "The thumbnail must weight lesser than 1 mo.")]
+    #[Assert\File(maxSize: 1048576, maxSizeMessage: "The file is too big must be lesser than 1 mo.")]
     #[Vich\UploadableField(mapping: 'postThumbnail', fileNameProperty: 'url')]
     private ?File $postThumbnail = null;
 

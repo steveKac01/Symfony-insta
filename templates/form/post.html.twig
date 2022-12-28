@@ -7,11 +7,8 @@
 {% include "/form/templates/field.html.twig" with {field:form.description} only %}
 
 {# Thumbnail #}
-	<div class="form-group"> {{form_label(form.postThumbnail)}}
-	{{form_widget(form.postThumbnail)}}
-	<div class="form-error">
-		{{ form_errors(form.postThumbnail) }}
-	</div>
+	<div class="form-group"> {{form_row(form.postThumbnail)}}
+ 
 </div>
 
 <div class="form-group">
