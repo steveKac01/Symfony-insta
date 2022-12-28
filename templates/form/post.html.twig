@@ -1,34 +1,21 @@
 {{ form_start(form) }}
 
+{# Title #}
+{% include "/form/templates/field.html.twig" with {field:form.title} only %}
 
-			<div class="form-group">
-				{{form_label(form.title)}}
-				{{form_widget(form.title)}}
-				<div class="form-error">
-					{{ form_errors(form.title) }}
-				</div>
-			</div>
+{# Title #}
+{% include "/form/templates/field.html.twig" with {field:form.description} only %}
 
-			<div class="form-group">
-				{{form_label(form.description)}}
-				{{form_widget(form.description)}}
-				<div class="form-error">
-					{{ form_errors(form.description) }}
-				</div>
-			</div>
+{# Thumbnail #}
+	<div class="form-group"> {{form_label(form.postThumbnail)}}
+	{{form_widget(form.postThumbnail)}}
+	<div class="form-error">
+		{{ form_errors(form.postThumbnail) }}
+	</div>
+</div>
 
-			<div class="form-group">
-				{{form_label(form.postThumbnail)}}
-				{{form_widget(form.postThumbnail)}}
-				<div class="form-error">
-					{{ form_errors(form.postThumbnail) }}
-				</div>
-			</div>
+<div class="form-group">
+	{{form_label(form.submit)}}
+</div>
 
-			<div class="form-group">
-				{{form_label(form.submit)}}
-			</div>
-
-
-		</div>
-		{{ form_end(form) }}
+{{ form_end(form) }}

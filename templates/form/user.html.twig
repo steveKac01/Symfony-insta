@@ -2,96 +2,23 @@
 <div class="py-4 ">
 
 	{# Avatar #}
-	<div>
-		<p>Choose your avatar</p>
-		<div class=" text-center container-fluid">
-			{% set firstItem = form.avatar.vars.choices|first %}
-			{% for choice in form.avatar.vars.choices %}
-				<input class="input-hidden" type="radio" id="{{choice.label}}" required="required" name="user[avatar]" value="{{choice.value}}" {# Checks the radio #} {% if app.user and app.user.avatar.id is defined and choice.value== app.user.avatar.id %} checked="checked" {% else %} {% if choice == firstItem %} checked="checked" {% endif %} {% endif %}>
-
-				<label for="{{choice.label}}">
-					<div>
-						<div>
-							<img src="/images/avatar/{{choice.data.url}}" width="100px" alt="{{choice.label}}-avatar"></div>
-						<div>{{choice.label}}</div>
-					</div>
-				</label>
-			{% endfor %}
-
-		</div>
-	</div>
+	{% include "form/templates/avatar.html.twig" with {avatar:form.avatar} only %}
 
 	{# Pseudo #}
-	<div class="form-group has-danger mt-4">
-		<div {% if form_errors(form.pseudo) %}  class="text-danger" {% endif %} >
-			{{ form_label(form.pseudo)}}
-		</div>
-		<div {% if form_errors(form.pseudo) %} class=" form-control is-invalid" {% endif %}>
-			{{ form_widget(form.pseudo) }}
-		</div>
-
-		<div class="invalid-feedback">
-			{{ form_errors(form.pseudo) }}
-		</div>
-	</div>
+	{% include "form/templates/field.html.twig" with {field:form.pseudo} only %}
 
 	{# Email #}
-	<div class="form-group has-danger mt-4">
-		<div {% if form_errors(form.email) %}  class="text-danger" {% endif %} >
-			{{ form_label(form.email)}}
-		</div>
-		<div {% if form_errors(form.email) %} class=" form-control is-invalid" {% endif %}>
-			{{ form_widget(form.email) }}
-		</div>
+	{% include "form/templates/field.html.twig" with {field:form.email} only %}
 
-		<div class="invalid-feedback">
-			{{ form_errors(form.email) }}
-		</div>
-	</div>
-
+	{# Password #}
 	{% if app.user %}
 
-		{# Password #}
-		<div class="form-group has-danger mt-4">
-			<div {% if form_errors(form.plainPassword) %}  class="text-danger" {% endif %} >
-				{{ form_label(form.plainPassword)}}
-			</div>
-			<div {% if form_errors(form.plainPassword) %} class=" form-control is-invalid" {% endif %}>
-				{{ form_widget(form.plainPassword) }}
-			</div>
-	
-			<div class="invalid-feedback">
-				{{ form_errors(form.plainPassword) }}
-			</div>
-		</div>
+		{% include "form/templates/field.html.twig" with {field:form.plainPassword} only %}
 
 	{% else %}
 
-	
-		{# Password #}
-		<div class="form-group has-danger mt-4">
-			<div {% if form_errors(form.plainPassword.first) %}  class="text-danger" {% endif %} >
-				{{ form_label(form.plainPassword.first)}}
-			</div>
-			<small>Password rules here.</small>
-			<div {% if form_errors(form.plainPassword.first) %} class=" form-control is-invalid" {% endif %}>
-				{{ form_widget(form.plainPassword.first) }}
-			</div>
-	
-			<div class="invalid-feedback">
-				{{ form_errors(form.plainPassword.first) }}
-			</div>
-		</div>
+		{% include "form/templates/repeat_password.html.twig" with {field:form.plainPassword} only %}
 
-		{# Confirm Password #}
-		<div class="my-4">
-			<div class="form-label mt-4">
-				{{ form_label(form.plainPassword.second)}}
-			</div>
-			<div>
-				{{ form_widget(form.plainPassword.second)}}
-			</div>
-		</div>
 	{% endif %}
 
 	{# Submit #}

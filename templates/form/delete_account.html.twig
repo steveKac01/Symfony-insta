@@ -1,0 +1,9 @@
+{{ form_start(form) }}
+
+{# Email #}
+{% include "/form/templates/field.html.twig" with {field:form.email} only %}
+
+{# Password #}
+{% include "/form/templates/field.html.twig" with {field:form.plainPassword} only %}
+
+{{ form_end(form) }}

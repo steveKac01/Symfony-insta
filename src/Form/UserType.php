@@ -45,6 +45,7 @@ class UserType extends AbstractType
                     'class' => 'form-control',
                     'minlength' => '5',
                     'maxlength' => '180',
+                    'placeholder' => 'xxx@domain.com'
 
                 ],
                 'label' => 'Email'
@@ -65,7 +66,8 @@ class UserType extends AbstractType
                         'minlength' => '5',
                         'maxlength' => '255',
                     ],
-                    'label' => 'Current password'
+                    'label' => 'Current password',
+                    'placeholder' => 'password'
                 ]);
         } else {
             $builder
@@ -78,7 +80,8 @@ class UserType extends AbstractType
                             'minlength' => '5',
                             'maxlength' => '255',
                         ],
-                        'label' => 'Password'                  ],
+                        'label' => 'Password'
+                       ],
                     'second_options' => [
                         'attr' => [
                             'class' => 'form-control',

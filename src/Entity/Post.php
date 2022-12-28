@@ -32,7 +32,7 @@ class Post
     private ?string $title = null;
     
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank()]
+    #[Assert\NotBlank(message:'The description can\'t be empty.')]
     #[Assert\Length(
         min: 5,
         max: 255,
@@ -47,6 +47,7 @@ class Post
     #[ORM\Column(length: 255,nullable:true)]
     private ?string $url = null;
     
+    #[Assert\File(maxSize: 1048576, maxSizeMessage: "The thumbnail must weight lesser than 1 mo.")]
     #[Vich\UploadableField(mapping: 'postThumbnail', fileNameProperty: 'url')]
     private ?File $postThumbnail = null;
 

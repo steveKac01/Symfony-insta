@@ -29,9 +29,6 @@ class ContactType extends AbstractType
                         'maxlength' => '50',
                     ],
                     'label' => 'Name',
-                    'label_attr' => [
-                        'class' => 'form-label mt-4'
-                    ],
                     'required' => false
                 ]
             )
@@ -45,10 +42,7 @@ class ContactType extends AbstractType
                         'minlength' => '3',
                         'maxlength' => '50',
                     ],
-                    'label' => 'Email (*required)',
-                    'label_attr' => [
-                        'class' => 'form-label mt-4'
-                    ]
+                    'label' => 'Email (*required)'
                 ]
             )
 
@@ -61,9 +55,6 @@ class ContactType extends AbstractType
                         'maxlength' => '100',
                     ],
                     'label' => 'Subject',
-                    'label_attr' => [
-                        'class' => 'form-label mt-4'
-                    ],
                     'required' => false
                 ]
             )
@@ -78,17 +69,14 @@ class ContactType extends AbstractType
                         'maxlength' => '5000',
                         'rows' => 5,
                     ],
-                    'label' => 'Your message (*required)',
-                    'label_attr' => [
-                        'class' => 'form-label mt-4'
-                    ]
+                    'label' => 'Your message (*required)'
                 ]
             )
 
             ->add('submit', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary my-4'
-                ],  'label' => 'Envoyer votre message'
+                ],  'label' => 'Send your message'
             ])
 
             ->add('captcha', Recaptcha3Type::class, [

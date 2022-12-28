@@ -1,1 +1,15 @@
-{{form(form)}}
+{{ form_start(form) }}
+
+{# Name #}
+{% include "form/templates/field.html.twig" with {field:form.name} only %}
+
+{# Email #}
+{% include "form/templates/field.html.twig" with {field:form.email} only %}
+
+{# Subject #}
+{% include "form/templates/field.html.twig" with {field:form.subject} only %}
+
+{# Message#}
+{% include "form/templates/field.html.twig" with {field:form.message} only %}
+
+{{ form_end(form) }}

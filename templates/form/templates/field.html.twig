@@ -1,0 +1,12 @@
+<div class="form-group has-danger mt-4">
+	<div {% if form_errors(field) %} class="text-danger" {% endif %}>
+		{{ form_label(field)}}
+	</div>
+	<div {% if form_errors(field) %} class=" form-control is-invalid" {% endif %}>
+		{{ form_widget(field) }}
+	</div>
+
+	<div class="invalid-feedback">
+		{{ form_errors(field) }}
+	</div>
+</div>

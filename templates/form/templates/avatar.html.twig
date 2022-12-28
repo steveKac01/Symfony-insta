@@ -1,0 +1,17 @@
+<div>
+    <p>Choose your avatar</p>
+    <div class=" text-center container-fluid">
+        {% set firstItem = avatar.vars.choices|first %}
+        {% for choice in avatar.vars.choices %}
+            <input class="input-hidden" type="radio" id="{{choice.label}}" required="required" name="user[avatar]" value="{{choice.value}}" {# Checks the radio #} {% if app.user and app.user.avatar.id is defined and choice.value== app.user.avatar.id %} checked="checked" {% else %} {% if choice == firstItem %} checked="checked" {% endif %} {% endif %}>
+
+            <label for="{{choice.label}}">
+                <div>
+                    <div>
+                        <img src="/images/avatar/{{choice.data.url}}" width="100px" alt="{{choice.label}}-avatar"></div>
+                    <div>{{choice.label}}</div>
+                </div>
+            </label>
+        {% endfor %}
+    </div>
+</div>

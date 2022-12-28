@@ -10,7 +10,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
@@ -18,15 +17,13 @@ class PostType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        
+
         $builder
             ->add('title', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'minlength' => '3',
-                    'maxlength' => '50',
-                    'message'=>'trop court'
-
+                    'maxlength' => '50'
                 ],
                 'label' => 'Title',
                 'label_attr' => [
@@ -36,10 +33,10 @@ class PostType extends AbstractType
 
             ->add('description', CKEditorType::class, [
                 'config_name' => 'main_config',
-                
+
                 'attr' => [
                     'class' => 'form-control',
-                    'minlength' => '5',
+                    'minlengh' => '5',
                     'maxlength' => '255',
                     'rows' => 5
 
@@ -62,10 +59,7 @@ class PostType extends AbstractType
                 'download_uri' => false,
                 'allow_delete' => false,
                 // If we are editing or creating a new post the required option changes.
-                'required' => $options['data']->getUrl()?false:true,
-                'constraints' => [
-                    new Assert\File(maxSize: 1048576, maxSizeMessage: "The thumbnail must weight lesser than 1 mo.")
-                ]
+                'required' => $options['data']->getUrl() ? false : true
             ])
 
             ->add('category', EntityType::class, [
