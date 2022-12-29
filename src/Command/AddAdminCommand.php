@@ -22,14 +22,11 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 )]
 class AddAdminCommand extends Command
 {
-    private EntityManagerInterface $manager;
-    private ValidatorInterface $validator;
-
-    public function __construct(EntityManagerInterface $manager, ValidatorInterface $validator)
+    public function __construct(
+    private EntityManagerInterface $manager,
+    private ValidatorInterface $validator)
     {
         parent::__construct();
-        $this->manager = $manager;
-        $this->validator = $validator;
     }
 
     protected function configure(): void
