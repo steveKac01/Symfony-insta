@@ -6,20 +6,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ExceptionListener extends AbstractController
 {
-    private $twig;
-
-    public function __construct(Environment $twig)
+    public function __construct(private Environment $twig)
     {
-        $this->twig = $twig;
     }
 
     /**
      * Errors handler.
-     * Redirects the user on 404.
+     * Redirects the user on 404 and 403 errors.
      *
      * @param ExceptionEvent $event
      * @return void
@@ -28,11 +26,16 @@ class ExceptionListener extends AbstractController
     {
         $exception = $event->getThrowable();
 
-        if ($exception instanceof NotFoundHttpException) {
-
-            $content = $this->twig->render('exceptions/not_found.html.twig');
-
-            $event->setResponse((new Response())->setContent($content));
+        switch (true) {
+            case $exception instanceof NotFoundHttpException:
+                $content = $this->twig->render('exceptions/not_found.html.twig');
+                $event->setResponse((new Response())->setContent($content));
+                break;
+                
+            case $exception instanceof AccessDeniedHttpException:
+                $content = $this->twig->render('exceptions/forbidden.html.twig');
+                $event->setResponse((new Response())->setContent($content));
+                break;
         }
 
         return;
