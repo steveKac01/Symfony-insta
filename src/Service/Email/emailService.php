@@ -9,12 +9,8 @@ use Symfony\Component\Mime\Email;
 
 class emailService
 {
-    private $mailer;
-
-    public function __construct(MailerInterface $mailer)
-    {
-        $this->mailer = $mailer;
-    }
+    public function __construct(private MailerInterface $mailer)
+    {}
 
     /**
      * Send an email from the contact form.
@@ -48,11 +44,6 @@ class emailService
         ->html('<h1>Hello '.$user->getpseudo().'</h1> <p>Thank you for registering to instaPic !</p>');
         
         $this->mailer->send($email);
-    }
-
-    public function sendPassword(User $user)
-    {
-        //Todo
     }
 
 }
