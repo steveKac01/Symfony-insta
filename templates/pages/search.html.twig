@@ -8,12 +8,10 @@
 {% block content %}
 
 	{{parent()}}
+
 	<div class="container mt-4">
-
 		{# List all posts #}
-		{% include '/pages/posts/list.html.twig' %}
-
+		{% include '/components/posts.html.twig' %}
 	</div>
-
 
 </div>{% endblock %}
