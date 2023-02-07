@@ -4,6 +4,7 @@ namespace App\EntityListener;
 
 use App\Entity\User;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use App\Service\Email\emailService;
 
 /**
  * Before each update or persist of the user entity
@@ -11,12 +12,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
  */
 class UserListener
 {
-    private UserPasswordHasherInterface $hasher;
-
-    public function __construct(UserPasswordHasherInterface $hasher)
-    {
-        $this->hasher = $hasher;
-    }
+    public function __construct(private UserPasswordHasherInterface $hasher, private emailService $mailer)
+    {}
 
     public function preUpdate(User $user): void
     {
@@ -26,6 +23,17 @@ class UserListener
     public function prePersist(User $user): void
     {
         $this->encodePassword($user);
+    }
+
+    /**
+     * Sends a mail after the user is successfully registered.
+     *
+     * @param User $user
+     * @return void
+     */
+    public function postPersist(User $user): void
+    {
+        $this->mailer->sendRegister($user);
     }
 
     /**
