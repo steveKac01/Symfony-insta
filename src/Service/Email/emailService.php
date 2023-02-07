@@ -9,6 +9,9 @@ use Symfony\Component\Mime\Email;
 
 class emailService
 {
+    private string $contactMail="contact@instapic.fr";
+    private string $registerMail="do-no-reply@instapic.fr";
+   
     public function __construct(private MailerInterface $mailer)
     {}
 
@@ -18,11 +21,11 @@ class emailService
      * @param Contact $contact
      * @return void
      */
-    public function sendContact(Contact $contact,string $emailContact): void
+    public function sendContact(Contact $contact): void
     {
         $email = (new Email())
             ->from($contact->getEmail())
-            ->to($emailContact)
+            ->to($this->contactMail)
             ->subject($contact->getSubject()?$contact->getSubject():'no subject')
             ->text($contact->getMessage());
         $this->mailer->send($email);
@@ -37,7 +40,7 @@ class emailService
     public function sendRegister(User $user)
     {
         $email = (new Email())
-        ->from('instapic@aol.fr')
+        ->from($this->registerMail)
         ->to($user->getEmail())
         ->subject('Welcome to instaPic !')
         ->text('Hello '.$user->getpseudo().' Thank you for registering to instaPic !')

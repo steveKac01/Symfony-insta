@@ -45,7 +45,7 @@ class ContactController extends AbstractController
             );
 
             //Send an email
-            $mailer->sendContact($contact,$this->getParameter('app.contact_email'));
+            $mailer->sendContact($contact);
 
            return $this->redirectToRoute('home');
         }
