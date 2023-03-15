@@ -42,7 +42,7 @@ class UserListener
      * @param User $user
      * @return void
      */
-    public function encodePassword(User $user): void
+    private function encodePassword(User $user): void
     {
         if ($user->getPlainPassword() === null) {
             return;
