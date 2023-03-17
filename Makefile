@@ -1,6 +1,6 @@
 #---------------- VARIABLES --------------#
 #-------DOCKER
-DOCKER_COMPOSE = docker-compose
+DOCKER_COMPOSE = docker compose
 DOCKER_COMPOSE_UP = $(DOCKER_COMPOSE) up -d
 DOCKER_COMPOSE_STOP = $(DOCKER_COMPOSE) stop
 #-------SYMFONY
