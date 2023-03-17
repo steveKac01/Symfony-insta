@@ -14,9 +14,9 @@ Start the server with `symfony serve`.
 
 Launch docker containers with `docker compose up -d`
 
-Do the migration `php bin/console doctrine:migration:migrate`
+Do the migration `php bin/console doctrine:migration:migrate --no-interaction`
 
-Optionnal : You can load fixtures with the command `php bin/console doctrine:fixtures:load`
+Optionnal : You can load fixtures with the command `php bin/console doctrine:fixtures:load --no-interaction`
 
 ## Create an admin user
 Use `php bin/console app:add-admin`, simply follow the instructions to create an admin user and get more functionnalities.
