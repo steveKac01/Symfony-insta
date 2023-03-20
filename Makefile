@@ -11,6 +11,7 @@ SYMFONY = symfony
 SYMFONY_CONSOLE = $(SYMFONY) console
 SYMFONY_SERVER_START = $(SYMFONY) serve -d
 SYMFONY_SERVER_STOP = $(SYMFONY) server:stop
+LINT = $(SYMFONY_CONSOLE) lint:
 #------------------------------------------#
 
 ##-------SYMFONY
@@ -45,6 +46,19 @@ sf-url: ## Open project in a browser
 sf-cache: ## Clear the cache
 	$(SYMFONY_CONSOLE) cache:clear
 .PHONY: sf-cache
+
+##-------LINT
+lint-twig: ## Check twig syntax
+	$(LINT)twig templates/
+.PHONY: lint-twig
+
+lint-yaml: ## Check yaml syntax
+	$(LINT)yaml ./
+.PHONY: lint-yaml
+
+lint-container: ## Check services
+	$(LINT)container
+.PHONY: lint-container
 
 ##
 ##-------DOCKER
@@ -82,6 +96,9 @@ reset-db:
 		$(MAKE) sf-fixtures; \
 	fi 
 .PHONY: reset-db ## Reset database
+
+check: lint-twig lint-yaml lint-container ## Check before commit
+.PHONY: check
 
 help: ## Display the list of all commands
 	@grep -E '(^[a-zA-Z0-9_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}{printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
