@@ -28,6 +28,8 @@ services:
     restart: always
     ports:
       - 9000:80
+    networks:
+      - dev
       
   maildev:
     image: maildev/maildev
