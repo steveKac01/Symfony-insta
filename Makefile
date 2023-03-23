@@ -47,6 +47,7 @@ sf-cache: ## Clear the cache
 	$(SYMFONY_CONSOLE) cache:clear
 .PHONY: sf-cache
 
+##
 ##-------LINT
 lint-twig: ## Check twig syntax
 	$(LINT)twig templates/
@@ -100,5 +101,5 @@ reset-db:
 check: lint-twig lint-yaml lint-container ## Check before commit
 .PHONY: check
 
-help: ## Display the list of all commands
+help: ## Display this help
 	@grep -E '(^[a-zA-Z0-9_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}{printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
