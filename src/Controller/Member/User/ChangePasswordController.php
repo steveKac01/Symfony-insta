@@ -18,7 +18,7 @@ class ChangePasswordController extends AbstractController
      * Modify user password.
      *
      * @param Request $request
-     * @param EntityManagerInterface $manager
+     * @param EntityManagerInterface $entityManagerInterface
      * @param UserPasswordHasherInterface $userPasswordHasher
      * @param User $userSelected
      * @return Response

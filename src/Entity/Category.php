@@ -8,6 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
+/**
+ * Summary of Category
+ */
 class Category
 {
     #[ORM\Id]
@@ -84,6 +87,11 @@ class Category
         return $this->label;
     }
 
+
+    /**
+     * Summary of getColorList
+     * @return array<string>
+     */
     public function getColorList(): array
     {
         return [

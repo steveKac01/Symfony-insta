@@ -17,8 +17,8 @@ class testFilterTwig extends AbstractExtension
     /**
      * Filter that split a post content too long and add a link "read more".
      *
-     * @param [type] $values the post content.
-     * @param [type] $id the id of the post.
+     * @param string $values the post content.
+     * @param int $id the id of the post.
      * @return string
      */
     public function reduceFilter($values,$id): string

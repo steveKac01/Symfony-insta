@@ -17,7 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class UserType extends AbstractType
 {
-    private $security;
+    private Security $security;
 
     public function __construct(Security $security)
     {

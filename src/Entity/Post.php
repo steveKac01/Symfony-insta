@@ -133,7 +133,7 @@ class Post
     {
         if (!$this->comments->contains($comment)) {
             $this->comments->add($comment);
-            $comment->setPost($this);
+            #$comment->setPost($this);
         }
 
         return $this;
@@ -143,9 +143,9 @@ class Post
     {
         if ($this->comments->removeElement($comment)) {
             // set the owning side to null (unless already changed)
-            if ($comment->getPost() === $this) {
-                $comment->setPost(null);
-            }
+            // if ($comment->getPost() === $this) {
+            //     $comment->setPost(null);
+            // }
         }
 
         return $this;
@@ -187,7 +187,7 @@ class Post
 
     /**
      *
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $postThumbnail
      */
     public function setPostThumbnail(?File $postThumbnail = null): void
     {

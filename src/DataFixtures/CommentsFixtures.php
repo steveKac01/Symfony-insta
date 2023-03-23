@@ -29,7 +29,7 @@ class CommentsFixtures extends Fixture implements DependentFixtureInterface, Fix
     {
         for ($i = 0; $i < $this::NUMBER_COMMENTS; $i++) {
             $comment = new Comment();
-            $comment->setMessage($this->faker->text(mt_rand(5, 255), true))
+            $comment->setMessage($this->faker->text(mt_rand(5, 255)))
                 ->setImage($this->getReference('post_' . mt_rand(0, $this::NUMBER_POST - 1)))
                 ->setUserComment($this->getReference('user_' . mt_rand(1, $this::NUMBER_USER)));
 

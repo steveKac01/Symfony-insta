@@ -74,20 +74,23 @@ class AddAdminCommand extends Command
                 ->setPlainPassword($password)
                 ->setRoles(['ROLE_ADMIN']);
 
-            //Validate the user data.
+            //Validate the user data (to test)
             $errors = $this->validator->validate($user);
             if (count($errors) > 0) {
-                $io->error((string) $errors);
+                foreach ($errors as $key => $error) {
+                    $io->error($error->getMessage());
+                }
 
                 return Command::FAILURE;
             } else {
                 $this->manager->persist($user);
                 $this->manager->flush();
+                $io->success('New admin successfully created ! ' . $user->getEmail());
+                return Command::SUCCESS;
+
             }
         }
 
-        $io->success('New admin successfully created ! ' . $user->getEmail());
-
-        return Command::SUCCESS;
+        return Command::FAILURE;
     }
 }

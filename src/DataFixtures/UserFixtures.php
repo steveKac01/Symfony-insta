@@ -43,7 +43,7 @@ class UserFixtures extends Fixture implements FixturesConfig
     }
 
 
-    public function getDependencies()
+    public function getDependencies(): mixed
     {
         return array(
             AvatarFixtures::class

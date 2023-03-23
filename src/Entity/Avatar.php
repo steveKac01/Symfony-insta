@@ -123,7 +123,7 @@ class Avatar
 
     /**
      *
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $avatarFile
      */
     public function setAvatarFile(?File $avatarFile = null): void
     {
@@ -132,7 +132,7 @@ class Avatar
         if (null !== $avatarFile) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
-            $this->upload_at = new \DateTimeImmutable();
+           // $this->upload_at = new \DateTimeImmutable();
         }
     }
 

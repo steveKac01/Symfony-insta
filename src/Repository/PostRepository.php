@@ -44,7 +44,7 @@ class PostRepository extends ServiceEntityRepository
      *
      * @param string $keyword
      * @param int $postNumber
-     * @return array
+     * @return array<post>
      */
     public function searchPost(string $keyword,int $postNumber=10): array
     {

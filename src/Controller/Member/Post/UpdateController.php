@@ -20,11 +20,11 @@ class UpdateController extends AbstractController
      * @param Post $post
      * @param Request $request
      * @param EntityManagerInterface $entityManager
-     * @return void
+     * @return mixed
      */
     #[Security("is_granted('ROLE_USER') and user === post.getUserPost()")]
     #[route('member/update/post/{id}', 'post.update', methods: ['GET', 'POST'])]
-    public function update(Post $post, Request $request, EntityManagerInterface $entityManager)
+    public function update(Post $post, Request $request, EntityManagerInterface $entityManager): mixed
     {
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);

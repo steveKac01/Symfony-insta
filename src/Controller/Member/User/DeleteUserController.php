@@ -8,7 +8,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -24,7 +24,6 @@ class DeleteUserController extends AbstractController
      * @param UserPasswordHasherInterface $hasher
      * @param Request $request
      * @param User $userSelected
-     * @param UserRepository $userRepository
      * @return Response
      */
     #[Security('is_granted("ROLE_USER") and user === userSelected')]

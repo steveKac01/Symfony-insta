@@ -15,6 +15,9 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 #[UniqueEntity('pseudo','Pseudo already taken, please choose another one.')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\EntityListeners(['App\EntityListener\UserListener'])]
+/**
+ * Summary of User
+ */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -111,6 +114,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
+    /**
+     * Summary of setRoles
+     * @param array<string> $roles
+     * @return User
+     */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -126,6 +134,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->password;
     }
 
+    /**
+     * Summary of setPassword
+     * @param string $password
+     * @return User
+     */
     public function setPassword(string $password): self
     {
         $this->password = $password;
@@ -136,10 +149,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see UserInterface
      */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        $this->plainPassword = null;
     }
 
     public function getpseudo(): ?string
@@ -190,7 +203,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    /**
+     * Summary of getUpdatedAt
+     * @return DateTimeImmutable|null
+     */
+    public function getUpdatedAt(): ?DateTimeImmutable
     {
         return $this->updatedAt;
     }
@@ -203,12 +220,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /** @see \Serializable::serialize()*/
-    public function serialize()
+    public function serialize(): mixed
     {
         return serialize(array($this->id, $this->email, $this->password,));
     }
     /* @see \Serializable::unserialize() */
-    public function unserialize($serialized)
+    public function unserialize(mixed $serialized): void
     {
         list($this->id, $this->email, $this->password,) = unserialize($serialized, array('allowed_classes' => false));
     }
